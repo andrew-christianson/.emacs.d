@@ -7,12 +7,32 @@
 (cask-initialize)
 (require 'pallet)
 (pallet-mode t)
-
 (package-initialize)
 
 (if (eq system-type 'windows-nt)
     (setq find-program "C:\\Users\\andrew.christianson\\GOOGLE~1\\Dropbox\\cmder\\vendor\\msysgit\\bin\\find.exe")
-    )
+  )
+
+;; Tuhdo Customizations
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+
+;; My Custom Keymaps
+(global-set-key (kbd "C-S-d") 'kill-whole-line)
+(global-set-key (kbd "M-a") 'align)
+
+;; Sublime Like Commenting
+(defun comment-or-uncomment-region-or-line ()
+    "Comments or uncomments the region or the current line if there's no active region."
+    (interactive)
+    (let (beg end)
+        (if (region-active-p)
+            (setq beg (region-beginning) end (region-end))
+            (setq beg (line-beginning-position) end (line-end-position)))
+        (comment-or-uncomment-region beg end)
+        (next-line)))
+
+(global-set-key (kbd "M-;") 'comment-or-uncomment-region-or-line)
+
 ; fetch the list of packages available 
 ;; (unless package-archive-contents
 ;;   (package-refresh-contents))
@@ -23,39 +43,55 @@
 ;;     (package-install package)))
 
 (require 'helm-config)
-
+(require 'helm-eshell)
+(require 'helm-projectile)
+(require 'helm-descbinds)
 ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
 ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
 ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
 (global-set-key (kbd "C-c h") 'helm-command-prefix)
 (global-unset-key (kbd "C-x c"))
 
-(helm-mode 1)
+(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
+(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
+(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
 
-;; (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
-;; (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
-;; (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
 (global-set-key (kbd "C-x b") 'helm-mini)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "C-c h o") 'helm-occur)
+(global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
+(global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
+(global-set-key (kbd "C-c h g") 'helm-google-suggest)
 
+(define-key shell-mode-map (kbd "C-c C-l") 'helm-comint-input-ring)
+(define-key minibuffer-local-map (kbd "C-c C-l") 'helm-minibuffer-history)
+
+(add-hook 'eshell-mode-hook
+          #'(lambda ()
+              (define-key eshell-mode-map (kbd "C-c C-l")  'helm-eshell-history)))
 (when (executable-find "curl")
   (setq helm-google-suggest-use-curl-p t))
 
+(when (executable-find "ack-grep")
+  (setq helm-grep-default-command "ack-grep -Hn --no-group --no-color %e %p %f"
+        helm-grep-default-recurse-command "ack-grep -H --no-group --no-color %e %p %f"))
+
 (setq helm-split-window-in-side-p           0 ; open helm buffer inside current window, not occupy whole other window
       helm-buffers-fuzzy-matching           t ; fuzzy matching buffer names when non--nil
+      helm-recentf-fuzzy-match              t
       helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
       helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
       helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
       helm-ff-file-name-history-use-recentf t)
 
-; (helm-mode 1)
+(helm-mode 1)
 
 (defun smart-beginning-of-line ()
   "Move point to first non-whitespace character or beginning-of-line.
 Move point to the first non-whitespace character on this line.
-If point was already at that position, move point to beginning of line."
+if point was already at that position, move point to beginning of line."
   (interactive)
   (let ((oldpos (point)))
     (back-to-indentation)
@@ -72,6 +108,8 @@ If point was already at that position, move point to beginning of line."
 ;; AC
 ;; Needed for autocomplete from ess
 (require 'auto-complete-config)
+(require 'ac-helm) ;; Not necessary if using ELPA package
+
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
 (setq ac-delay 0.1
@@ -80,6 +118,10 @@ If point was already at that position, move point to beginning of line."
       ac-use-fuzzy t)
 (define-key ac-completing-map (kbd "TAB") 'ac-complete)
 (define-key ac-completing-map (kbd "C-h") 'ac-quick-help)
+
+(global-set-key (kbd "C-:") 'ac-complete-with-helm)
+(define-key ac-complete-mode-map (kbd "C-:") 'ac-complete-with-helm)
+
 (global-auto-complete-mode)
 
 
@@ -170,15 +212,14 @@ If point was already at that position, move point to beginning of line."
 ;; (require 'dirtree)
 
 ;; NeoTree
-(require 'neotree)
-(global-set-key [f8] 'neotree-toggle)
+(require 'sr-speedbar)
+(global-set-key [f8] 'sr-speedbar-toggle)
 ;; (setq projectile-switch-project-action 'neotree-projectile-action)
-(setq neo-persist-show nil)
+;; (setq neo--persist-show nil)
 
 ;; Magit
 ;; Other custom Bindings
-(global-set-key (kbd "C-S-d") 'kill-whole-line)
-(global-set-key (kbd "M-a") 'align)
+
 ;; Backups
 (setq backup-directory-alist `(("." . "~/.saves")))
 (setq backup-by-copying t)
@@ -233,17 +274,7 @@ If point was already at that position, move point to beginning of line."
 ;;       wg-mode-line-decor-divider ":")
 ;; (workgroups-mode 1)
 
-;; Sublime Like Commenting
-(defun comment-or-uncomment-region-or-line ()
-    "Comments or uncomments the region or the current line if there's no active region."
-    (interactive)
-    (let (beg end)
-        (if (region-active-p)
-            (setq beg (region-beginning) end (region-end))
-            (setq beg (line-beginning-position) end (line-end-position)))
-        (comment-or-uncomment-region beg end)
-        (next-line)))
-(global-set-key (kbd "M-;") 'comment-or-uncomment-region-or-line)
+
 
 (if (eq system-type 'window-nt)
      (setq magit-git-executable "c:/PROGRA~2/Git/bin/git.exe")
@@ -303,10 +334,11 @@ If point was already at that position, move point to beginning of line."
  '(show-paren-mode t))
 
 ;; Theme Settings
-(load-theme 'monokai t)
+(load-theme 'spacegray t)
+(global-hl-line-mode 1)
+(require 'hlinum)
+(hlinum-activate)
 
-;; Powerline
-;; After the set-faces s.t. it hopefully takes effectc
 (sml/setup)
 (sml/apply-theme 'respectful)
 (custom-set-faces
