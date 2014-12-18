@@ -2,12 +2,17 @@
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
-;; (setq pack-list `(undo-tree undo-tree ac-anaconda dash anaconda-mode f dash s dash json-rpc auto-complete popup ac-cider auto-complete popup cider queue pkg-info epl dash clojure-mode ac-etags auto-complete popup ac-js2 skewer-mode js2-mode simple-httpd js2-mode ac-math math-symbol-lists auto-complete popup ac-octave auto-complete popup ac-slime slime auto-complete popup afternoon-theme ample-theme ample-zen-theme assemblage-theme auctex-lua auto-complete-auctex auto-complete popup yasnippet auto-complete-exuberant-ctags auto-complete popup auto-complete-rst auto-complete popup badger-theme bliss-theme boron-theme bubbleberry-theme chess cider queue pkg-info epl dash clojure-mode circe lcs lui tracking shorten clojure-mode clojure-snippets yasnippet color-theme-approximate color-theme-buffer-local color-theme-sanityinc-tomorrow color-theme-solarized color-theme company-anaconda anaconda-mode f dash s dash json-rpc company cyberpunk-theme darkburn-theme darkmine-theme dirtree windata tree-mode dockerfile-mode elpy yasnippet pyvenv idomenu highlight-indentation find-file-in-project company ess-R-data-view ess popup ctable ess-R-object-popup ess popup ess-smart-underscore ess exec-path-from-shell find-file-in-project flatland-black-theme flatland-theme flycheck-haskell dash haskell-mode flycheck pkg-info epl dash flycheck-rust dash flycheck pkg-info epl dash fuzzy git-gutter-fringe fringe-helper git-gutter gratuitous-dark-theme haskell-mode helm-google google helm async helm-j-cheatsheet helm async helm-projectile projectile pkg-info epl dash f dash s s helm async helm-projectile-all s dash projectile pkg-info epl dash f dash s s helm async helm-spotify multi helm async highlight-indentation idomenu json-mode json-snatcher json-reformat json-reformat json-rpc json-snatcher julia-mode lcs lui tracking shorten magit git-rebase-mode git-commit-mode markdown-mode+ markdown-mode markdown-toc markdown-mode dash s math-symbol-lists minimal-theme molokai-theme monokai-theme multi multiple-cursors neotree noctilux-theme org-ac yaxception log4e auto-complete-pcmp yaxception log4e auto-complete popup org-jekyll org org-journal org-outlook pandoc-mode paredit-everywhere paredit popup projectile pkg-info epl dash f dash s s pyenv-mode pyvenv queue readline-complete skewer-mode js2-mode simple-httpd slime smart-mode-line-powerline-theme smart-mode-line rich-minority dash powerline smartparens dash smooth-scrolling subatomic-theme sublime-themes tracking shorten tree-mode twilight-theme underwater-theme windata workgroups2 f dash s anaphora dash yascroll yasnippet yaxception zen-and-art-theme zonokai-theme))
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
 (require 'pallet)
 (pallet-mode t)
 (package-initialize)
+
+(display-time-mode t)
+(show-paren-mode t)
+(menu-bar-mode nil)
+(scroll-bar-mode nil)
+(tool-bar-mode nil)
 
 (if (eq system-type 'windows-nt)
     (setq find-program "C:\\Users\\andrew.christianson\\GOOGLE~1\\Dropbox\\cmder\\vendor\\msysgit\\bin\\find.exe")
@@ -112,7 +117,7 @@ if point was already at that position, move point to beginning of line."
 
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
-(setq ac-delay 0.1
+(setq ac-delay 0.25
       ;; ac-quick-help-delay 0.1
       ac-auto-show-menu t
       ac-use-fuzzy t)
@@ -323,15 +328,11 @@ if point was already at that position, move point to beginning of line."
 			;; :width normal)))))
 
 
-(custom-set-variables
+;; (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes (quote ("3a727bdc09a7a141e58925258b6e873c65ccf393b2240c51553098ca93957723" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
- '(display-time-mode t)
- '(flymake-no-changes-timeout 0.1)
- '(show-paren-mode t))
 
 ;; Theme Settings
 (load-theme 'spacegray t)
@@ -346,4 +347,13 @@ if point was already at that position, move point to beginning of line."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:family "DejaVu Sans Mono" :foundry "unknown" :slant normal :weight normal :height 83 :width normal)))))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes (quote ("3a727bdc09a7a141e58925258b6e873c65ccf393b2240c51553098ca93957723" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
+ '(display-time-mode t)
+ '(show-paren-mode t)
+ '(tool-bar-mode nil))
