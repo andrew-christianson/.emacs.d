@@ -4,3 +4,9 @@ auto-save-list/
 projectile.cache 
 projectile-bookmarks.eld 
 recentf 
+\#*
+*\#*
+ac-comphist.dat
+.cask/*
+projectile-bookmarks.eld
+auto-save-list/
