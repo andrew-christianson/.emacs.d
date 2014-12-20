@@ -307,40 +307,28 @@ if point was already at that position, move point to beginning of line."
 ;; see http://www.gnu.org/software/emacs/manual/html_node/elisp/Face-Attributes.html
 ;; for details on font settis
 ;; weight controls the typeface for source code pro.
-(set-face-attribute 'default nil
-		    :family "Source Code Pro"
-		    :height (if (eq system-type 'windows-nt) 90 110)
-		    :weight 'light
-		    :width 'normal
-		    :foundry 'outline
-		    :slant 'normal)
 
-;; (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- ;; '(default ((t (:family "Source Code Pro"
-			;; :foundry "outline"
-			;; :slant normal
-			;; :weight light
-			;; :height '
-			;; :width normal)))))
+(if (or (eq system-type 'windows-nt)
+	(eq system-type 'darwin))
+    (set-face-attribute 'default nil
+			:family "Source Code Pro"
+			:height (if (eq system-type 'windows-nt) 90 110)
+			:weight 'light
+			:width 'normal
+			:foundry 'outline
+			:slant 'normal))
 
-
-;; (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
+(if (eq system-type 'gnu/linux)
+    (set-face-attribute 'default nil
+			:family "DejaVu Sans Mono" 
+			:foundry "unknown" 
+			:slant 'normal 
+			:weight 'normal 
+			:height 90 
+			:width 'normal))
 
 ;; Theme Settings
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "DejaVu Sans Mono" :foundry "unknown" :slant normal :weight normal :height 83 :width normal)))))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
