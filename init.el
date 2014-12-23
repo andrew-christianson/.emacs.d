@@ -8,9 +8,13 @@
 (pallet-mode t)
 (package-initialize)
 
+(setq inhibit-startup-screen t)
 (display-time-mode t)
 (show-paren-mode t)
-(menu-bar-mode nil)
+;; If called from Lisp, enable
+;; Menu Bar mode if ARG is omitted or nil.
+;; How's that for a sensible default...
+(menu-bar-mode -1)
 (scroll-bar-mode nil)
 (tool-bar-mode nil)
 
@@ -66,7 +70,6 @@
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-c h o") 'helm-occur)
-(global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
 (global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
 (global-set-key (kbd "C-c h g") 'helm-google-suggest)
 
