@@ -163,7 +163,18 @@ if point was already at that position, move point to beginning of line."
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 ;; Linum settings
-(global-linum-mode 1)
+;; (require 'linum-mode)
+
+(define-global-minor-mode my-global-linum-mode linum-mode
+  (lambda ()
+    (when (not (memq major-mode
+                     (list 'doc-view-mode 'doc-view-minor-mode)))
+      (linum-mode))))
+
+(my-global-linum-mode 1)
+
+
+;; (global-linum-mode 1)
 ;; (setq linum-format "%4d\u2502")
 
 
