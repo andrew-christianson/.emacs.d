@@ -9,17 +9,20 @@
 (package-initialize)
 
 ;; Visal Basics
-(display-time-mode t)
-(show-paren-mode t)
-
 (require 'hlinum)
 (hlinum-activate)
 (global-hl-line-mode 1)
 
 ;; Get that cruft outta here
 (menu-bar-mode nil)
+(setq inhibit-startup-screen t)
+(display-time-mode t)
+(show-paren-mode t)
+;; If called from Lisp, enable
+;; Menu Bar mode if ARG is omitted or nil.
+;; How's that for a sensible default...
+(menu-bar-mode -1)
 (scroll-bar-mode nil)
-(tool-bar-mode nil)
 (tool-bar-mode nil)
 (setf inhibit-splash-screen t)
 
@@ -207,7 +210,18 @@ if point was already at that position, move point to beginning of line."
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 ;; Linum settings
-(global-linum-mode 1)
+;; (require 'linum-mode)
+
+(define-global-minor-mode my-global-linum-mode linum-mode
+  (lambda ()
+    (when (not (memq major-mode
+                     (list 'doc-view-mode 'doc-view-minor-mode)))
+      (linum-mode))))
+
+(my-global-linum-mode 1)
+
+
+;; (global-linum-mode 1)
 ;; (setq linum-format "%4d\u2502")
 
 
