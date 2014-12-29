@@ -8,11 +8,24 @@
 (pallet-mode t)
 (package-initialize)
 
+;; Visal Basics
+(require 'hlinum)
+(hlinum-activate)
+(global-hl-line-mode 1)
+
+;; Get that cruft outta here
+(menu-bar-mode nil)
+(setq inhibit-startup-screen t)
 (display-time-mode t)
 (show-paren-mode t)
-(menu-bar-mode nil)
+;; If called from Lisp, enable
+;; Menu Bar mode if ARG is omitted or nil.
+;; How's that for a sensible default...
+(menu-bar-mode -1)
 (scroll-bar-mode nil)
 (tool-bar-mode nil)
+(setf inhibit-splash-screen t)
+
 
 (if (eq system-type 'windows-nt)
     (setq find-program "C:\\Users\\andrew.christianson\\GOOGLE~1\\Dropbox\\cmder\\vendor\\msysgit\\bin\\find.exe")
@@ -81,6 +94,8 @@
 (require 'helm-eshell)
 (require 'helm-projectile)
 (require 'helm-descbinds)
+
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
 ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
 ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
@@ -97,7 +112,6 @@
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-c h o") 'helm-occur)
 (global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
-(global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
 (global-set-key (kbd "C-c h g") 'helm-google-suggest)
 
 (define-key shell-mode-map (kbd "C-c C-l") 'helm-comint-input-ring)
@@ -113,15 +127,45 @@
   (setq helm-grep-default-command "ack-grep -Hn --no-group --no-color %e %p %f"
         helm-grep-default-recurse-command "ack-grep -H --no-group --no-color %e %p %f"))
 
-(setq helm-split-window-in-side-p           0 ; open helm buffer inside current window, not occupy whole other window
-      helm-buffers-fuzzy-matching           t ; fuzzy matching buffer names when non--nil
+(setq helm-split-window-in-side-p           0 ; open helm buffer
+					      ; inside current window,
+					      ; not occupy whole other
+					      ; window
+      helm-buffers-fuzzy-matching           t ; fuzzy matching buffer
+					      ; names when non--nil
       helm-recentf-fuzzy-match              t
-      helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
-      helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
-      helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+      helm-move-to-line-cycle-in-source     t ; move to end or
+					      ; beginning of source
+					      ; when reaching top or
+					      ; bottom of source.
+      helm-ff-search-library-in-sexp        t ; search for library in
+					      ; `require' and
+					      ; `declare-function'
+					      ; sexp.
+      helm-scroll-amount                    8 ; scroll 8 lines other
+					      ; window using
+					      ; M-<next>/M-<prior>
       helm-ff-file-name-history-use-recentf t)
 
 (helm-mode 1)
+
+;; My Custom Keymaps
+(global-set-key (kbd "C-S-d") 'kill-whole-line)
+(global-set-key (kbd "M-a") 'align)
+
+;; Sublime Like Commenting
+(defun comment-or-uncomment-region-or-line ()
+    "Comments or uncomments the region or the current line if there's no active region."
+    (interactive)
+    (let (beg end)
+        (if (region-active-p)
+            (setq beg (region-beginning) end (region-end))
+            (setq beg (line-beginning-position) end (line-end-position)))
+        (comment-or-uncomment-region beg end)
+        (next-line)))
+
+(global-set-key (kbd "M-;") 'comment-or-uncomment-region-or-line)
+
 
 (defun smart-beginning-of-line ()
   "Move point to first non-whitespace character or beginning-of-line.
@@ -132,6 +176,39 @@ if point was already at that position, move point to beginning of line."
     (back-to-indentation)
     (and (= oldpos (point))
          (beginning-of-line))))
+
+(defun split-window-multiple-ways (x y)
+  "Split the current frame into a grid of X columns and Y rows."
+  (interactive "nColumns: \nnRows: ")
+  ;; one window
+  (delete-other-windows)
+  (dotimes (i (1- x))
+      (split-window-horizontally)
+      (dotimes (j (1- y))
+	(split-window-vertically))
+      (other-window y))
+  (dotimes (j (1- y))
+    (split-window-vertically))
+  (balance-windows))
+
+(defun show-buffers-with-major-mode (mode)
+  "Fill all windows of the current frame with buffers using major-mode MODE."
+  (interactive
+   (let* ((modes (loop for buf being the buffers
+		       collect (symbol-name (with-current-buffer buf
+					      major-mode)))))
+     (list (intern (completing-read "Mode: " modes)))))
+  (let ((buffers (loop for buf being the buffers
+		       when (eq mode (with-current-buffer buf
+				       major-mode))
+		       collect buf)))
+    (dolist (win (window-list))
+      (when buffers
+	(show-buffer win (car buffers))
+	(setq buffers (cdr buffers))))))
+
+(global-set-key (kbd "C-c d m g") 'split-window-multiple-ways)
+(global-set-key (kbd "C-c d m t g") 'show-buffers-with-major-mode)
 (global-set-key [home] 'smart-beginning-of-line)
 (global-set-key "\C-a" 'smart-beginning-of-line)
 
@@ -140,7 +217,7 @@ if point was already at that position, move point to beginning of line."
   )
 
 
-;; AC
+;; AutoComplete
 ;; Needed for autocomplete from ess
 (require 'auto-complete-config)
 (require 'ac-helm) ;; Not necessary if using ELPA package
@@ -151,6 +228,7 @@ if point was already at that position, move point to beginning of line."
       ;; ac-quick-help-delay 0.1
       ac-auto-show-menu t
       ac-use-fuzzy t)
+
 (define-key ac-completing-map (kbd "TAB") 'ac-complete)
 (define-key ac-completing-map (kbd "C-h") 'ac-quick-help)
 
@@ -190,7 +268,18 @@ if point was already at that position, move point to beginning of line."
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 ;; Linum settings
-(global-linum-mode 1)
+;; (require 'linum-mode)
+
+(define-global-minor-mode my-global-linum-mode linum-mode
+  (lambda ()
+    (when (not (memq major-mode
+                     (list 'doc-view-mode 'doc-view-minor-mode)))
+      (linum-mode))))
+
+(my-global-linum-mode 1)
+
+
+;; (global-linum-mode 1)
 ;; (setq linum-format "%4d\u2502")
 
 
@@ -267,8 +356,8 @@ if point was already at that position, move point to beginning of line."
 ;; due to http://stackoverflow.com/a/4160949/881025
 ;; Works well on OSX 10.10
 (require 'smooth-scrolling)
-(setq mouse-wheel-follow-mouse 't)
-(setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
+;; (setq mouse-wheel-follow-mouse 't)
+;; (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
 
 ;(setq redisplay-dont-pause t
 ;  scroll-margin 1
@@ -327,71 +416,48 @@ if point was already at that position, move point to beginning of line."
 ;; Org Mode
 
 (setq org-mobile-directory "~/Dropbox/MobileOrg")
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-cc" 'org-capture)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c b") 'org-iswitchb)
 (require 'org-agenda)
 (setq org-agenda-span 14)
 
 ;; see http://www.gnu.org/software/emacs/manual/html_node/elisp/Face-Attributes.html
 ;; for details on font settis
 ;; weight controls the typeface for source code pro.
-(set-face-attribute 'default nil
-		    :family "Source Code Pro"
-		    :height (if (eq system-type 'windows-nt) 90 110)
-		    :weight 'light
-		    :width 'normal
-		    :foundry 'outline
-		    :slant 'normal)
 
-;; (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- ;; '(default ((t (:family "Source Code Pro"
-			;; :foundry "outline"
-			;; :slant normal
-			;; :weight light
-			;; :height '
-			;; :width normal)))))
+(if (or (eq system-type 'windows-nt)
+	(eq system-type 'darwin))
+    (set-face-attribute 'default nil
+			:family "Source Code Pro"
+			:height (if (eq system-type 'windows-nt) 90 110)
+			:weight 'light
+			:width 'normal
+			:foundry 'outline
+			:slant 'normal))
 
-
-;; (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
+(if (eq system-type 'gnu/linux)
+    (set-face-attribute 'default nil
+			:family "DejaVu Sans Mono" 
+			:foundry "unknown" 
+			:slant 'normal 
+			:weight 'normal 
+			:height 90 
+			:width 'normal))
 
 ;; Theme Settings
-(load-theme 'spacegray t)
-(global-hl-line-mode 1)
-(require 'hlinum)
-(hlinum-activate)
 
-(sml/setup)
-(sml/apply-theme 'respectful)
-;; (custom-set-faces
-;;  ;; custom-set-faces was added by Custom.
-;;  ;; If you edit it by hand, you could mess it up, so be careful.
-;;  ;; Your init file should contain only one such instance.
-;;  ;; If there is more than one, they won't work right.
-;;  '(default ((t (:family "Source Code Pro Light" :foundry "outline" :slant normal :weight light :height 83 :width normal)))))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("3a727bdc09a7a141e58925258b6e873c65ccf393b2240c51553098ca93957723" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
- '(display-time-mode t)
- '(show-paren-mode t)
- '(tool-bar-mode nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+ '(custom-safe-themes (quote ("c5a044ba03d43a725bd79700087dea813abcb6beb6be08c7eb3303ed90782482"
+			      "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
+)
+;; Themes come after the safe marker
+(load-theme 'spacegray t)
+(sml/setup)
+(sml/apply-theme 'respectful)
