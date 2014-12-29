@@ -38,6 +38,36 @@
 
 (global-set-key (kbd "M-;") 'comment-or-uncomment-region-or-line)
 
+(defun split-window-multiple-ways (x y)
+  "Split the current frame into a grid of X columns and Y rows."
+  (interactive "nColumns: \nnRows: ")
+  ;; one window
+  (delete-other-windows)
+  (dotimes (i (1- x))
+      (split-window-horizontally)
+      (dotimes (j (1- y))
+	(split-window-vertically))
+      (other-window y))
+  (dotimes (j (1- y))
+    (split-window-vertically))
+  (balance-windows))
+
+(defun show-buffers-with-major-mode (mode)
+  "Fill all windows of the current frame with buffers using major-mode MODE."
+  (interactive
+   (let* ((modes (loop for buf being the buffers
+		       collect (symbol-name (with-current-buffer buf
+					      major-mode)))))
+     (list (intern (completing-read "Mode: " modes)))))
+  (let ((buffers (loop for buf being the buffers
+		       when (eq mode (with-current-buffer buf
+				       major-mode))
+		       collect buf)))
+    (dolist (win (window-list))
+      (when buffers
+	(show-buffer win (car buffers))
+	(setq buffers (cdr buffers))))))
+
 ; fetch the list of packages available 
 ;; (unless package-archive-contents
 ;;   (package-refresh-contents))
@@ -342,18 +372,26 @@ if point was already at that position, move point to beginning of line."
 
 (sml/setup)
 (sml/apply-theme 'respectful)
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "DejaVu Sans Mono" :foundry "unknown" :slant normal :weight normal :height 83 :width normal)))))
+;; (custom-set-faces
+;;  ;; custom-set-faces was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  '(default ((t (:family "Source Code Pro Light" :foundry "outline" :slant normal :weight light :height 83 :width normal)))))
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes (quote ("3a727bdc09a7a141e58925258b6e873c65ccf393b2240c51553098ca93957723" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
+ '(custom-safe-themes
+   (quote
+    ("3a727bdc09a7a141e58925258b6e873c65ccf393b2240c51553098ca93957723" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
  '(display-time-mode t)
  '(show-paren-mode t)
  '(tool-bar-mode nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
