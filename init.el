@@ -27,8 +27,16 @@
 (setf inhibit-splash-screen t)
 
 
+(let ((my-cabal-path (expand-file-name "~/.cabal/bin")))
+  (setenv "PATH" (concat my-cabal-path (if (eq system-type "windows-nt") ";" ":") (getenv "PATH")))
+  (add-to-list 'exec-path my-cabal-path))
+
+
 (if (eq system-type 'windows-nt)
     (setq find-program "C:\\Users\\andrew.christianson\\GOOGLE~1\\Dropbox\\cmder\\vendor\\msysgit\\bin\\find.exe")
+    )
+(if (eq system-type 'windows-nt)
+  (add-to-list 'exec-path "C:/Users/andrew.christianson/GOOGLE~1/Dropbox/cmder/gpg/pub")
   )
 
 ;; Tuhdo Customizations
@@ -311,9 +319,7 @@ if point was already at that position, move point to beginning of line."
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
 (eval-after-load 'haskell-mode
   '(define-key haskell-mode-map (kbd "C-c I ") 'haskell-navigate-imports))
-(let ((my-cabal-path (expand-file-name "~/.cabal/bin")))
-  (setenv "PATH" (concat my-cabal-path ":" (getenv "PATH")))
-  (add-to-list 'exec-path my-cabal-path))
+
 (custom-set-variables '(haskell-tags-on-save t))
 
 (custom-set-variables
@@ -344,7 +350,7 @@ if point was already at that position, move point to beginning of line."
   '(define-key haskell-cabal-mode-map (kbd "C-c C-o") 'haskell-compile))
 
 (require 'rainbow-delimiters)
-(global-rainbow-delimiters-mode)
+(rainbow-delimiters-mode)
 
 ;; (custom-set-variables '(haskell-process-type 'cabal-repl))
 
