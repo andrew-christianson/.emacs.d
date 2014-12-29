@@ -32,6 +32,64 @@
   )
 
 ;; Tuhdo Customizations
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+
+;; My Custom Keymaps
+(global-set-key (kbd "C-S-d") 'kill-whole-line)
+(global-set-key (kbd "M-a") 'align)
+
+;; Sublime Like Commenting
+(defun comment-or-uncomment-region-or-line ()
+    "Comments or uncomments the region or the current line if there's no active region."
+    (interactive)
+    (let (beg end)
+        (if (region-active-p)
+            (setq beg (region-beginning) end (region-end))
+            (setq beg (line-beginning-position) end (line-end-position)))
+        (comment-or-uncomment-region beg end)
+        (next-line)))
+
+(global-set-key (kbd "M-;") 'comment-or-uncomment-region-or-line)
+
+(defun split-window-multiple-ways (x y)
+  "Split the current frame into a grid of X columns and Y rows."
+  (interactive "nColumns: \nnRows: ")
+  ;; one window
+  (delete-other-windows)
+  (dotimes (i (1- x))
+      (split-window-horizontally)
+      (dotimes (j (1- y))
+	(split-window-vertically))
+      (other-window y))
+  (dotimes (j (1- y))
+    (split-window-vertically))
+  (balance-windows))
+
+(defun show-buffers-with-major-mode (mode)
+  "Fill all windows of the current frame with buffers using major-mode MODE."
+  (interactive
+   (let* ((modes (loop for buf being the buffers
+		       collect (symbol-name (with-current-buffer buf
+					      major-mode)))))
+     (list (intern (completing-read "Mode: " modes)))))
+  (let ((buffers (loop for buf being the buffers
+		       when (eq mode (with-current-buffer buf
+				       major-mode))
+		       collect buf)))
+    (dolist (win (window-list))
+      (when buffers
+	(show-buffer win (car buffers))
+	(setq buffers (cdr buffers))))))
+
+; fetch the list of packages available 
+;; (unless package-archive-contents
+;;   (package-refresh-contents))
+
+; install the missing packages
+;; (dolist (package pack-list)		
+;;   (unless (package-installed-p package)
+;;     (package-install package)))
+
 (require 'helm-config)
 (require 'helm-eshell)
 (require 'helm-projectile)
@@ -398,10 +456,10 @@ if point was already at that position, move point to beginning of line."
 ;; Org Mode
 
 (setq org-mobile-directory "~/Dropbox/MobileOrg")
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-cc" 'org-capture)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c b") 'org-iswitchb)
 (require 'org-agenda)
 (setq org-agenda-span 14)
 
@@ -429,6 +487,7 @@ if point was already at that position, move point to beginning of line."
 			:width 'normal))
 
 ;; Theme Settings
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

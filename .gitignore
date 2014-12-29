@@ -1,14 +1,13 @@
-.cask/
+.cask
+.mc-lists.el
 ac-comphist.dat
-auto-save-list/ 
-projectile.cache 
-projectile-bookmarks.eld 
-recentf 
-\#*
-*\#*
-ac-comphist.dat
-.cask/*
+auto-save-list
 projectile-bookmarks.eld
+<<<<<<< HEAD
+projectile.cache
+recentf
+=======
 auto-save-list/
 projectile.cache
 async-bytecomp.log
+>>>>>>> 62005680fe0b4a658360e8766efb4beb30b9062b
