@@ -320,12 +320,21 @@ if point was already at that position, move point to beginning of line."
 (eval-after-load 'haskell-mode
   '(define-key haskell-mode-map (kbd "C-c I ") 'haskell-navigate-imports))
 
-(custom-set-variables '(haskell-tags-on-save t))
-
 (custom-set-variables
-  '(haskell-process-suggest-remove-import-lines t)
-  '(haskell-process-auto-import-loaded-modules t)
-  '(haskell-process-log t))
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(company-tooltip-minimum-width 40)
+ '(custom-safe-themes
+   (quote
+    ("c5a044ba03d43a725bd79700087dea813abcb6beb6be08c7eb3303ed90782482" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
+ '(haskell-process-auto-import-loaded-modules t)
+ '(haskell-process-log t)
+ '(haskell-process-suggest-remove-import-lines t)
+ '(haskell-tags-on-save t))
+
+
 (eval-after-load 'haskell-mode '(progn
   (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
   (define-key haskell-mode-map (kbd "C-c C-z") 'haskell-interactive-switch)
@@ -495,15 +504,16 @@ if point was already at that position, move point to beginning of line."
 ;; Theme Settings
 
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes (quote ("c5a044ba03d43a725bd79700087dea813abcb6beb6be08c7eb3303ed90782482"
-			      "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
-)
+
 ;; Themes come after the safe marker
 (load-theme 'spacegray t)
 (sml/setup)
 (sml/apply-theme 'respectful)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(company-tooltip ((t (:background "dark slate gray" :foreground "gainsboro"))))
+ '(company-tooltip-annotation ((t (:inherit company-tooltip :foreground "medium sea green"))))
+ '(company-tooltip-selection ((t (:inherit company-tooltip :background "steel blue")))))

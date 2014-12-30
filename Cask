@@ -45,6 +45,7 @@
 (depends-on "haskell-mode")
 (depends-on "helm")
 (depends-on "helm-aws")
+(depends-on "helm-company")
 (depends-on "helm-descbinds")
 (depends-on "helm-ghc")
 (depends-on "helm-google")
