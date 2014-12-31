@@ -89,12 +89,12 @@
 	(show-buffer win (car buffers))
 	(setq buffers (cdr buffers))))))
 
-; fetch the list of packages available 
+; fetch the list of packages available
 ;; (unless package-archive-contents
 ;;   (package-refresh-contents))
 
 ; install the missing packages
-;; (dolist (package pack-list)		
+;; (dolist (package pack-list)
 ;;   (unless (package-installed-p package)
 ;;     (package-install package)))
 
@@ -121,6 +121,7 @@
 (global-set-key (kbd "C-c h o") 'helm-occur)
 (global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
 (global-set-key (kbd "C-c h g") 'helm-google-suggest)
+(global-set-key (kbd "C-c h P") 'helm-projectile)
 
 (define-key shell-mode-map (kbd "C-c C-l") 'helm-comint-input-ring)
 (define-key minibuffer-local-map (kbd "C-c C-l") 'helm-minibuffer-history)
@@ -233,22 +234,35 @@ if point was already at that position, move point to beginning of line."
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
 (setq ac-delay 0.25
-      ;; ac-quick-help-delay 0.1
+      ; ac-quick-help-delay 0.
       ac-auto-show-menu t
-      ac-use-fuzzy t)
+      ac-use-fuzzy t
+      ac-show-menu-immediately-on-auto-complete t
+      ac-candidate-limit 100
+      ac-menu-height 25)
+;; (setq-default ac-sources (append ac-sources '(ac-source-filename ac-source-yasnippet)))
+;; don't wamt this.
+;; Default is:
+;; TAB, C-i 	ac-expand 	Completion by TAB
+;; RET, C-m 	ac-complete 	Completion by RET
+;; down, M-n 	ac-next 	Select next candidate
+;; up, M-p 	ac-previous 	Select previous candidate
+;; C-?, f1 	ac-help 	Show buffer help
 
-(define-key ac-completing-map (kbd "TAB") 'ac-complete)
+;; (define-key ac-completing-map (kbd "TAB") 'ac-complete)
 (define-key ac-completing-map (kbd "C-h") 'ac-quick-help)
-
-(global-set-key (kbd "C-:") 'ac-complete-with-helm)
-(define-key ac-complete-mode-map (kbd "C-:") 'ac-complete-with-helm)
+(define-key ac-completing-map (kbd "C-S-c h") 'ac-complete-with-helm)
+(define-key ac-mode-map (kbd "C-S-c c") 'auto-complete)
 
 (global-auto-complete-mode)
 
+;; yasnippet
+(require 'yasnippet)
+(yas-global-mode 1)
 
 ;; Company
 ;(require 'company)
-;(global-company-mode 0) 
+;(global-company-mode 0)
 
 ;; Ess
 (require 'ess-site)
@@ -295,17 +309,114 @@ if point was already at that position, move point to beginning of line."
 (if (eq system-type 'darwin)
     (pyenv-mode)
   )
-;; (add-hook 'python-mode-hook 'anaconda-mode)
+
+;; (setq python-shell-completion-setup-code"
+;; try:
+;;     import __builtin__
+;; except ImportError:
+;;     # Python 3
+;;     import builtins as __builtin__
+;; try:
+;;     import readline, rlcompleter
+
+;; except ImportError:
+;;     try:
+;;         # try the pure python fallback
+;;         import pyreadline as readline
+;;         import rlcompleter
+;;     except:
+;;         # Any exception at this point is a failure
+;;         def __PYTHON_EL_get_completions(text):
+;;             return []
+;; except:
+;;     def __PYTHON_EL_get_completions(text):
+;;         return []
+;; else:
+;;     def __PYTHON_EL_get_completions(text):
+;;         builtins = dir(__builtin__)
+;;         completions = []
+;;         try:
+;;             splits = text.split()
+;;             is_module = splits and splits[0] in ('from', 'import')
+;;             is_ipython = ('__IPYTHON__' in builtins or
+;;                           '__IPYTHON__active' in builtins)
+;;             if is_module:
+;;                 from IPython.core.completerlib import module_completion
+;;                 completions = module_completion(text.strip())
+;;             elif is_ipython and '__IP' in builtins:
+;;                 completions = __IP.complete(text)
+;;             elif is_ipython and 'get_ipython' in builtins:
+;;                 completions = get_ipython().Completer.all_completions(text)
+;;             else:
+;;                 i = 0
+;;                 while True:
+;;                     res = readline.get_completer()(text, i)
+;;                     if not res:
+;;                         break
+;;                     i += 1
+;;                     completions.append(res)
+;;         except:
+;;             pass
+;;         return completions
+;; ")
+
+(defvar py-mode-map python-mode-map)
+(setq python-shell-interpreter "ipython"
+      python-shell-interpreter-args ""
+      python-shell-prompt-regexp "In \: "
+      python-shell-prompt-output-regexp "Out\: "
+      python-shell-completion-setup-code "from IPython.core.completerlib import module_completion"
+      python-shell-completion-module-string-code "';'.join(module_completion('''%s'''))"
+      python-shell-completion-string-code "';'.join(get_ipython().Completer.all_completions('''%s'''))"
+      )
+(add-to-list 'python-shell-completion-native-disabled-interpreters "ipython")
+
+(add-hook 'python-mode-hook (lambda ()
+			      (setq ac-sources '(ac-source-filename))
+			      (jedi:setup)
+			      (define-key python-mode-map (kbd "C-S-c c") 'jedi:complete)
+			      (setq jedi:complete-on-dot t
+				    jedi:tooltip-method nil
+				    py-python-command-args (quote ("–colors=Linux" "-i" "–pylab"))
+				    )
+			      ;; (anaconda-mode 1)
+			      ;; (company-mode 1)
+			      ;; (add-to-list 'company-backends 'company-anaconda)
+			      ;; (ac-anaconda-setup)
+			      ;; (auto-complete-mode 1)
+			      (flycheck-mode 1)
+			      (flycheck-select-checker 'python-pylint)
+			      (eldoc-mode 1)
+			      ))
+	  ;; 'anaconda-mode)
+;; (add-hook 'python-mode-hook '(add-to-list 'company-backends 'company-anaconda))
+;; (add-hook 'python-mode-hook 'ac-anaconda-setup)
+;; (add-hook 'python-mode-hook '(lambda ()
+			       ;; ((company-mode 1)
+				;; (auto-complete-mode -1))))
+
+;; (add-hook 'python-mode-hook
+	  ;; (lambda ()
+	    ;; (flycheck-mode 1)
+	    ;; (flycheck-select-checker 'python-pylint)))
+(eval-after-load 'flycheck
+  '(define-key flycheck-mode-map (kbd "C-c h F") 'helm-flycheck))
+(require 'flycheck-tip)
+(define-key flycheck-mode-map (kbd "C-M-S-n") 'flycheck-tip-cycle)
+(define-key flycheck-mode-map (kbd "C-M-S-p") 'flycheck-tip-cycle-reverse)
+(flycheck-tip-use-timer 'verbose)
 ;; (add-to-list 'company-backends 'company-anaconda)
-;; (add-hook 'python-mode-hook 'eldoc-mode)
-(elpy-enable)
-(elpy-use-ipython)
-(setq elpy-rpc-backend "jedi")
+(add-hook 'python-mode-hook 'eldoc-mode)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; (elpy-enable)
+;; (elpy-use-ipython)
+;; (setq elpy-rpc-backend "jedi")
 
 ;; OME Grab
 (show-paren-mode 1)
 ;; (setq show-paren-style 'expression)
-;;(global-yascroll-bar-mode 1)
+;;(Global-yascroll-bar-mode 1)
 
 ;; Markdown
 (autoload 'markdown-mode "markdown-mode" "Major mode for editing Markdown files" t)
@@ -386,7 +497,8 @@ if point was already at that position, move point to beginning of line."
 
 ;; Projectile
 (projectile-global-mode)
-
+(setq projectile-indexing-method 'alien)
+(setq projectile-enable-caching t)
 ;; dirtree
 ;; (require 'dirtree)
 
@@ -456,8 +568,9 @@ if point was already at that position, move point to beginning of line."
 
 
 (if (eq system-type 'window-nt)
-     (setq magit-git-executable "c:/PROGRA~2/Git/bin/git.exe")
-)
+    (setq magit-git-executable "c:/PROGRA~2/Git/bin/git.exe"
+	  git-executable "c:/PROGRA~2/Git/bin/git.exe")
+     )
 
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
@@ -494,11 +607,11 @@ if point was already at that position, move point to beginning of line."
 
 (if (eq system-type 'gnu/linux)
     (set-face-attribute 'default nil
-			:family "DejaVu Sans Mono" 
-			:foundry "unknown" 
-			:slant 'normal 
-			:weight 'normal 
-			:height 90 
+			:family "DejaVu Sans Mono"
+			:foundry "unknown"
+			:slant 'normal
+			:weight 'normal
+			:height 90
 			:width 'normal))
 
 ;; Theme Settings
