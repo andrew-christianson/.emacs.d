@@ -1,3 +1,4 @@
+
 (require 'package)
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")
@@ -360,7 +361,7 @@ if point was already at that position, move point to beginning of line."
 ;;         return completions
 ;; ")
 
-(defvar py-mode-map python-mode-map)
+;; (defvar py-mode-map python-mode-map)
 (setq python-shell-interpreter "ipython"
       python-shell-interpreter-args ""
       python-shell-prompt-regexp "In \: "
@@ -368,26 +369,35 @@ if point was already at that position, move point to beginning of line."
       python-shell-completion-setup-code "from IPython.core.completerlib import module_completion"
       python-shell-completion-module-string-code "';'.join(module_completion('''%s'''))"
       python-shell-completion-string-code "';'.join(get_ipython().Completer.all_completions('''%s'''))"
+      python-shell-completion-native-enable nil
+      python-shell-interpreter-args (quote ("i–colors=Linux" "-i"))
+      jedi:complete-on-dot t
+      jedi:tooltip-method nil
       )
-(add-to-list 'python-shell-completion-native-disabled-interpreters "ipython")
 
-(add-hook 'python-mode-hook (lambda ()
-			      (setq ac-sources '(ac-source-filename))
-			      (jedi:setup)
-			      (define-key python-mode-map (kbd "C-S-c c") 'jedi:complete)
-			      (setq jedi:complete-on-dot t
-				    jedi:tooltip-method nil
-				    py-python-command-args (quote ("–colors=Linux" "-i" "–pylab"))
-				    )
-			      ;; (anaconda-mode 1)
-			      ;; (company-mode 1)
-			      ;; (add-to-list 'company-backends 'company-anaconda)
-			      ;; (ac-anaconda-setup)
-			      ;; (auto-complete-mode 1)
-			      (flycheck-mode 1)
-			      (flycheck-select-checker 'python-pylint)
-			      (eldoc-mode 1)
-			      ))
+
+(defun my-jedi-setup ()
+  "Blah"
+  (setq ac-sources '(ac-source-filename ac-source-yasnippet))
+  (jedi:setup)
+  (define-key jedi-mode-map (kbd "C-TAB") nil)
+  (define-key jedi-mode-map (kbd "C-<tab>") nil)
+  (define-key jedi-mode-map (kbd "C-S-c c") 'jedi:complete)
+  )
+(defun my-jedi-settings ()
+  "Blah"
+  (define-key python-mode-map (kbd "C-S-c c") 'jedi:complete)
+  (setq jedi:complete-on-dot t
+	jedi:tooltip-method nil)
+  )
+(defun my-flycheck-settings ()
+  "Blah"
+  (flycheck-mode 1)
+  (flycheck-select-checker 'python-pylint)
+  )
+(add-hook 'python-mode-hook 'my-jedi-setup)
+;; (add-hook 'python-mode-hook 'my-jedi-settings)
+(add-hook 'python-mode-hook 'my-flycheck-settings)
 	  ;; 'anaconda-mode)
 ;; (add-hook 'python-mode-hook '(add-to-list 'company-backends 'company-anaconda))
 ;; (add-hook 'python-mode-hook 'ac-anaconda-setup)
