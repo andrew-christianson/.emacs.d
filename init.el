@@ -369,8 +369,7 @@ if point was already at that position, move point to beginning of line."
       python-shell-completion-setup-code "from IPython.core.completerlib import module_completion"
       python-shell-completion-module-string-code "';'.join(module_completion('''%s'''))"
       python-shell-completion-string-code "';'.join(get_ipython().Completer.all_completions('''%s'''))"
-      python-shell-completion-native-enable nil
-      python-shell-interpreter-args (quote ("i–colors=Linux" "-i"))
+      python-shell-completion-native-enable (if (eq system-type "windows-nt") nil t)
       jedi:complete-on-dot t
       jedi:tooltip-method nil
       )
