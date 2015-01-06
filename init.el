@@ -307,9 +307,10 @@ if point was already at that position, move point to beginning of line."
 
 
 ;; Python
-(if (eq system-type 'darwin)
-    (pyenv-mode)
-  )
+;; (if (or (eq system-type 'darwin)
+;; 	(eq system-type 'gnu/linux))
+;;     (pyenv-mode)
+;;   )
 
 ;; (setq python-shell-completion-setup-code"
 ;; try:
@@ -415,7 +416,7 @@ if point was already at that position, move point to beginning of line."
 (define-key flycheck-mode-map (kbd "C-M-S-p") 'flycheck-tip-cycle-reverse)
 (flycheck-tip-use-timer 'verbose)
 ;; (add-to-list 'company-backends 'company-anaconda)
-(add-hook 'python-mode-hook 'eldoc-mode)
+;; (add-hook 'python-mode-hook 'eldoc-mode)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; (elpy-enable)
