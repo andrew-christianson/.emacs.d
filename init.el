@@ -268,6 +268,12 @@ if point was already at that position, move point to beginning of line."
 ;; Ess
 (require 'ess-site)
 (require 'ess-smart-underscore)
+;; (setq inferior-ess-mode-hook
+;;       '(ess-S-mouse-me-menu-commands
+;; 	ess-developer-setup-modeline
+;; 	turn-on-font-lock
+;; 	smartparens-mode))
+(add-hook 'ess-R-post-run-hook 'smartparens-mode)
 (if (eq system-type 'windows-nt)
     (setq inferior-julia-program-name "~/../julia/Julia-0.3.2/bin/julia")
 )
@@ -447,9 +453,7 @@ if point was already at that position, move point to beginning of line."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-tooltip-minimum-width 40)
- '(custom-safe-themes
-   (quote
-    ("c5a044ba03d43a725bd79700087dea813abcb6beb6be08c7eb3303ed90782482" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
+ '(custom-safe-themes (quote ("756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "c5a044ba03d43a725bd79700087dea813abcb6beb6be08c7eb3303ed90782482" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
  '(haskell-process-auto-import-loaded-modules t)
  '(haskell-process-log t)
  '(haskell-process-suggest-remove-import-lines t)
@@ -629,7 +633,7 @@ if point was already at that position, move point to beginning of line."
 
 
 ;; Themes come after the safe marker
-(load-theme 'spacegray t)
+(load-theme 'solarized-light t)
 (sml/setup)
 (sml/apply-theme 'respectful)
 (custom-set-faces
@@ -637,6 +641,6 @@ if point was already at that position, move point to beginning of line."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(company-tooltip ((t (:background "dark slate gray" :foreground "gainsboro"))))
+ '(company-tooltip ((t (:background "dark slate gray" :foreground "gainsboro"))) t)
  '(company-tooltip-annotation ((t (:inherit company-tooltip :foreground "medium sea green"))))
- '(company-tooltip-selection ((t (:inherit company-tooltip :background "steel blue")))))
+ '(company-tooltip-selection ((t (:inherit company-tooltip :background "steel blue"))) t))
