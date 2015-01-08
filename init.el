@@ -1,4 +1,3 @@
-
 (require 'package)
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")
@@ -57,8 +56,18 @@
             (setq beg (line-beginning-position) end (line-end-position)))
         (comment-or-uncomment-region beg end)
         (next-line)))
+(defun recomment-region-or-line ()
+    "Comments then uncomments the region or the current line if there's no active region.  Corrects # to ## in ESS Mode"
+    (interactive)
+    (let (beg end)
+        (if (region-active-p)
+            (setq beg (region-beginning) end (region-end))
+            (setq beg (line-beginning-position) end (line-end-position)))
+        (comment-or-uncomment-region beg end)
+        (comment-or-uncomment-region beg end)))
 
 (global-set-key (kbd "M-;") 'comment-or-uncomment-region-or-line)
+(global-set-key (kbd "C-M-;") 'recomment-region-or-line)
 
 (defun split-window-multiple-ways (x y)
   "Split the current frame into a grid of X columns and Y rows."
