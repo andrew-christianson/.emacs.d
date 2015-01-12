@@ -82,6 +82,7 @@
 (depends-on "rainbow-delimiters")
 (depends-on "rainbow-mode")
 (depends-on "rake")
+(depends-on "robe")
 (depends-on "rust-mode")
 (depends-on "scion")
 (depends-on "smart-mode-line")
