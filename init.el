@@ -8,6 +8,8 @@
 (pallet-mode t)
 (package-initialize)
 
+(global-unset-key (kbd "C-z"))
+
 ;; Visal Basics
 (require 'hlinum)
 (hlinum-activate)
