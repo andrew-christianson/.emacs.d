@@ -170,8 +170,8 @@
 (global-auto-complete-mode)
 
 ;; yasnippet
-(require 'yasnippet)
-(yas-global-mode 1)
+;; (require 'yasnippet)
+;; (yas-global-mode 1)
 
 ;; Company
 ;(require 'company)
