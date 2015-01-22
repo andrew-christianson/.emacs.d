@@ -322,8 +322,11 @@
 
 ;; Projectile
 (projectile-global-mode)
-(setq projectile-indexing-method 'alien)
-(setq projectile-enable-caching t)
+(setq projectile-indexing-method 'native
+      projectile-enable-caching t
+      projectile-completion-system 'helm)
+(helm-projectile-on)
+
 ;; dirtree
 ;; (require 'dirtree)
 
