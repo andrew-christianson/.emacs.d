@@ -255,9 +255,6 @@
 ;; (add-hook 'python-mode-hook 'eldoc-mode)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-;; (elpy-enable)
-;; (elpy-use-ipython)
-;; (setq elpy-rpc-backend "jedi")
 
 ;; OME Grab
 (show-paren-mode 1)
