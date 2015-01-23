@@ -446,7 +446,7 @@
 
 
 ;; Themes come after the safe marker
-(load-theme 'solarized-light t)
+(load-theme 'solarized-dark t)
 (sml/setup)
 (sml/apply-theme 'respectful)
 (custom-set-faces
