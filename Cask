@@ -31,6 +31,7 @@
 (depends-on "company")
 (depends-on "company-anaconda")
 (depends-on "company-go")
+(depends-on "cython-mode")
 (depends-on "ess")
 (depends-on "ess-R-data-view")
 (depends-on "ess-R-object-popup")

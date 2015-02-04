@@ -49,7 +49,7 @@
 
 (defun my-jedi-setup ()
   "Blah"
-  (setq ac-sources '(ac-source-filename ac-source-yasnippet))
+  (setq ac-sources '(ac-source-filename))
   (jedi:setup)
   (define-key jedi-mode-map (kbd "C-TAB") nil)
   (define-key jedi-mode-map (kbd "C-<tab>") nil)
