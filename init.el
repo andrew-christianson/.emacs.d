@@ -10,12 +10,22 @@
 
 (global-unset-key (kbd "C-z"))
 
+;; (desktop-save-mode 1)
+;; (defun my-desktop-save ()
+;;   (interactive)
+;;   ;; Don't call desktop-save-in-desktop-dir, as it prints a message.
+;;   (if (eq (desktop-owner) (emacs-pid))
+;;       (desktop-save desktop-dirname)))
+;; (add-hook 'auto-save-hook 'my-desktop-save)
+
+
 ;; Visal Basics
 (require 'hlinum)
 (hlinum-activate)
 (global-hl-line-mode 1)
 (load-file "~/.emacs.d/details.el")
 (load-file "~/.emacs.d/functions.el")
+(load-file "~/.emacs.d/kenobi.el")
 ;; Get that cruft outta here
 (menu-bar-mode nil)
 (setq inhibit-startup-screen t)
@@ -151,8 +161,10 @@
       ac-auto-show-menu t
       ac-use-fuzzy t
       ac-show-menu-immediately-on-auto-complete t
-      ac-candidate-limit 100
-      ac-menu-height 25)
+      ac-candidate-limit nil
+      ac-menu-height 25
+      ac-max-width 0.5
+      ac-)
 ;; (setq-default ac-sources (append ac-sources '(ac-source-filename ac-source-yasnippet)))
 ;; don't wamt this.
 ;; Default is:
@@ -218,7 +230,7 @@
       (linum-mode))))
 
 (my-global-linum-mode 1)
-
+(require 'flycheck)
 (setq python-shell-interpreter "ipython"
       python-shell-interpreter-args ""
       python-shell-prompt-regexp "In \: "
@@ -228,10 +240,11 @@
       python-shell-completion-string-code "';'.join(get_ipython().Completer.all_completions('''%s'''))"
       python-shell-completion-native-enable (if (eq system-type "windows-nt") nil t)
       jedi:complete-on-dot t
-      jedi:tooltip-method nil
+      ;; jedi:tooltip-method nil
+      flycheck-checker-error-threshold 2000
       )
 (add-hook 'python-mode-hook 'my-flycheck-settings)
-(add-hook 'python-mode-hook 'my-jedi-setup)
+;; (add-hook 'python-mode-hook 'my-jedi-setup)
 ;; (add-hook 'python-mode-hook 'my-jedi-settings)
 	  ;; 'anaconda-mode)
 ;; (add-hook 'python-mode-hook '(add-to-list 'company-backends 'company-anaconda))
@@ -246,10 +259,10 @@
 	    ;; (flycheck-select-checker 'python-pylint)))
 (eval-after-load 'flycheck
   '(define-key flycheck-mode-map (kbd "C-c h F") 'helm-flycheck))
-(require 'flycheck-tip)
+;; (require 'flycheck-tip)
 (define-key flycheck-mode-map (kbd "C-M-S-n") 'flycheck-tip-cycle)
 (define-key flycheck-mode-map (kbd "C-M-S-p") 'flycheck-tip-cycle-reverse)
-(flycheck-tip-use-timer 'verbose)
+;; (flycheck-tip-use-timer 'verbose)
 ;; (add-to-list 'company-backends 'company-anaconda)
 ;; (add-hook 'python-mode-hook 'eldoc-mode)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -282,7 +295,7 @@
  '(create-lockfiles nil)
  '(custom-safe-themes
    (quote
-    ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "c5a044ba03d43a725bd79700087dea813abcb6beb6be08c7eb3303ed90782482" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
+    ("53e29ea3d0251198924328fd943d6ead860e9f47af8d22f0b764d11168455a8e" "9dae95cdbed1505d45322ef8b5aa90ccb6cb59e0ff26fef0b8f411dfc416c552" "4e262566c3d57706c70e403d440146a5440de056dfaeb3062f004da1711d83fc" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "c5a044ba03d43a725bd79700087dea813abcb6beb6be08c7eb3303ed90782482" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
  '(haskell-process-auto-import-loaded-modules t)
  '(haskell-process-log t)
  '(haskell-process-suggest-remove-import-lines t)
