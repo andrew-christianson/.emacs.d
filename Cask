@@ -44,6 +44,7 @@
 (depends-on "flycheck-pyflakes")
 (depends-on "flycheck-rust")
 (depends-on "flycheck-tip")
+(depends-on "format-sql")
 (depends-on "fuzzy")
 (depends-on "ghc")
 (depends-on "git-gutter")
