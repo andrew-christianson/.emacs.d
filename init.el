@@ -352,7 +352,7 @@
 ;; Other custom Bindings
 
 ;; Backups
-(setq backup-directory-alist `(("." . "~/.saves")))
+;; (setq backup-directory-alist `(("." . "~/.saves")))
 ;;     (package-install package)))
 
 (require 'helm-config)
