@@ -97,5 +97,6 @@
 (depends-on "solarized-theme")
 (depends-on "spacegray-theme")
 (depends-on "sr-speedbar")
+(depends-on "theme-changer")
 (depends-on "w3m")
 (depends-on "zenburn-theme")

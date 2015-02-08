@@ -992,7 +992,19 @@
 
 
 ;; Themes come after the safe marker
-(load-theme 'solarized-dark t)
+(setq calendar-location-name "Los Angeles, CA")
+(setq calendar-latitude 34.04)
+(setq calendar-longitude -118.25)
+
+
+(require 'theme-changer)
+(change-theme 'solarized-light 'solarized-dark)
+
+
+
+
+
+;; (load-theme 'solarized-dark t)
 (sml/setup)
 (sml/apply-theme 'respectful)
 (custom-set-faces
