@@ -41,6 +41,7 @@
 (depends-on "f")
 (depends-on "flycheck")
 (depends-on "flycheck-cask")
+(depends-on "flycheck-ghcmod")
 (depends-on "flycheck-haskell")
 (depends-on "flycheck-ledger")
 (depends-on "flycheck-pyflakes")

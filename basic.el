@@ -9,3 +9,4 @@
       kept-new-versions 6
       kept-old-versions 2
       version-control t)
+(setq org-mobile-directory "~/Dropbox/MobileOrg")
