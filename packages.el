@@ -30,3 +30,4 @@
 
 (require 'org-agenda)
 (setq org-agenda-span 14)
+(require 'theme-changer)
