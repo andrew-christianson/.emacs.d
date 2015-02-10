@@ -9,6 +9,7 @@
       jedi:complete-on-dot t
       jedi:setup-keys t
       jedi:tooltip-method 'popup
+      jedi:get-in-function-call-delay 250
       flycheck-checker-error-threshold 2000
       )
 (add-hook 'python-mode-hook 'my-flycheck-settings)

@@ -3,7 +3,10 @@
 
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
-(setq ac-delay 0.25
+(setq ac-delay 0.1
+      ac-use-comphist t
+      ac-comphist-file "~/.emacs.d/ac-comphist.dat"
+      ac-fuzzy-cursor-color 'green
       ; ac-quick-help-delay 0.
       ac-auto-show-menu t
       ac-use-fuzzy t
@@ -11,7 +14,7 @@
       ac-candidate-limit nil
       ac-menu-height 25
       ac-max-width 0.5
-      ac-)
+      )
 ;; (setq-default ac-sources (append ac-sources '(ac-source-filename ac-source-yasnippet)))
 ;; don't wamt this.
 ;; Default is:
@@ -27,3 +30,4 @@
 (define-key ac-mode-map (kbd "C-S-c c") 'auto-complete)
 
 (global-auto-complete-mode)
+(ac-linum-workaround)
