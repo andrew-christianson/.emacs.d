@@ -1,13 +1,5 @@
 (global-unset-key (kbd "C-z"))
 
-;; Tuhdo Customizations
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-
-;; My Custom Keymaps
-(global-set-key (kbd "C-S-d") 'kill-whole-line)
-(global-set-key (kbd "M-a") 'align)
-
-
 ;; Sublime Like Commenting
 
 (global-set-key (kbd "M-;") 'comment-or-uncomment-region-or-line)
@@ -33,10 +25,12 @@
 
 (eval-after-load 'flycheck
   '(define-key flycheck-mode-map (kbd "C-c h F") 'helm-flycheck))
+
 ;; (require 'flycheck-tip)
-(define-key flycheck-mode-map (kbd "C-M-S-n") 'flycheck-tip-cycle)
-(define-key flycheck-mode-map (kbd "C-M-S-p") 'flycheck-tip-cycle-reverse)
-(global-set-key [f8] 'sr-speedbar-toggle)
+;; (define-key flycheck-mode-map (kbd "C-M-S-n") 'flycheck-tip-cycle)
+;; (define-key flycheck-mode-map (kbd "C-M-S-p") 'flycheck-tip-cycle-reverse)
+
+(global-set-key (kbd "s-b") 'sr-speedbar-toggle)
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-c a") 'org-agenda)

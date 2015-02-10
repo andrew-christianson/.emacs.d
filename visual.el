@@ -7,7 +7,6 @@
       (linum-mode))))
 
 (my-global-linum-mode 1)
-;; (menu-bar-mode nil)
 (setq inhibit-startup-screen t)
 (display-time-mode t)
 (show-paren-mode t)
@@ -15,9 +14,8 @@
 ;; Menu Bar mode if ARG is omitted or nil.
 ;; How's that for a sensible default...
 (menu-bar-mode -1)
-(scroll-bar-mode nil)
-(tool-bar-mode nil)
-;; (setf inhibit-splash-screen t)
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
 
 (show-paren-mode 1)
 (rainbow-delimiters-mode)
@@ -50,6 +48,4 @@
 (setq calendar-location-name "Los Angeles, CA")
 (setq calendar-latitude 34.04)
 (setq calendar-longitude -118.25)
-
-
 (change-theme 'solarized-light 'solarized-dark)

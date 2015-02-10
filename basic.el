@@ -10,3 +10,4 @@
       kept-old-versions 2
       version-control t)
 (setq org-mobile-directory "~/Dropbox/MobileOrg")
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
