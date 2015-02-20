@@ -15,6 +15,7 @@
 
 (global-set-key (kbd "C-c d m g") 'split-window-multiple-ways)
 (global-set-key (kbd "C-c d m t g") 'show-buffers-with-major-mode)
+(global-set-key [end] 'move-end-of-line)
 (global-set-key [home] 'smart-beginning-of-line)
 (global-set-key "\C-a" 'smart-beginning-of-line)
 

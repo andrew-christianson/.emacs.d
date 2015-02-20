@@ -42,10 +42,11 @@
 			:weight 'medium
 			:height 80
 			:width 'normal))
-(sml/setup)
-(sml/apply-theme 'respectful)
 
 (setq calendar-location-name "Los Angeles, CA")
 (setq calendar-latitude 34.04)
 (setq calendar-longitude -118.25)
-(change-theme 'solarized-light 'solarized-dark)
+;; (change-theme 'solarized-light 'solarized-dark)
+(load-theme 'smyx)
+;; (sml/setup)
+;; (sml/apply-theme 'light)
