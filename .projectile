@@ -1,3 +1,4 @@
 -.cask/
+-.git/
 -.python-environments/
 -projectile-bookmarks.eld

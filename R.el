@@ -5,4 +5,5 @@
 ;; 	ess-developer-setup-modeline
 ;; 	turn-on-font-lock
 ;; 	smartparens-mode))
+(add-hook 'R-mode-hook 'fci-mode)
 (add-hook 'ess-R-post-run-hook 'smartparens-mode)
