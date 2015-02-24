@@ -50,14 +50,14 @@
 			:foundry 'outline
 			:slant 'normal))
 
-(if (eq system-type 'gnu/linux)
-    (set-face-attribute 'default nil
-			:family "Source Code Pro for Powerline"
-			:foundry 'outline
-			:slant 'normal
-			:weight 'medium
-			:height 80
-			:width 'normal))
+;; (if (eq system-type 'gnu/linux)
+;;     (set-face-attribute 'default nil
+;; 			:family "Source Code Pro for Powerline"
+;; 			:foundry 'outline
+;; 			:slant 'normal
+;; 			:weight 'medium
+;; 			:height 80
+;; 			:width 'normal))
 
 (setq calendar-location-name "Los Angeles, CA")
 (setq calendar-latitude 34.04)
