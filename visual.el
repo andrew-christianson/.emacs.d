@@ -6,9 +6,6 @@
 ;; (setq hl-line-face 'highlight)
 
 
-
-
-
 ; don't blink the cursor
 (blink-cursor-mode nil)
 

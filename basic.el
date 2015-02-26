@@ -8,6 +8,12 @@
       delete-old-versions t
       kept-new-versions 6
       kept-old-versions 2
-      version-control t)
+      version-control t
+      redisplay-dont-pause t
+      scroll-margin 1
+      scroll-step 1
+      scroll-conservatively 10000
+      scroll-preserve-screen-position 1
+      )
 (setq org-mobile-directory "~/Dropbox/MobileOrg")
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
