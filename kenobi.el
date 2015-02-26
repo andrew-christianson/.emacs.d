@@ -112,8 +112,13 @@
   )
 
 
-(setq jedi:setup-keys t)
 
-(add-hook 'python-mode-local-vars-hook 'setup-jedi-extra-args)
-(add-hook 'python-mode-local-vars-hook 'my-jedi-setup)
-(add-hook 'python-mode-local-vars-hook 'setup-flycheck-venv)
+(defun setup-virtualenv-path ()
+  (let (
+	(venv (detect_buffer_venv buffer-file-name))
+	)
+    (if venv
+	(setq-local python-shell-virtualenv-path venv)
+      )
+    )
+  )
