@@ -15,7 +15,8 @@
       highlight-indent-face
       )
 (add-hook 'python-mode-hook 'my-flycheck-settings)
-(add-hook 'python-mode-hook 'fci-mode)
+;; (add-hook 'python-mode-hook 'fci-mode)
+(add-hook python-mode-hook 'indent-guide-mode)
 (add-hook 'python-mode-hook 'highlight-indentation-mode)
 
 
