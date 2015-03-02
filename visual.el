@@ -49,17 +49,20 @@
 
 (if (eq system-type 'gnu/linux)
     (set-face-attribute 'default nil
-			:family "Terminess Powerline"
-			:foundry 'outline
-			:slant 'normal
-			:weight 'medium
-			:height 90
-			:width 'normal))
+			:font "-unknown-Anonymous Pro-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1"
+			;;			:family "Terminess Powerline"
+;;			:family "Anonymous Pro"
+;;			:slant 'normal
+;;			:weight 'medium
+;;			:height 13
+			;;			:width 'normal
+			))
 
 (setq calendar-location-name "Los Angeles, CA")
 (setq calendar-latitude 34.04)
 (setq calendar-longitude -118.25)
-(change-theme 'spolsky 'solarized-dark)
+(change-theme 'spolsky 'spolsky)
+(setq linum-format "%4i")
 ;; (load-theme 'smyx)
 ;; (sml/setup)
 ;; (sml/apply-theme 'light)
