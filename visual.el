@@ -61,10 +61,7 @@
 (setq calendar-location-name "Los Angeles, CA")
 (setq calendar-latitude 34.04)
 (setq calendar-longitude -118.25)
-(change-theme 'spolsky 'spolsky)
-(setq linum-format "%4i")
-;; (load-theme 'smyx)
-;; (sml/setup)
-;; (sml/apply-theme 'light)
+(change-theme 'my-spolsky 'my-spolsky)
+
 (set-face-background hl-line-face "darkslategrey")
 (set-face-background 'fringe "gray15")

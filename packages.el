@@ -10,7 +10,6 @@
 
 (require 'smartparens-config)
 (require 'rainbow-delimiters)
-(require 'sr-speedbar)
 (require 'multiple-cursors)
 (require 'ess-site)
 (require 'ess-smart-underscore)
@@ -23,9 +22,6 @@
 (require 'helm-config)
 (require 'helm-eshell)
 (require 'helm-projectile)
-(require 'helm-descbinds)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
 (require 'git-gutter-fringe)
 
 (require 'org-agenda)
