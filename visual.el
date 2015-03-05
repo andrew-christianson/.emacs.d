@@ -49,13 +49,12 @@
 
 (if (eq system-type 'gnu/linux)
     (set-face-attribute 'default nil
-			:font "-unknown-Anonymous Pro-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1"
-			;;			:family "Terminess Powerline"
-;;			:family "Anonymous Pro"
-;;			:slant 'normal
-;;			:weight 'medium
-;;			:height 13
-			;;			:width 'normal
+			:family "Droid Sans Mono"
+			:family "Anonymous Pro"
+			:slant 'normal
+			:weight 'medium
+			:height 100
+			:width 'normal
 			))
 
 (setq calendar-location-name "Los Angeles, CA")
