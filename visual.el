@@ -50,10 +50,9 @@
 (if (eq system-type 'gnu/linux)
     (set-face-attribute 'default nil
 			:family "Droid Sans Mono"
-			:family "Anonymous Pro"
 			:slant 'normal
 			:weight 'medium
-			:height 100
+			:height 90
 			:width 'normal
 			))
 
