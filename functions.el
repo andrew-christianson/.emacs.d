@@ -68,12 +68,16 @@
   (flycheck-mode 1)
   (flycheck-select-checker 'python-pylint)
   )
-(defun smart-beginning-of-line ()
+
+(defun smart-beginning-of-line (arg)
   "Move point to first non-whitespace character or beginning-of-line.
 Move point to the first non-whitespace character on this line.
 if point was already at that position, move point to beginning of line."
-  (interactive)
+  (interactive "^p")
+  (or arg (setq arg 1))
   (let ((oldpos (point)))
     (back-to-indentation)
     (and (= oldpos (point))
-         (beginning-of-line))))
+         (beginning-of-line))
+    )
+)
