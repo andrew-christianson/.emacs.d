@@ -10,5 +10,8 @@ haskell-deps:
 	$(eval GMD=$(shell ls .haskell-environments | grep ghc-mod))
 	cd .haskell-environments/$(GMD) && cabal sandbox init
 	cd .haskell-environments/$(GMD) && cabal install
-	ln -s `pwd`/.haskell-environments/$(GMD)/.cabal-sandbox/bin/ghc-mod /usr/local/bin/ghc-mod
-	ln -s `pwd`/.haskell-environments/$(GMD)/.cabal-sandbox/bin/ghc-modi /usr/local/bin/ghc-modi
+	sudo ln -s `pwd`/.haskell-environments/$(GMD)/.cabal-sandbox/bin/ghc-mod /usr/local/bin/ghc-mod
+	sudo ln -s `pwd`/.haskell-environments/$(GMD)/.cabal-sandbox/bin/ghc-modi /usr/local/bin/ghc-modi
+
+install: py-deps haskell-deps
+	cask install
