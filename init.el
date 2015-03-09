@@ -94,10 +94,13 @@
 (load-file "~/.emacs.d/kenobi.el")
 (load-file "~/.emacs.d/helm.el")
 (load-file "~/.emacs.d/ac.el")
+(load-file "~/.emacs.d/paredit.el")
+(load-file "~/.emacs.d/dired.el")
 
 (load-file "~/.emacs.d/python.el")
 (load-file "~/.emacs.d/R.el")
 (load-file "~/.emacs.d/haskell.el")
 (load-file "~/.emacs.d/sql.el")
 (load-file "~/.emacs.d/js.el")
+(load-file "~/.emacs.d/elisp.el")
 (load-file "~/.emacs.d/md.el")

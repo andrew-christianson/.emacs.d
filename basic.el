@@ -17,3 +17,6 @@
       )
 (setq org-mobile-directory "~/Dropbox/MobileOrg")
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; Auto refresh buffers
+(global-auto-revert-mode 1)

@@ -2,3 +2,6 @@
 -.git/
 -.python-environments/
 -projectile-bookmarks.eld
+-auto-save-list/
+-elpa/
+-.haskell-environments/
