@@ -34,7 +34,7 @@
 (setq-default indicate-buffer-boundaries 'left)
 (setq-default indicate-empty-lines 1)
 (setq require-final-newline t)
-
+(setq ring-bell-function 'ignore)
 (fringe-mode 4)
 
 (if (or (eq system-type 'windows-nt)

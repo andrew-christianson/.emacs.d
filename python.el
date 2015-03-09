@@ -22,11 +22,12 @@
   (pymacs-load "ropemacs" "rope-")
   ;; Automatically save project python buffers before refactorings
   (setq ropemacs-confirm-saving 'nil)
+  (ropemacs-mode)
   )
 
 (add-hook 'python-mode-hook 'my-flycheck-settings)
 ;; (add-hook 'python-mode-hook 'indent-guide-mode)
-;; (add-hook 'python-mode-hook 'load-ropemacs)
+(add-hook 'python-mode-hook 'load-ropemacs)
 (add-hook 'python-mode-local-vars-hook 'setup-jedi-extra-args)
 (add-hook 'python-mode-local-vars-hook 'my-jedi-setup)
 (add-hook 'python-mode-local-vars-hook 'setup-flycheck-venv)
