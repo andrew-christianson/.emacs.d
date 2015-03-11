@@ -88,7 +88,6 @@
 (load-file "~/.emacs.d/basic.el")
 (load-file "~/.emacs.d/paths.el")
 (load-file "~/.emacs.d/visual.el")
-(load-file "~/.emacs.d/keys.el")
 
 (load-file "~/.emacs.d/details.el")
 (load-file "~/.emacs.d/kenobi.el")
@@ -97,6 +96,7 @@
 (load-file "~/.emacs.d/paredit.el")
 (load-file "~/.emacs.d/dired.el")
 
+
 (load-file "~/.emacs.d/python.el")
 (load-file "~/.emacs.d/R.el")
 (load-file "~/.emacs.d/haskell.el")
@@ -104,3 +104,6 @@
 (load-file "~/.emacs.d/js.el")
 (load-file "~/.emacs.d/elisp.el")
 (load-file "~/.emacs.d/md.el")
+(load-file "~/.emacs.d/c.el")
+
+(load-file "~/.emacs.d/keys.el")

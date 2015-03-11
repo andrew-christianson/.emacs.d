@@ -12,7 +12,7 @@
       ac-use-fuzzy t
       ac-show-menu-immediately-on-auto-complete t
       ac-candidate-limit nil
-      ac-menu-height 25
+      ac-menu-height 10
       ac-max-width 0.8
       )
 ;; (setq-default ac-sources (append ac-sources '(ac-source-filename ac-source-yasnippet)))

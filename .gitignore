@@ -1,4 +1,6 @@
 url/
+elpa/
+.haskell-environments
 bookmarks
 .cask
 .mc-lists.el
