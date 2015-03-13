@@ -60,7 +60,7 @@
   "Blah"
   (define-key python-mode-map (kbd "C-S-c c") 'jedi:complete)
   (setq jedi:complete-on-dot t
-	jedi:tooltip-method nil)
+        jedi:tooltip-method nil)
   )
 
 (defun my-flycheck-settings ()

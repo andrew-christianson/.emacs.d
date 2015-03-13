@@ -6,6 +6,7 @@ py-deps:
 
 haskell-deps:
 	mkdir -p .haskell-environments
+	cabal install alex happy
 	cd .haskell-environments && cabal unpack ghc-mod || true
 	$(eval GMD=$(shell ls .haskell-environments | grep ghc-mod))
 	cd .haskell-environments/$(GMD) && cabal sandbox init
