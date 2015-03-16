@@ -21,6 +21,19 @@
 
 (show-paren-mode 1)
 
+(which-func-mode)
+
+(setq mode-line-format
+      (delete (assoc 'which-func-mode mode-line-format) mode-line-format)
+      which-func-header-line-format '(which-func-mode ("" which-func-format))
+      )
+(defadvice which-func-ff-hook (after header-line activate)
+  (when which-func-mode
+    (setq mode-line-format (delete (assoc 'which-func-mode
+                                          mode-line-format) mode-line-format)
+          header-line-format which-func-header-line-format)))
+(set-face-foreground 'which-func "#A6E22E")
+
 (global-git-gutter-mode 1)
 (setq-default indicate-buffer-boundaries 'left)
 (setq-default indicate-empty-lines 1)
@@ -46,12 +59,11 @@
 			:height 90
 			:width 'normal
 			))
-
 (setq calendar-location-name "Los Angeles, CA")
 (setq calendar-latitude 34.04)
 (setq calendar-longitude -118.25)
-(change-theme 'my-spolsky 'my-spolsky)
-
+;; (change-theme 'my-spolsky 'my-spolsky)
+(load-theme 'my-spolsky)
 ;; (set-face-background hl-line-face "darkslategrey")
 ;; (set-face-background 'fringe "gray15")
 (smartparens-global-mode)

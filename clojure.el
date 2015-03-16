@@ -1,0 +1,5 @@
+(defun cldash ()
+  (interactive)
+  (setq-local helm-dash-docsets '("Clojure"))
+  )
+(add-hook 'clojur-emode-hook 'cldash)

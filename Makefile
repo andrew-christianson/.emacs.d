@@ -1,6 +1,9 @@
 py-deps:
-	pip install rope ropemacs pylint flake8 jedi
-	git clone https://github.com/pinard/Pymacs.git
+	pip install  pylint flake8 jedi
+	git clone https://github.com/python-rope/ropemacs.git || true
+	git clone https://github.com/python-rope/rope.git || true
+	git clone https://github.com/pinard/Pymacs.git || true
+	git clone https://github.com/python-rope/ropemode.git || true
 	cd Pymacs && make && make install
 	rm -rf ./Pymacs
 

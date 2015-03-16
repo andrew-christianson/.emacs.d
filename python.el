@@ -13,6 +13,9 @@
       jedi:get-in-function-call-delay 250
       jedi:get-in-function-call-timeout 10000
       flycheck-checker-error-threshold 2000
+      pymacs-load-path '("/home/andrew/.emacs.d/rope"
+                         "/home/andrew/.emacs.d/ropemacs"
+                         "/home/andrew/.emacs.d/ropemode")
       )
 
 (defun load-ropemacs ()
@@ -25,6 +28,12 @@
   (ropemacs-mode)
   )
 
+
+(defun pydash ()
+  (interactive)
+  (setq-local helm-dash-docsets '("Python 2" "Python 3" "NumPy" "SciPy"))
+  )
+(add-hook 'python-mode-hook 'pydash)
 (add-hook 'python-mode-hook 'my-flycheck-settings)
 ;; (add-hook 'python-mode-hook 'indent-guide-mode)
 (add-hook 'python-mode-hook 'load-ropemacs)

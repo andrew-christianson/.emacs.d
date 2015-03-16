@@ -51,7 +51,9 @@
 					      ; window using
 					      ; M-<next>/M-<prior>
       helm-ff-file-name-history-use-recentf t
-      helm-gtags-prefix-key "\C-cg")
+      helm-gtags-prefix-key "\C-cg"
+      helm-dash-broswer-func 'eww)
+
 (require 'helm-gtags)
 (setq
  helm-gtags-ignore-case t

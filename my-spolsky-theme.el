@@ -24,7 +24,7 @@
 
 (custom-theme-set-variables
   'my-spolsky
-  '(linum-format " %3i "))
+  '(linum-format " %i "))
 
 (let ((*background*         "#161A1F")
       (*comments*           "#8C8C8C")

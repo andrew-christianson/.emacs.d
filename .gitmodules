@@ -1,0 +1,9 @@
+[submodule "rope"]
+	path = rope
+	url = ./rope
+[submodule "ropemacs"]
+	path = ropemacs
+	url = ./ropemacs
+[submodule "ropemode"]
+	path = ropemode
+	url = ./ropemode

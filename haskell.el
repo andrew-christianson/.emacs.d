@@ -27,3 +27,9 @@
   '(define-key haskell-mode-map (kbd "C-c C-o") 'haskell-compile))
 (eval-after-load 'haskell-cabal
   '(define-key haskell-cabal-mode-map (kbd "C-c C-o") 'haskell-compile))
+
+(defun haskdash ()
+  (interactive)
+  (setq-local helm-dash-docsets '("Haskell"))
+  )
+(add-hook 'haskell-mode-hook 'haskdash)

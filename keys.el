@@ -65,6 +65,8 @@
                                (call-interactively 'compile)))
 (global-set-key (kbd "C-h b") 'helm-descbinds)
 (global-set-key (kbd "s-f") 'er/expand-region)
+(global-set-key (kbd "C-x C-m") 'helm-M-x)
+(global-set-key (kbd "C-c h d") 'helm-dash)
 (define-key helm-gtags-mode-map (kbd "C-c g a") 'helm-gtags-tags-in-this-function)
 (define-key helm-gtags-mode-map (kbd "C-j") 'helm-gtags-select)
 (define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-dwim)

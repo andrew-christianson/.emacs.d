@@ -50,3 +50,14 @@
  ;; Non-nil means display source file containing the main routine at startup
  gdb-show-main t
  )
+
+(defun cdash ()
+  (interactive)
+  (setq-local helm-dash-docsets '("C"))
+  )
+(add-hook 'c-mode-hook 'cdash)
+(defun cppdash ()
+  (interactive)
+  (setq-local helm-dash-docsets '("C++"))
+  )
+(add-hook 'c++-mode-hook 'cppdash)
