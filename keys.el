@@ -40,8 +40,8 @@
 
 ;; Magnar's
 
-(global-set-key (kbd "C-x C-k") 'delete-current-buffer-file)
-(global-set-key (kbd "C-x C-r") 'rename-current-buffer-file)
+(global-set-key (kbd "C-x C-S-k") 'delete-current-buffer-file)
+(global-set-key (kbd "C-x C-S-r") 'rename-current-buffer-file)
 
 (global-set-key (kbd "<C-S-down>") 'move-line-down)
 (global-set-key (kbd "<C-S-up>") 'move-line-up)
