@@ -1,6 +1,8 @@
-(if (or (eq system-type 'darwin)
-	(eq system-type 'gnu/linux))
-    (exec-path-from-shell-initialize)
+(if window-system
+    (if (or (eq system-type 'darwin)
+            (eq system-type 'gnu/linux))
+        (exec-path-from-shell-initialize)
+    )
   )
 (let ((my-cabal-path (expand-file-name "~/.cabal/bin")))
   (setenv "PATH" (concat my-cabal-path (if (eq system-type "windows-nt") ";" ":") (getenv "PATH")))

@@ -63,7 +63,7 @@
 (setq calendar-latitude 34.04)
 (setq calendar-longitude -118.25)
 ;; (change-theme 'my-spolsky 'my-spolsky)
-(load-theme 'my-spolsky)
+(if window-system (load-theme 'my-spolsky))
 ;; (set-face-background hl-line-face "darkslategrey")
 ;; (set-face-background 'fringe "gray15")
 (smartparens-global-mode)
