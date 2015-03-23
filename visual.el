@@ -5,12 +5,12 @@
 ; don't blink the cursor
 (blink-cursor-mode nil)
 
-(define-global-minor-mode my-global-linum-mode linum-mode
-  (lambda ()
-    (when (not (memq major-mode
-                     (list 'doc-view-mode 'doc-view-minor-mode)))
-      (linum-mode))))
-(my-global-linum-mode t)
+;; (define-global-minor-mode my-global-linum-mode linum-mode
+;;   (lambda ()
+;;     (when (not (memq major-mode
+;;                      (list 'doc-view-mode 'doc-view-minor-mode)))
+;;       (linum-mode))))
+;; (my-global-linum-mode t)
 
 (setq inhibit-startup-screen t)
 (display-time-mode t)
