@@ -56,8 +56,28 @@
 (eval-after-load 'helm
   (lambda ()
     (interactive)
-    (global-set-key (kbd "C-h b") 'helm-descbinds)
+    (global-unset-key (kbd "C-x c"))
+
+    (global-set-key (kbd "C-c h") 'helm-command-prefix)
+
+    (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
+    (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
+    (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+
+    (global-set-key (kbd "C-x b") 'helm-mini)
+    (global-set-key (kbd "C-x C-f") 'helm-find-files)
+    (global-set-key (kbd "M-y") 'helm-show-kill-ring)
+    (global-set-key (kbd "M-x") 'helm-M-x)
     (global-set-key (kbd "C-x C-m") 'helm-M-x)
+    (global-set-key (kbd "C-c h o") 'helm-occur)
+    (global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
+    (global-set-key (kbd "C-c h g") 'helm-google-suggest)
+    (global-set-key (kbd "C-c h P") 'helm-projectile)
+
+    (define-key shell-mode-map (kbd "C-c C-l") 'helm-comint-input-ring)
+    (define-key minibuffer-local-map (kbd "C-c C-l") 'helm-minibuffer-history)
+
+    (global-set-key (kbd "C-h b") 'helm-descbinds)
     (global-set-key (kbd "C-c h d") 'helm-dash)))
 (eval-after-load 'helm-gtags
   (lambda ()
@@ -75,3 +95,4 @@
     (global-set-key (kbd "C->") 'mc/mark-next-like-this)
     (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
     (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)))
+(provide 'init-keys)

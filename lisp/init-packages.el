@@ -14,6 +14,7 @@
 (require 'ess-site)
 (require 'ess-smart-underscore)
 (require 'flycheck)
+
 ;; Smooth scrolling
 ;; due to http://stackoverflow.com/a/4160949/881025
 ;; Works well on OSX 10.10
@@ -25,5 +26,11 @@
 (require 'git-gutter-fringe)
 
 (require 'org-agenda)
-(setq org-agenda-span 14)
-;(require 'theme-changer)
+(require 'paredit)
+(require 'wgrep)
+(require 'wdired)
+(require 'diminish)
+
+(provide 'init-packages)
+
+(provide 'init)

@@ -5,3 +5,5 @@
   (setq-local helm-dash-docsets '("JavaScript", "D3JS"))
   )
 (add-hook 'js2-mode-hook 'jsash)
+
+(provide 'init-js)

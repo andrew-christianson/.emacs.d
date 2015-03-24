@@ -1,4 +1,4 @@
-;; hs-minor-mode for folding source code
+x;; hs-minor-mode for folding source code
 (add-hook 'c-mode-common-hook 'hs-minor-mode)
 ;; Enable helm-gtags-mode in Dired so you can jump to any tag
 ;; when navigate project tree with Dired
@@ -61,3 +61,5 @@
   (setq-local helm-dash-docsets '("C++"))
   )
 (add-hook 'c++-mode-hook 'cppdash)
+
+(provide 'init-c)

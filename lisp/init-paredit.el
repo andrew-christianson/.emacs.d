@@ -1,11 +1,10 @@
-(require 'paredit)
 ;; making paredit work with delete-selection-mode
-(put 'paredit-forward-delete 'delete-selection 'supersede)
-(put 'paredit-backward-delete 'delete-selection 'supersede)
-(put 'paredit-open-round 'delete-selection t)
-(put 'paredit-open-square 'delete-selection t)
-(put 'paredit-doublequote 'delete-selection t)
-(put 'paredit-newline 'delete-selection t)
+;; (put 'paredit-forward-delete 'delete-selection 'supersede)
+;; (put 'paredit-backward-delete 'delete-selection 'supersede)
+;; (put 'paredit-open-round 'delete-selection t)
+;; (put 'paredit-open-square 'delete-selection t)
+;; (put 'paredit-doublequote 'delete-selection t)
+;; (put 'paredit-newline 'delete-selection t)
 
 
 
@@ -44,3 +43,5 @@
 
 (define-key paredit-mode-map (kbd "M-)")
   'paredit-wrap-round-from-behind)
+
+(provide 'init-paredit)

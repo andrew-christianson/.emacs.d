@@ -20,7 +20,9 @@
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-
+(defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; Auto refresh buffers
 (global-auto-revert-mode 1)
+
+(provide 'init-basic)

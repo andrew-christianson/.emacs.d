@@ -3,6 +3,14 @@
 
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
+(setq-default ac-dwim nil) ; To get pop-ups with docs even if a word is uniquely completed
+
+(set-default 'ac-sources
+             '(ac-source-imenu
+               ac-source-dictionary
+               ac-source-words-in-buffer
+               ac-source-words-in-same-mode-buffers
+               ac-source-words-in-all-buffer))
 (setq ac-delay 0.1
       ac-use-comphist t
       ac-comphist-file "~/.emacs.d/ac-comphist.dat"
@@ -31,3 +39,5 @@
 
 (global-auto-complete-mode)
 (ac-linum-workaround)
+
+(provide 'init-ac)

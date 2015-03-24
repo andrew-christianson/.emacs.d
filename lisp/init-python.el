@@ -41,3 +41,5 @@
 (add-hook 'python-mode-local-vars-hook 'my-jedi-setup)
 (add-hook 'python-mode-local-vars-hook 'setup-flycheck-venv)
 (add-hook 'python-mode-local-vars-hook 'setup-virtualenv-path)
+
+(provide 'init-python)

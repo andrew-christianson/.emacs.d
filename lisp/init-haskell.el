@@ -33,3 +33,4 @@
   (setq-local helm-dash-docsets '("Haskell"))
   )
 (add-hook 'haskell-mode-hook 'haskdash)
+(provide 'init-haskell)

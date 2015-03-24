@@ -23,3 +23,5 @@
     (setq magit-git-executable "c:/PROGRA~2/Git/bin/git.exe"
 	  git-executable "c:/PROGRA~2/Git/bin/git.exe")
      )
+
+(provide 'init-paths)

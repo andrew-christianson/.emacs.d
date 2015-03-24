@@ -12,3 +12,5 @@
   )
 (add-hook 'R-mode-hook 'rdash)
 (add-hook 'ess-R-post-run-hook 'smartparens-mode)
+
+(provide 'init-R)

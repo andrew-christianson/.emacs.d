@@ -173,3 +173,5 @@ if point was already at that position, move point to beginning of line."
   (newline)
   (forward-line -1)
   (indent-for-tab-command))
+
+(provide 'init-functions)

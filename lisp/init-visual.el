@@ -1,7 +1,6 @@
 (hlinum-activate)
 (global-hl-line-mode 1)
 
-
 ; don't blink the cursor
 (blink-cursor-mode nil)
 
@@ -67,3 +66,5 @@
 ;; (set-face-background hl-line-face "darkslategrey")
 ;; (set-face-background 'fringe "gray15")
 (smartparens-global-mode)
+
+(provide 'init-visual)
