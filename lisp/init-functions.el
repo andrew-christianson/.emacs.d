@@ -174,4 +174,181 @@ if point was already at that position, move point to beginning of line."
   (forward-line -1)
   (indent-for-tab-command))
 
+(defun move-line-up (n)
+  "Move the current line up by N lines."
+  (interactive "p")
+  (move-line (if (null n) -1 (- n))))
+
+(defun move-line-down (n)
+  "Move the current line down by N lines."
+  (interactive "p")
+  (move-line (if (null n) 1 n)))
+
+(defun unfill-paragraph ()
+  (interactive)
+  (let ((fill-column (point-max)))
+    (fill-paragraph nil)))
+
+(defun fib (n)
+  "Fibanacci sequence, slow implementation."
+  (if (<= n 2) 1
+    (+ (fib (- n 2)) (fib (- n 1)))))
+
+(defun set-window-width (n)
+  "Set the selected window's width."
+  (adjust-window-trailing-edge (selected-window) (- n (window-width)) t))
+
+(defun insert-random (n)
+  "Insert a random number between 0 and the prefix argument."
+  (interactive "P")
+  (insert (number-to-string (random n))))
+
+(defun eval-and-replace (value)
+  "Evaluate the sexp at point and replace it with its value."
+  (interactive (list (eval-last-sexp nil)))
+  (kill-sexp -1)
+  (insert (format "%S" value)))
+
+(defun launch (command)
+  "Launch an application from Emacs, with its own output
+buffer. This is like asynch-shell-command but allows for any
+number of processes at a time, rather than just one. If given a
+prefix argument, the process's buffer is displayed."
+  (interactive (list (read-shell-command (concat default-directory "$ "))))
+  (let* ((name (car (split-string-and-unquote command)))
+         (buffer (generate-new-buffer (concat "*" name "*"))))
+    (set-process-sentinel (start-process-shell-command name buffer command)
+                          'launch-sentinel)
+    (if (eq (car current-prefix-arg) 4)
+        (display-buffer buffer))))
+
+(defun launch-sentinel (proc event)
+  "Reports on changes in `launch'ed applications."
+  (message (format "%s: %s" proc event)))
+
+(defun lookup-word (word)
+  (interactive (list (save-excursion (car (ispell-get-word nil)))))
+  (browse-url (format "http://en.wiktionary.org/wiki/%s" word)))
+
+(defun flash-region (start end &optional timeout)
+  "Temporarily highlight region from START to END."
+  (let ((overlay (make-overlay start end)))
+    (overlay-put overlay 'face 'secondary-selection)
+    (run-with-timer (or timeout 0.2) nil 'delete-overlay overlay)))
+
+(defun slurp (file)
+  "Return FILE contents as a string."
+  (with-temp-buffer
+    (insert-file-contents file)
+    (buffer-string)))
+
+(defun find-all-files (dir)
+  "Open all files and sub-directories below the given directory."
+  (interactive "DBase directory: ")
+  (let* ((list (directory-files dir t "^[^.]"))
+         (files (remove-if 'file-directory-p list))
+         (dirs (remove-if-not 'file-directory-p list)))
+    (dolist (file files)
+      (find-file-noselect file))
+    (dolist (dir dirs)
+      (find-file-noselect dir)
+      (find-all-files dir))))
+
+(defun toggle-current-window-dedication ()
+  (interactive)
+  (let* ((window (selected-window))
+         (dedicated (window-dedicated-p window)))
+    (set-window-dedicated-p window (not dedicated))
+    (message "Window %sdedicated to %s"
+             (if dedicated "no longer " "")
+             (buffer-name))))
+
+(defun eval-buffer* (&optional buffer)
+  "Like `eval-buffer', but obey `lexical-binding'. It does
+everything the original function does, except for modifying
+`load-history'."
+  (interactive)
+  (with-current-buffer (or buffer (current-buffer))
+    (save-excursion
+      (goto-char (point-min))
+      (loop while (< (point) (point-max))
+            for sexp = (condition-case e
+                           (read (current-buffer))
+                         (end-of-file nil))
+            do (eval sexp lexical-binding)))
+    (message "%S loaded" (current-buffer))))
+
+(defun what-face (pos)
+  "Show the name of face under point."
+  (interactive "d")
+  (let ((face (or (get-char-property (point) 'read-face-name)
+                  (get-char-property (point) 'face))))
+    (if face (message "Face: %s" face) (message "No face at %d" pos))))
+
+(defun eshell-as (name)
+  "Start or find an eshell buffer named NAME and pop to it."
+  (interactive (list (buffer-name)))
+  (let* ((buffer-name (concat "*eshell " name "*"))
+         (buffer (or (get-buffer buffer-name)
+                     (save-window-excursion (eshell t)))))
+    (pop-to-buffer buffer)
+    (setf (buffer-name) buffer-name)
+    buffer))
+
+(defun process-menu-kill ()
+  "Kill selected process in the process menu buffer."
+  (interactive)
+  (let ((process (get-text-property (point) 'tabulated-list-id)))
+    (when (processp process) (kill-process process))
+    (run-at-time 0.1 nil (lambda ()
+                           (let ((n (line-number-at-pos)))
+                             (revert-buffer)
+                             (forward-line (1- n)))))))
+
+(defun pp-macroexpand-all-last-sexp (arg)
+  "Run `macroexpand-all' on sexp before point.
+With argument, pretty-print output into current buffer.
+Ignores leading comment characters."
+  (interactive "P")
+  (if arg
+      (insert (pp-to-string (eval (pp-last-sexp))))
+    (pp-display-expression (macroexpand-all (pp-last-sexp))
+                           "*Pp Macroexpand Output*")))
+
+(defun push-first-button ()
+  "Find and push the first button in this buffer, intended for `help-mode'."
+  (interactive)
+  (block :find-button
+    (goto-char (point-min))
+    (while (< (point) (point-max))
+      (if (get-text-property (point) 'button)
+          (return-from :find-button (push-button))
+        (forward-char)))))
+
+(defun move-line (n)
+  "Move the current line up or down by N lines."
+  (interactive "p")
+  (let* ((column (current-column))
+         (start (progn (beginning-of-line) (point)))
+         (end (progn (end-of-line) (forward-char) (point)))
+         (line-text (delete-and-extract-region start end)))
+    (forward-line n)
+    (insert line-text)
+    (forward-line -1)
+    (forward-char column)))
+(defmacro measure-time (&rest body)
+  "Measure and return the running time of the code block."
+  (declare (indent defun))
+  (let ((start (make-symbol "start")))
+    `(let ((,start (float-time)))
+       ,@body
+       (- (float-time) ,start))))
+
+(defmacro scratch-key (key buffer-name mode)
+  `(global-set-key ,key (lambda ()
+                          (interactive)
+                          (switch-to-buffer ,buffer-name)
+                          (unless (eq major-mode ',mode)
+                            (,mode)))))
+
 (provide 'init-functions)

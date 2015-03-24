@@ -31,6 +31,7 @@
 (require 'wdired)
 (require 'diminish)
 
+(require 'cl)
+(require 'pp)
+(require 'package-helper)
 (provide 'init-packages)
-
-(provide 'init)

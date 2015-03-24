@@ -47,6 +47,48 @@
 		  (setq-local compilation-read-command nil)
 		  (call-interactively 'compile)))
 
+(global-set-key (kbd "M-<up>") 'move-line-up)
+(global-set-key (kbd "M-<down>") 'move-line-down)
+
+(global-set-key "\C-x~" 'set-80-columns)
+
+;; ID: 6a3f3d99-f0da-329a-c01c-bb6b868f3239
+
+(global-set-key (kbd "C-c r") 'insert-random)
+
+(global-set-key (kbd "C-c e") 'eval-and-replace)
+
+(global-set-key (kbd "s-x") 'launch)
+
+;; Dictionary lookup
+
+(autoload 'ispell-get-word "ispell")
+
+(global-set-key (kbd "M-#") 'lookup-word)
+
+(scratch-key (kbd "C-c s s") "*scratch*"    emacs-lisp-mode)
+(scratch-key (kbd "C-c s d") "*javascript*" js2-mode)
+(scratch-key (kbd "C-c s a") "*lisp*"       lisp-mode)
+(scratch-key (kbd "C-c s c") "*clojure*"    clojure-mode)
+(scratch-key (kbd "C-c s x") "*css*"        css-mode)
+(scratch-key (kbd "C-c s h") "*html*"       html-mode)
+
+;; ID: 72dc0a9e-c41c-31f8-c8f5-d9db8482de1e
+;; Dedicated windows
+
+(global-set-key [pause] 'toggle-current-window-dedication)
+
+;;; Process menu killing
+
+(define-key process-menu-mode-map "k" 'process-menu-kill)
+
+;; pp
+
+;; Help mode assistance
+
+(with-package help-mode
+  (define-key help-mode-map "f" 'push-first-button))
+
 (eval-after-load 'flycheck
   '(define-key flycheck-mode-map (kbd "C-c h F") 'helm-flycheck))
 (eval-after-load 'zygospore
