@@ -43,5 +43,8 @@
 
 (define-key paredit-mode-map (kbd "M-)")
   'paredit-wrap-round-from-behind)
+(defun kill-my-comment-key ()
+  (define-key paredit-mode-map (kbd "M-;") nil))
+(add-hook 'paredit-mode-hook 'kill-my-comment-key)
 
 (provide 'init-paredit)
