@@ -344,11 +344,11 @@ Ignores leading comment characters."
        ,@body
        (- (float-time) ,start))))
 
-(defmacro scratch-key (key buffer-name mode)
-  `(global-set-key ,key (lambda ()
-                          (interactive)
-                          (switch-to-buffer ,buffer-name)
-                          (unless (eq major-mode ',mode)
-                            (,mode)))))
+;; (defmacro scratch-key (key buffer-name mode)
+;;   `(global-set-key ,key (lambda ()
+;;                           (interactive)
+;;                           (switch-to-buffer ,buffer-name)
+;;                           (unless (eq major-mode ',mode)
+;;                             (,mode)))))
 
 (provide 'init-functions)

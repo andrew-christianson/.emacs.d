@@ -66,12 +66,12 @@
 
 (global-set-key (kbd "M-#") 'lookup-word)
 
-(scratch-key (kbd "C-c s s") "*scratch*"    emacs-lisp-mode)
-(scratch-key (kbd "C-c s d") "*javascript*" js2-mode)
-(scratch-key (kbd "C-c s a") "*lisp*"       lisp-mode)
-(scratch-key (kbd "C-c s c") "*clojure*"    clojure-mode)
-(scratch-key (kbd "C-c s x") "*css*"        css-mode)
-(scratch-key (kbd "C-c s h") "*html*"       html-mode)
+;; (scratch-key (kbd "C-c s s") "*scratch*"    emacs-lisp-mode)
+;; (scratch-key (kbd "C-c s d") "*javascript*" js2-mode)
+;; (scratch-key (kbd "C-c s a") "*lisp*"       lisp-mode)
+;; (scratch-key (kbd "C-c s c") "*clojure*"    clojure-mode)
+;; (scratch-key (kbd "C-c s x") "*css*"        css-mode)
+;; (scratch-key (kbd "C-c s h") "*html*"       html-mode)
 
 ;; ID: 72dc0a9e-c41c-31f8-c8f5-d9db8482de1e
 ;; Dedicated windows
@@ -86,15 +86,15 @@
 
 ;; Help mode assistance
 
-(with-package help-mode
-  (define-key help-mode-map "f" 'push-first-button))
-
 (eval-after-load 'flycheck
   '(define-key flycheck-mode-map (kbd "C-c h F") 'helm-flycheck))
+
 (eval-after-load 'zygospore
   (global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows))
+
 (eval-after-load 'expand-region
   (global-set-key (kbd "s-f") 'er/expand-region))
+
 (eval-after-load 'helm
   (lambda ()
     (interactive)
@@ -121,6 +121,7 @@
 
     (global-set-key (kbd "C-h b") 'helm-descbinds)
     (global-set-key (kbd "C-c h d") 'helm-dash)))
+
 (eval-after-load 'helm-gtags
   (lambda ()
     (interactive)
@@ -130,6 +131,7 @@
     (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
     (define-key helm-gtags-mode-map (kbd "C-c <") 'helm-gtags-previous-history)
     (define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history)))
+
 (eval-after-load 'multiple-cursors
   (lambda ()
     (interactive)
@@ -137,4 +139,25 @@
     (global-set-key (kbd "C->") 'mc/mark-next-like-this)
     (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
     (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)))
+
+(eval-after-load 'haskell-mode '(progn
+  (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
+  (define-key haskell-mode-map (kbd "C-c C-z") 'haskell-interactive-switch)
+  (define-key haskell-mode-map (kbd "C-c I ") 'haskell-navigate-imports)
+  (define-key haskell-mode-map (kbd "C-c C-o") 'haskell-compile)
+  ;; (define-key haskell-mode-map (kbd "C-c C-n C-t") 'haskell-process-do-type)
+  ;; (define-key haskell-mode-map (kbd "C-c C-n C-i") 'haskell-process-do-info)
+  ;; (define-key haskell-mode-map (kbd "C-c C-n C-c") 'haskell-process-cabal-build)
+  ;; (define-key haskell-mode-map (kbd "C-c C-n c") 'haskell-process-cabal)
+  ;; (define-key haskell-mode-map (kbd "SPC") 'haskell-mode-contextual-space)
+  ))
+
+(eval-after-load 'haskell-cabal '(progn
+  (define-key haskell-cabal-mode-map (kbd "C-c C-z") 'haskell-interactive-switch)
+  (define-key haskell-cabal-mode-map (kbd "C-c C-k") 'haskell-interactive-mode-clear)
+  (define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
+  (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)
+  (define-key haskell-cabal-mode-map (kbd "C-c C-o") 'haskell-compile)
+  ))
+
 (provide 'init-keys)
