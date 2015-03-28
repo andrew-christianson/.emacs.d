@@ -15,8 +15,6 @@
       scroll-conservatively 10000
       scroll-preserve-screen-position 1
       )
-(setq org-mobile-directory "~/Dropbox/MobileOrg"
-      org-directory "~/org")
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 

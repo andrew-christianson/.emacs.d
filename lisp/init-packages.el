@@ -30,8 +30,10 @@
 (require 'wgrep)
 (require 'wdired)
 (require 'diminish)
+(require 'expand-region)
 
 (require 'cl)
 (require 'pp)
 (require 'package-helper)
+(require 'cal-dst)
 (provide 'init-packages)

@@ -92,8 +92,7 @@
 (eval-after-load 'zygospore
   (global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows))
 
-(eval-after-load 'expand-region
-  (global-set-key (kbd "s-f") 'er/expand-region))
+(global-set-key (kbd "s-f") 'er/expand-region)
 
 (eval-after-load 'helm
   (lambda ()
@@ -159,5 +158,20 @@
   (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)
   (define-key haskell-cabal-mode-map (kbd "C-c C-o") 'haskell-compile)
   ))
+;; (define-prefix-command 'org-todo-state-map)
 
+;;      (define-key org-mode-map "\C-cx" 'org-todo-state-map)
+
+;;      (define-key org-todo-state-map "x"
+;;        #'(lambda nil (interactive) (org-todo "CANCELLED")))
+;;      (define-key org-todo-state-map "d"
+;;        #'(lambda nil (interactive) (org-todo "DONE")))
+;;      (define-key org-todo-state-map "f"
+;;        #'(lambda nil (interactive) (org-todo "DEFERRED")))
+;;      (define-key org-todo-state-map "l"
+;;        #'(lambda nil (interactive) (org-todo "DELEGATED")))
+;;      (define-key org-todo-state-map "s"
+;;        #'(lambda nil (interactive) (org-todo "STARTED")))
+;;      (define-key org-todo-state-map "w"
+;;        #'(lambda nil (interactive) (org-todo "WAITING")))
 (provide 'init-keys)
