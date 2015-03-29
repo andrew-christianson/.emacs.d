@@ -43,7 +43,7 @@
 (if (or (eq system-type 'windows-nt)
 	(eq system-type 'darwin))
     (set-face-attribute 'default nil
-			:family "Source Code Pro"
+			:family "Droid Sans Mono for Powerline"
 			:height (if (eq system-type 'windows-nt) 90 110)
 			:weight 'light
 			:width 'normal
@@ -52,7 +52,7 @@
 
 (if (eq system-type 'gnu/linux)
     (set-face-attribute 'default nil
-			:family "Droid Sans Mono"
+			:family "Droid Sans Mono for Powerline"
 			:slant 'normal
 			:weight 'medium
 			:height 90
@@ -62,7 +62,7 @@
 (setq calendar-latitude 34.04)
 (setq calendar-longitude -118.25)
 ;; (change-theme 'my-spolsky 'my-spolsky)
-(if window-system (load-theme 'my-spolsky))
+(if window-system (load-theme 'material))
 ;; (set-face-background hl-line-face "darkslategrey")
 ;; (set-face-background 'fringe "gray15")
 (smartparens-global-mode)
