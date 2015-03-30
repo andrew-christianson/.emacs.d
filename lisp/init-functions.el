@@ -468,18 +468,15 @@ START-TIME and END-OF-DAY are the number of minutes past midnight."
              (not (string= last-state state)))
     (org-clock-in)))
 
-(defadvice org-clock-in (after sacha activate)
-  "Set this task's status to 'STARTED'."
-  (org-todo "STARTED"))
+;; (defadvice org-clock-in (after sacha activate)
+;;   "Set this task's status to 'STARTED'."
+;;   (org-todo "STARTED"))
 
 (defun sacha/org-clock-out-if-waiting ()
   "Clock in when the task is marked STARTED."
   (when (and (string= state "WAITING")
              (not (string= last-state state)))
     (org-clock-out)))
-(add-hook 'org-after-todo-state-change-hook
-	  'sacha/org-clock-out-if-waiting)
-
 (defun sacha/org-agenda-clock (match)
   ;; Find out when today is
   (let* ((inhibit-read-only t))
@@ -849,5 +846,30 @@ as the default task."
              (marker-buffer org-clock-default-task)
              (not org-clock-resolving-clocks-due-to-idleness))
     (bh/clock-in-parent-task)))
+
+(require 'org-id)
+(defun bh/clock-in-task-by-id (id)
+  "Clock in a task by id"
+  (org-with-point-at (org-id-find id 'marker)
+    (org-clock-in nil)))
+
+(defun bh/clock-in-last-task (arg)
+  "Clock in the interrupted task if there is one
+Skip the default task and get the next one.
+A prefix arg forces clock in of the default task."
+  (interactive "p")
+  (let ((clock-in-to-task
+         (cond
+          ((eq arg 4) org-clock-default-task)
+          ((and (org-clock-is-active)
+                (equal org-clock-default-task (cadr org-clock-history)))
+           (caddr org-clock-history))
+          ((org-clock-is-active) (cadr org-clock-history))
+          ((equal org-clock-default-task (car org-clock-history)) (cadr org-clock-history))
+          (t (car org-clock-history)))))
+    (widen)
+    (org-with-point-at clock-in-to-task
+      (org-clock-in nil))))
+
 
 (provide 'init-functions)
