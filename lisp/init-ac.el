@@ -1,5 +1,5 @@
 (require 'auto-complete-config)
-(require 'ac-helm) ;; Not necessary if using ELPA package
+;; (require 'ac-helm) ;; Not necessary if using ELPA package
 
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
@@ -15,7 +15,7 @@
       ac-use-comphist t
       ac-comphist-file "~/.emacs.d/ac-comphist.dat"
       ac-fuzzy-cursor-color 'green
-      ; ac-quick-help-delay 0.
+      ac-quick-help-delay 0.125
       ac-auto-show-menu t
       ac-use-fuzzy t
       ac-show-menu-immediately-on-auto-complete t

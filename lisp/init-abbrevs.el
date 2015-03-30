@@ -124,3 +124,4 @@
   "#+end_src\n")
 
 (define-abbrev org-mode-abbrev-table "selisp" "" 'skel-org-block-elisp)
+(provide 'init-abbrevs)

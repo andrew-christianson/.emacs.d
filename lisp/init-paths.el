@@ -22,6 +22,12 @@
 (if (eq system-type 'window-nt)
     (setq magit-git-executable "c:/PROGRA~2/Git/bin/git.exe"
 	  git-executable "c:/PROGRA~2/Git/bin/git.exe")
+  )
+(if (eq system-type 'windows-nt)
+    (setq
+     ispell-dictionary "british"
+     ispell-program-name "C:\\aspell\\bin\\aspell.exe"
      )
+  )
 
 (provide 'init-paths)
