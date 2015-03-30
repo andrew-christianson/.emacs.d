@@ -336,6 +336,7 @@ Ignores leading comment characters."
     (insert line-text)
     (forward-line -1)
     (forward-char column)))
+
 (defmacro measure-time (&rest body)
   "Measure and return the running time of the code block."
   (declare (indent defun))
@@ -350,142 +351,6 @@ Ignores leading comment characters."
 ;;                           (switch-to-buffer ,buffer-name)
 ;;                           (unless (eq major-mode ',mode)
 ;;                             (,mode)))))
-(defun sacha/org-show-load ()
-  "Show my unscheduled time and free time for the day."
-  (interactive)
-  (let ((time (sacha/org-calculate-free-time
-               ;; today
-               (calendar-gregorian-from-absolute (time-to-days (current-time)))
-               ;; now
-               (let* ((now (decode-time))
-                      (cur-hour (nth 2 now))
-                      (cur-min (nth 1 now)))
-                 (+ (* cur-hour 60) cur-min))
-               ;; until the last time in my time grid
-               (let ((last (car (last (elt org-agenda-time-grid 2)))))
-                 (+ (* (/ last 100) 60) (% last 100))))))
-    (message "%.1f%% load: %d minutes to be scheduled, %d minutes free, %d minutes gap\n"
-            (/ (car time) (* .01 (cdr time)))
-            (car time)
-            (cdr time)
-            (- (cdr time) (car time)))))
-
-(defun sacha/org-agenda-load (match)
-  "Can be included in `org-agenda-custom-commands'."
-  (let ((inhibit-read-only t)
-        (time (sacha/org-calculate-free-time
-               ;; today
-               (calendar-gregorian-from-absolute org-starting-day)
-               ;; now if today, else start of day
-               (if (= org-starting-day
-                      (time-to-days (current-time)))
-                   (let* ((now (decode-time))
-                          (cur-hour (nth 2 now))
-                          (cur-min (nth 1 now)))
-                     (+ (* cur-hour 60) cur-min))
-                 (let ((start (car (elt org-agenda-time-grid 2))))
-                   (+ (* (/ start 100) 60) (% start 100))))
-                 ;; until the last time in my time grid
-               (let ((last (car (last (elt org-agenda-time-grid 2)))))
-                 (+ (* (/ last 100) 60) (% last 100))))))
-    (goto-char (point-max))
-    (insert (format
-             "%.1f%% load: %d minutes to be scheduled, %d minutes free, %d minutes gap\n"
-             (/ (car time) (* .01 (cdr time)))
-             (car time)
-             (cdr time)
-             (- (cdr time) (car time))))))
-
-(defun sacha/org-calculate-free-time (date start-time end-of-day)
-  "Return a cons cell of the form (TASK-TIME . FREE-TIME) for DATE, given START-TIME and END-OF-DAY.
-DATE is a list of the form (MONTH DAY YEAR).
-START-TIME and END-OF-DAY are the number of minutes past midnight."
-  (save-window-excursion
-  (let ((files org-agenda-files)
-        (total-unscheduled 0)
-        (total-gap 0)
-        file
-        rtn
-        rtnall
-        entry
-        (last-timestamp start-time)
-        scheduled-entries)
-    (while (setq file (car files))
-      (catch 'nextfile
-        (org-check-agenda-file file)
-        (setq rtn (org-agenda-get-day-entries file date :scheduled :timestamp))
-        (setq rtnall (append rtnall rtn)))
-      (setq files (cdr files)))
-    ;; For each item on the list
-    (while (setq entry (car rtnall))
-      (let ((time (get-text-property 1 'time entry)))
-        (cond
-         ((and time (string-match "\\([^-]+\\)-\\([^-]+\\)" time))
-          (setq scheduled-entries (cons (cons
-                                         (save-match-data (appt-convert-time (match-string 1 time)))
-                                         (save-match-data (appt-convert-time (match-string 2 time))))
-                                        scheduled-entries)))
-         ((and time
-               (string-match "\\([^-]+\\)\\.+" time)
-               (string-match "^[A-Z]+ \\(\\[#[A-Z]\\]\\)? \\([0-9]+\\)" (get-text-property 1 'txt entry)))
-          (setq scheduled-entries
-                (let ((start (and (string-match "\\([^-]+\\)\\.+" time)
-                                 (appt-convert-time (match-string 1 time)))))
-                  (cons (cons start
-                              (and (string-match "^[A-Z]+ \\(\\[#[A-Z]\\]\\)? \\([0-9]+\\) " (get-text-property 1 'txt entry))
-                                   (+ start (string-to-number (match-string 2 (get-text-property 1 'txt entry))))))
-                        scheduled-entries))))
-         ((string-match "^[A-Z]+ \\([0-9]+\\)" (get-text-property 1 'txt entry))
-          (setq total-unscheduled (+ (string-to-number
-                                      (match-string 1 (get-text-property 1 'txt entry)))
-                                     total-unscheduled)))))
-      (setq rtnall (cdr rtnall)))
-    ;; Sort the scheduled entries by time
-    (setq scheduled-entries (sort scheduled-entries (lambda (a b) (< (car a) (car b)))))
-
-    (while scheduled-entries
-      (let ((start (car (car scheduled-entries)))
-            (end (cdr (car scheduled-entries))))
-      (cond
-       ;; are we in the middle of this timeslot?
-       ((and (>= last-timestamp start)
-             (< = last-timestamp end))
-        ;; move timestamp later, no change to time
-        (setq last-timestamp end))
-       ;; are we completely before this timeslot?
-       ((< last-timestamp start)
-        ;; add gap to total, skip to the end
-        (setq total-gap (+ (- start last-timestamp) total-gap))
-        (setq last-timestamp end)))
-      (setq scheduled-entries (cdr scheduled-entries))))
-    (if (< last-timestamp end-of-day)
-        (setq total-gap (+ (- end-of-day last-timestamp) total-gap)))
-    (cons total-unscheduled total-gap))))
-
-(defun sacha/org-clock-in-if-starting ()
-  "Clock in when the task is marked STARTED."
-  (when (and (string= state "STARTED")
-             (not (string= last-state state)))
-    (org-clock-in)))
-
-;; (defadvice org-clock-in (after sacha activate)
-;;   "Set this task's status to 'STARTED'."
-;;   (org-todo "STARTED"))
-
-(defun sacha/org-clock-out-if-waiting ()
-  "Clock in when the task is marked STARTED."
-  (when (and (string= state "WAITING")
-             (not (string= last-state state)))
-    (org-clock-out)))
-(defun sacha/org-agenda-clock (match)
-  ;; Find out when today is
-  (let* ((inhibit-read-only t))
-    (goto-char (point-max))
-    (org-dblock-write:clocktable
-     `(:scope agenda
-       :maxlevel 4
-       :tstart ,(format-time-string "%Y-%m-%d" (calendar-time-from-absolute (1+ org-starting-day) 0))
-       :tend ,(format-time-string "%Y-%m-%d" (calendar-time-from-absolute (+ org-starting-day 2) 0))))))
 
 
 (defun bh/hide-other ()
@@ -515,6 +380,135 @@ START-TIME and END-OF-DAY are the number of minutes past midnight."
   (interactive)
   (switch-to-buffer "*scratch*"))
 
+
+(defun bh/remove-empty-drawer-on-clock-out ()
+  (interactive)
+  (save-excursion
+    (beginning-of-line 0)
+    (org-remove-empty-drawer-at (point))))
+(defun bh/verify-refile-target ()
+  "Exclude todo keywords with a done state from refile targets"
+  (not (member (nth 2 (org-heading-components)) org-done-keywords)))
+
+(defun bh/org-auto-exclude-function (tag)
+  "Automatic task exclusion in the agenda with / RET"
+  (and (cond
+        ((string= tag "hold") t)
+        ((string= tag "farm") t))
+       (concat "-" tag)))
+
+(defun bh/clock-in-to-next (kw)
+  "Switch a task from TODO to NEXT when clocking in.
+Skips capture tasks, projects, and subprojects.
+Switch projects and subprojects from NEXT back to TODO"
+  (when (not (and (boundp 'org-capture-mode) org-capture-mode))
+    (cond
+     ((and (member (org-get-todo-state) (list "TODO"))
+           (bh/is-task-p))
+      "NEXT")
+     ((and (member (org-get-todo-state) (list "NEXT"))
+           (bh/is-project-p))
+      "TODO"))))
+
+(defun bh/find-project-task ()
+  "Move point to the parent (project) task if any"
+  (save-restriction
+    (widen)
+    (let ((parent-task (save-excursion (org-back-to-heading 'invisible-ok) (point))))
+      (while (org-up-heading-safe)
+        (when (member (nth 2 (org-heading-components)) org-todo-keywords-1)
+          (setq parent-task (point))))
+      (goto-char parent-task)
+      parent-task)))
+
+(defun bh/punch-in (arg)
+  "Start continuous clocking and set the default task to the
+selected task.  If no task is selected set the Organization task
+as the default task."
+  (interactive "p")
+  (setq bh/keep-clock-running t)
+  (if (equal major-mode 'org-agenda-mode)
+      ;;
+      ;; We're in the agenda
+      ;;
+      (let* ((marker (org-get-at-bol 'org-hd-marker))
+             (tags (org-with-point-at marker (org-get-tags-at))))
+        (if (and (eq arg 4) tags)
+            (org-agenda-clock-in '(16))
+          (bh/clock-in-organization-task-as-default)))
+    ;;
+    ;; We are not in the agenda
+    ;;
+    (save-restriction
+      (widen)
+      ; Find the tags on the current task
+      (if (and (equal major-mode 'org-mode) (not (org-before-first-heading-p)) (eq arg 4))
+          (org-clock-in '(16))
+        (bh/clock-in-organization-task-as-default)))))
+
+(defun bh/punch-out ()
+  (interactive)
+  (setq bh/keep-clock-running nil)
+  (when (org-clock-is-active)
+    (org-clock-out))
+  (org-agenda-remove-restriction-lock))
+
+(defun bh/clock-in-default-task ()
+  (save-excursion
+    (org-with-point-at org-clock-default-task
+      (org-clock-in))))
+
+(defun bh/clock-in-parent-task ()
+  "Move point to the parent (project) task if any and clock in"
+  (let ((parent-task))
+    (save-excursion
+      (save-restriction
+        (widen)
+        (while (and (not parent-task) (org-up-heading-safe))
+          (when (member (nth 2 (org-heading-components)) org-todo-keywords-1)
+            (setq parent-task (point))))
+        (if parent-task
+            (org-with-point-at parent-task
+              (org-clock-in))
+          (when bh/keep-clock-running
+            (bh/clock-in-default-task)))))))
+
+(defvar bh/organization-task-id "eb155a82-92b2-4f25-a3c6-0304591af2f9")
+
+(defun bh/clock-in-organization-task-as-default ()
+  (interactive)
+  (org-with-point-at (org-id-find bh/organization-task-id 'marker)
+    (org-clock-in '(16))))
+
+(defun bh/clock-out-maybe ()
+  (when (and bh/keep-clock-running
+             (not org-clock-clocking-in)
+             (marker-buffer org-clock-default-task)
+             (not org-clock-resolving-clocks-due-to-idleness))
+    (bh/clock-in-parent-task)))
+
+(defun bh/clock-in-task-by-id (id)
+  "Clock in a task by id"
+  (org-with-point-at (org-id-find id 'marker)
+    (org-clock-in nil)))
+
+(defun bh/clock-in-last-task (arg)
+  "Clock in the interrupted task if there is one
+Skip the default task and get the next one.
+A prefix arg forces clock in of the default task."
+  (interactive "p")
+  (let ((clock-in-to-task
+         (cond
+          ((eq arg 4) org-clock-default-task)
+          ((and (org-clock-is-active)
+                (equal org-clock-default-task (cadr org-clock-history)))
+           (caddr org-clock-history))
+          ((org-clock-is-active) (cadr org-clock-history))
+          ((equal org-clock-default-task (car org-clock-history)) (cadr org-clock-history))
+          (t (car org-clock-history)))))
+    (widen)
+    (org-with-point-at clock-in-to-task
+      (org-clock-in nil))))
 (defun bh/is-project-p ()
   "Any task with a todo keyword subtask"
   (save-restriction
@@ -757,119 +751,339 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
         nil
       next-headline)))
 
-(defun bh/clock-in-to-next (kw)
-  "Switch a task from TODO to NEXT when clocking in.
-Skips capture tasks, projects, and subprojects.
-Switch projects and subprojects from NEXT back to TODO"
-  (when (not (and (boundp 'org-capture-mode) org-capture-mode))
-    (cond
-     ((and (member (org-get-todo-state) (list "TODO"))
-           (bh/is-task-p))
-      "NEXT")
-     ((and (member (org-get-todo-state) (list "NEXT"))
-           (bh/is-project-p))
-      "TODO"))))
 
-(defun bh/find-project-task ()
-  "Move point to the parent (project) task if any"
+(defun bh/skip-non-archivable-tasks ()
+  "Skip trees that are not available for archiving"
   (save-restriction
     (widen)
-    (let ((parent-task (save-excursion (org-back-to-heading 'invisible-ok) (point))))
-      (while (org-up-heading-safe)
-        (when (member (nth 2 (org-heading-components)) org-todo-keywords-1)
-          (setq parent-task (point))))
-      (goto-char parent-task)
-      parent-task)))
+    ;; Consider only tasks with done todo headings as archivable candidates
+    (let ((next-headline (save-excursion (or (outline-next-heading) (point-max))))
+          (subtree-end (save-excursion (org-end-of-subtree t))))
+      (if (member (org-get-todo-state) org-todo-keywords-1)
+          (if (member (org-get-todo-state) org-done-keywords)
+              (let* ((daynr (string-to-int (format-time-string "%d" (current-time))))
+                     (a-month-ago (* 60 60 24 (+ daynr 1)))
+                     (last-month (format-time-string "%Y-%m-" (time-subtract (current-time) (seconds-to-time a-month-ago))))
+                     (this-month (format-time-string "%Y-%m-" (current-time)))
+                     (subtree-is-current (save-excursion
+                                           (forward-line 1)
+                                           (and (< (point) subtree-end)
+                                                (re-search-forward (concat last-month "\\|" this-month) subtree-end t)))))
+                (if subtree-is-current
+                    subtree-end ; Has a date in this month or last month, skip it
+                  nil))  ; available to archive
+            (or subtree-end (point-max)))
+        next-headline))))
+(defun bh/display-inline-images ()
+  (condition-case nil
+      (org-display-inline-images)
+    (error nil)))
 
-(defun bh/punch-in (arg)
-  "Start continuous clocking and set the default task to the
-selected task.  If no task is selected set the Organization task
-as the default task."
-  (interactive "p")
-  (setq bh/keep-clock-running t)
-  (if (equal major-mode 'org-agenda-mode)
-      ;;
-      ;; We're in the agenda
-      ;;
-      (let* ((marker (org-get-at-bol 'org-hd-marker))
-             (tags (org-with-point-at marker (org-get-tags-at))))
-        (if (and (eq arg 4) tags)
-            (org-agenda-clock-in '(16))
-          (bh/clock-in-organization-task-as-default)))
-    ;;
-    ;; We are not in the agenda
-    ;;
-    (save-restriction
-      (widen)
-      ; Find the tags on the current task
-      (if (and (equal major-mode 'org-mode) (not (org-before-first-heading-p)) (eq arg 4))
-          (org-clock-in '(16))
-        (bh/clock-in-organization-task-as-default)))))
-
-(defun bh/punch-out ()
+(defun bh/save-then-publish (&optional force)
+  (interactive "P")
+  (save-buffer)
+  (org-save-all-org-buffers)
+  (let ((org-html-head-extra)
+        (org-html-validation-link "<a href=\"http://validator.w3.org/check?uri=referer\">Validate XHTML 1.0</a>"))
+    (org-publish-current-project force)))
+(defun bh/org-agenda-to-appt ()
   (interactive)
-  (setq bh/keep-clock-running nil)
-  (when (org-clock-is-active)
-    (org-clock-out))
-  (org-agenda-remove-restriction-lock))
+  (setq appt-time-msg-list nil)
+  (org-agenda-to-appt))
 
-(defun bh/clock-in-default-task ()
+(defun bh/org-todo (arg)
+  (interactive "p")
+  (if (equal arg 4)
+      (save-restriction
+        (bh/narrow-to-org-subtree)
+        (org-show-todo-tree nil))
+    (bh/narrow-to-org-subtree)
+    (org-show-todo-tree nil)))
+
+(defun bh/widen ()
+  (interactive)
+  (if (equal major-mode 'org-agenda-mode)
+      (progn
+        (org-agenda-remove-restriction-lock)
+        (when org-agenda-sticky
+          (org-agenda-redo)))
+    (widen)))
+(defun bh/restrict-to-file-or-follow (arg)
+  "Set agenda restriction to 'file or with argument invoke follow mode.
+I don't use follow mode very often but I restrict to file all the time
+so change the default 'F' binding in the agenda to allow both"
+  (interactive "p")
+  (if (equal arg 4)
+      (org-agenda-follow-mode)
+    (widen)
+    (bh/set-agenda-restriction-lock 4)
+    (org-agenda-redo)
+    (beginning-of-buffer)))
+(defun bh/narrow-to-org-subtree ()
+  (widen)
+  (org-narrow-to-subtree)
+  (save-restriction
+    (org-agenda-set-restriction-lock)))
+
+(defun bh/narrow-to-subtree ()
+  (interactive)
+  (if (equal major-mode 'org-agenda-mode)
+      (progn
+        (org-with-point-at (org-get-at-bol 'org-hd-marker)
+          (bh/narrow-to-org-subtree))
+        (when org-agenda-sticky
+          (org-agenda-redo)))
+    (bh/narrow-to-org-subtree)))
+(defun bh/narrow-up-one-org-level ()
+  (widen)
   (save-excursion
-    (org-with-point-at org-clock-default-task
-      (org-clock-in))))
+    (outline-up-heading 1 'invisible-ok)
+    (bh/narrow-to-org-subtree)))
 
-(defun bh/clock-in-parent-task ()
-  "Move point to the parent (project) task if any and clock in"
-  (let ((parent-task))
+(defun bh/get-pom-from-agenda-restriction-or-point ()
+  (or (and (marker-position org-agenda-restrict-begin) org-agenda-restrict-begin)
+      (org-get-at-bol 'org-hd-marker)
+      (and (equal major-mode 'org-mode) (point))
+      org-clock-marker))
+
+(defun bh/narrow-up-one-level ()
+  (interactive)
+  (if (equal major-mode 'org-agenda-mode)
+      (progn
+        (org-with-point-at (bh/get-pom-from-agenda-restriction-or-point)
+          (bh/narrow-up-one-org-level))
+        (org-agenda-redo))
+    (bh/narrow-up-one-org-level)))
+
+(defun bh/narrow-to-org-project ()
+  (widen)
+  (save-excursion
+    (bh/find-project-task)
+    (bh/narrow-to-org-subtree)))
+
+(defun bh/narrow-to-project ()
+  (interactive)
+  (if (equal major-mode 'org-agenda-mode)
+      (progn
+        (org-with-point-at (bh/get-pom-from-agenda-restriction-or-point)
+          (bh/narrow-to-org-project)
+          (save-excursion
+            (bh/find-project-task)
+            (org-agenda-set-restriction-lock)))
+        (org-agenda-redo)
+        (beginning-of-buffer))
+    (bh/narrow-to-org-project)
+    (save-restriction
+      (org-agenda-set-restriction-lock))))
+
+
+(defvar bh/project-list nil)
+
+(defun bh/view-next-project ()
+  (interactive)
+  (let (num-project-left current-project)
+    (unless (marker-position org-agenda-restrict-begin)
+      (goto-char (point-min))
+      ; Clear all of the existing markers on the list
+      (while bh/project-list
+        (set-marker (pop bh/project-list) nil))
+      (re-search-forward "Tasks to Refile")
+      (forward-visible-line 1))
+
+    ; Build a new project marker list
+    (unless bh/project-list
+      (while (< (point) (point-max))
+        (while (and (< (point) (point-max))
+                    (or (not (org-get-at-bol 'org-hd-marker))
+                        (org-with-point-at (org-get-at-bol 'org-hd-marker)
+                          (or (not (bh/is-project-p))
+                              (bh/is-project-subtree-p)))))
+          (forward-visible-line 1))
+        (when (< (point) (point-max))
+          (add-to-list 'bh/project-list (copy-marker (org-get-at-bol 'org-hd-marker)) 'append))
+        (forward-visible-line 1)))
+
+    ; Pop off the first marker on the list and display
+    (setq current-project (pop bh/project-list))
+    (when current-project
+      (org-with-point-at current-project
+        (setq bh/hide-scheduled-and-waiting-next-tasks nil)
+        (bh/narrow-to-project))
+      ; Remove the marker
+      (setq current-project nil)
+      (org-agenda-redo)
+      (beginning-of-buffer)
+      (setq num-projects-left (length bh/project-list))
+      (if (> num-projects-left 0)
+          (message "%s projects left to view" num-projects-left)
+        (beginning-of-buffer)
+        (setq bh/hide-scheduled-and-waiting-next-tasks t)
+        (error "All projects viewed.")))))
+
+(defun bh/set-agenda-restriction-lock (arg)
+  "Set restriction lock to current task subtree or file if prefix is specified"
+  (interactive "p")
+  (let* ((pom (bh/get-pom-from-agenda-restriction-or-point))
+         (tags (org-with-point-at pom (org-get-tags-at))))
+    (let ((restriction-type (if (equal arg 4) 'file 'subtree)))
+      (save-restriction
+        (cond
+         ((and (equal major-mode 'org-agenda-mode) pom)
+          (org-with-point-at pom
+            (org-agenda-set-restriction-lock restriction-type))
+          (org-agenda-redo))
+         ((and (equal major-mode 'org-mode) (org-before-first-heading-p))
+          (org-agenda-set-restriction-lock 'file))
+         (pom
+          (org-with-point-at pom
+            (org-agenda-set-restriction-lock restriction-type))))))))
+
+(defun bh/agenda-sort (a b)
+  "Sorting strategy for agenda items.
+Late deadlines first, then scheduled, then non-late deadlines"
+  (let (result num-a num-b)
+    (cond
+     ; time specific items are already sorted first by org-agenda-sorting-strategy
+
+     ; non-deadline and non-scheduled items next
+     ((bh/agenda-sort-test 'bh/is-not-scheduled-or-deadline a b))
+
+     ; deadlines for today next
+     ((bh/agenda-sort-test 'bh/is-due-deadline a b))
+
+     ; late deadlines next
+     ((bh/agenda-sort-test-num 'bh/is-late-deadline '> a b))
+
+     ; scheduled items for today next
+     ((bh/agenda-sort-test 'bh/is-scheduled-today a b))
+
+     ; late scheduled items next
+     ((bh/agenda-sort-test-num 'bh/is-scheduled-late '> a b))
+
+     ; pending deadlines last
+     ((bh/agenda-sort-test-num 'bh/is-pending-deadline '< a b))
+
+     ; finally default to unsorted
+     (t (setq result nil)))
+    result))
+
+(defmacro bh/agenda-sort-test (fn a b)
+  "Test for agenda sort"
+  `(cond
+    ; if both match leave them unsorted
+    ((and (apply ,fn (list ,a))
+          (apply ,fn (list ,b)))
+     (setq result nil))
+    ; if a matches put a first
+    ((apply ,fn (list ,a))
+     (setq result -1))
+    ; otherwise if b matches put b first
+    ((apply ,fn (list ,b))
+     (setq result 1))
+    ; if none match leave them unsorted
+    (t nil)))
+
+(defmacro bh/agenda-sort-test-num (fn compfn a b)
+  `(cond
+    ((apply ,fn (list ,a))
+     (setq num-a (string-to-number (match-string 1 ,a)))
+     (if (apply ,fn (list ,b))
+         (progn
+           (setq num-b (string-to-number (match-string 1 ,b)))
+           (setq result (if (apply ,compfn (list num-a num-b))
+                            -1
+                          1)))
+       (setq result -1)))
+    ((apply ,fn (list ,b))
+     (setq result 1))
+    (t nil)))
+
+(defun bh/is-not-scheduled-or-deadline (date-str)
+  (and (not (bh/is-deadline date-str))
+       (not (bh/is-scheduled date-str))))
+
+(defun bh/is-due-deadline (date-str)
+  (string-match "Deadline:" date-str))
+
+(defun bh/is-late-deadline (date-str)
+  (string-match "\\([0-9]*\\) d\. ago:" date-str))
+
+(defun bh/is-pending-deadline (date-str)
+  (string-match "In \\([^-]*\\)d\.:" date-str))
+
+(defun bh/is-deadline (date-str)
+  (or (bh/is-due-deadline date-str)
+      (bh/is-late-deadline date-str)
+      (bh/is-pending-deadline date-str)))
+
+(defun bh/is-scheduled (date-str)
+  (or (bh/is-scheduled-today date-str)
+      (bh/is-scheduled-late date-str)))
+
+(defun bh/is-scheduled-today (date-str)
+  (string-match "Scheduled:" date-str))
+
+(defun bh/is-scheduled-late (date-str)
+  (string-match "Sched\.\\(.*\\)x:" date-str))
+
+
+
+
+(defun bh/show-org-agenda ()
+  (interactive)
+  (if org-agenda-sticky
+      (switch-to-buffer "*Org Agenda( )*")
+    (switch-to-buffer "*Org Agenda*"))
+  (delete-other-windows))
+
+
+(defvar bh/insert-inactive-timestamp t)
+
+(defun bh/toggle-insert-inactive-timestamp ()
+  (interactive)
+  (setq bh/insert-inactive-timestamp (not bh/insert-inactive-timestamp))
+  (message "Heading timestamps are %s" (if bh/insert-inactive-timestamp "ON" "OFF")))
+
+(defun bh/insert-inactive-timestamp ()
+  (interactive)
+  (org-insert-time-stamp nil t t nil nil nil))
+
+(defun bh/insert-heading-inactive-timestamp ()
+  (save-excursion
+    (when bh/insert-inactive-timestamp
+      (org-return)
+      (org-cycle)
+      (bh/insert-inactive-timestamp))))
+
+
+(defun bh/prepare-meeting-notes ()
+  "Prepare meeting notes for email
+   Take selected region and convert tabs to spaces, mark TODOs with leading >>>, and copy to kill ring for pasting"
+  (interactive)
+  (let (prefix)
     (save-excursion
       (save-restriction
-        (widen)
-        (while (and (not parent-task) (org-up-heading-safe))
-          (when (member (nth 2 (org-heading-components)) org-todo-keywords-1)
-            (setq parent-task (point))))
-        (if parent-task
-            (org-with-point-at parent-task
-              (org-clock-in))
-          (when bh/keep-clock-running
-            (bh/clock-in-default-task)))))))
+        (narrow-to-region (region-beginning) (region-end))
+        (untabify (point-min) (point-max))
+        (goto-char (point-min))
+        (while (re-search-forward "^\\( *-\\\) \\(TODO\\|DONE\\): " (point-max) t)
+          (replace-match (concat (make-string (length (match-string 1)) ?>) " " (match-string 2) ": ")))
+        (goto-char (point-min))
+        (kill-ring-save (point-min) (point-max))))))
 
-(defvar bh/organization-task-id "eb155a82-92b2-4f25-a3c6-0304591af2f9")
-
-(defun bh/clock-in-organization-task-as-default ()
+(defun bh/mark-next-parent-tasks-todo ()
+  "Visit each parent task and change NEXT states to TODO"
+  (let ((mystate (or (and (fboundp 'org-state)
+                          state)
+                     (nth 2 (org-heading-components)))))
+    (when mystate
+      (save-excursion
+        (while (org-up-heading-safe)
+          (when (member (nth 2 (org-heading-components)) (list "NEXT"))
+            (org-todo "TODO")))))))
+(defun bh/mail-subtree ()
   (interactive)
-  (org-with-point-at (org-id-find bh/organization-task-id 'marker)
-    (org-clock-in '(16))))
-
-(defun bh/clock-out-maybe ()
-  (when (and bh/keep-clock-running
-             (not org-clock-clocking-in)
-             (marker-buffer org-clock-default-task)
-             (not org-clock-resolving-clocks-due-to-idleness))
-    (bh/clock-in-parent-task)))
-
-(require 'org-id)
-(defun bh/clock-in-task-by-id (id)
-  "Clock in a task by id"
-  (org-with-point-at (org-id-find id 'marker)
-    (org-clock-in nil)))
-
-(defun bh/clock-in-last-task (arg)
-  "Clock in the interrupted task if there is one
-Skip the default task and get the next one.
-A prefix arg forces clock in of the default task."
-  (interactive "p")
-  (let ((clock-in-to-task
-         (cond
-          ((eq arg 4) org-clock-default-task)
-          ((and (org-clock-is-active)
-                (equal org-clock-default-task (cadr org-clock-history)))
-           (caddr org-clock-history))
-          ((org-clock-is-active) (cadr org-clock-history))
-          ((equal org-clock-default-task (car org-clock-history)) (cadr org-clock-history))
-          (t (car org-clock-history)))))
-    (widen)
-    (org-with-point-at clock-in-to-task
-      (org-clock-in nil))))
-
+  (org-mark-subtree)
+  (org-mime-subtree))
 
 (provide 'init-functions)

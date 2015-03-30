@@ -113,3 +113,6 @@
 (require 'init-clojure)
 
 (require 'init-keys)
+
+(appt-activate t)
+(bh/org-agenda-to-appt)

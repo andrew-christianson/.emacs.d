@@ -1,7 +1,7 @@
 (source "melpa" "http://melpa.milkbox.net/packages/")
 (source gnu)
 (source marmalade)
-
+(source "org" "http://orgmode.org/elpa/")
 (depends-on "ac-c-headers")
 (depends-on "ac-cider")
 (depends-on "ac-clang")
@@ -106,6 +106,8 @@
 (depends-on "merlin")
 (depends-on "multiple-cursors")
 (depends-on "neotree")
+(depends-on "org-plus-contrib")
+(depends-on "org-jira")
 (depends-on "package-build")
 (depends-on "pallet")
 (depends-on "paredit")
