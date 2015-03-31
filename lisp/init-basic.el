@@ -1,7 +1,7 @@
 (setq backup-directory-alist `(("." . "~/.saves"))
       ;; Autosave to home dir
-      auto-save-file-name-transforms `((".*" ,"~/.saves" t))
-      ;; No .# files - just be sure to only have one emacs server at a
+      auto-save-file-name-transforms `(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'" "~/.autosaves" t))
+          ;; No .# files - just be sure to only have one emacs server at a
       ;; time.
       create-lockfiles nil
       backup-by-copying t
