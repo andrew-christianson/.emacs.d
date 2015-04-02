@@ -13,9 +13,9 @@
       jedi:get-in-function-call-delay 250
       jedi:get-in-function-call-timeout 10000
       flycheck-checker-error-threshold 2000
-      pymacs-load-path '("/home/andrew/.emacs.d/rope"
-                         "/home/andrew/.emacs.d/ropemacs"
-                         "/home/andrew/.emacs.d/ropemode")
+      pymacs-load-path '("~/.emacs.d/rope"
+                         "~/.emacs.d/ropemacs"
+                         "~/.emacs.d/ropemode")
       )
 
 (defun load-ropemacs ()
