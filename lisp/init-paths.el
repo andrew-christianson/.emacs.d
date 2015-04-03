@@ -14,10 +14,10 @@
 
 
 (if (eq system-type 'windows-nt)
-    (setq find-program "C:\\Users\\andrew.christianson\\GOOGLE~1\\Dropbox\\cmder\\vendor\\msysgit\\bin\\find.exe")
+    (setq find-program "\\mingw\\msys\\1.0\\bin\\find.exe")
     )
 (if (eq system-type 'windows-nt)
-  (add-to-list 'exec-path "C:/Users/andrew.christianson/GOOGLE~1/Dropbox/cmder/gpg/pub")
+  (add-to-list 'exec-path "\\Users\\andrew.christianson\\Dropbox\\cmder\\gpg\\pub")
   )
 (if (eq system-type 'window-nt)
     (setq magit-git-executable "c:/PROGRA~2/Git/bin/git.exe"

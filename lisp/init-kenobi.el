@@ -27,19 +27,19 @@
   (let ((buffer-dir (file-name-directory buffer-name)))
     ;; Also detect any virtualenvs in .venv* directories
     (while (and (or
-		 (not
-		  (or (file-exists-p (concat buffer-dir "bin/activate"))
-		      (file-expand-wildcards (concat buffer-dir ".venv*")))))
+                 (not
+                  (or (file-exists-p (concat buffer-dir "bin/activate"))
+                      (file-expand-wildcards (concat buffer-dir ".venv*")))))
                 buffer-dir)
       (setq buffer-dir
-        (if (equal buffer-dir "/")
-            nil
-            (file-name-directory (directory-file-name buffer-dir))
-            ))
+            (if (equal buffer-dir "/")
+                nil
+              (file-name-directory (directory-file-name buffer-dir))
+              ))
       )
     ;; return the buffer-dir (or nil)
     (if (file-exists-p (concat buffer-dir "bin/activate"))
-	buffer-dir
+        buffer-dir
       (car (file-expand-wildcards (concat buffer-dir ".venv*")))
       )
     )
@@ -56,15 +56,15 @@
                 buffer-dir
                 )
       (setq buffer-dir
-        (if (equal buffer-dir "/")
-            nil
-            (file-name-directory (directory-file-name buffer-dir))
+            (if (equal buffer-dir "/")
+                nil
+              (file-name-directory (directory-file-name buffer-dir))
+              )
             )
-        )
       )
     (if buffer-dir
         (directory-files (concat buffer-dir "eggs") t ".\.egg")
-        nil
+      nil
       )
     )
   )
@@ -87,7 +87,7 @@
   (make-local-variable 'additional_paths)
   (when additional_paths
     (dolist (path additional_paths)
-        (set 'jedi:server-args (append jedi:server-args (list "--sys-path" path)))
+      (set 'jedi:server-args (append jedi:server-args (list "--sys-path" path)))
       ))
   )
 
@@ -98,14 +98,14 @@
 
 (defun setup-flycheck-venv ()
   (let (
-	(venv (detect_buffer_venv buffer-file-name))
-	)
+        (venv (detect_buffer_venv buffer-file-name))
+        )
     (if venv
-	(let (
-	      (exec-path (cons (concat venv "/bin") exec-path))
-	      )
-	  (setup-flycheck-execs)
-	  )
+        (let (
+              (exec-path (cons (concat venv "/bin") exec-path))
+              )
+          (setup-flycheck-execs)
+          )
       (setup-flycheck-execs)
       )
     )
@@ -115,10 +115,10 @@
 
 (defun setup-virtualenv-path ()
   (let (
-	(venv (detect_buffer_venv buffer-file-name))
-	)
+        (venv (detect_buffer_venv buffer-file-name))
+        )
     (if venv
-	(setq-local python-shell-virtualenv-path venv)
+        (setq-local python-shell-virtualenv-path venv)
       )
     )
   )
