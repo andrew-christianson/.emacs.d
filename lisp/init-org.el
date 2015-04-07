@@ -8,6 +8,7 @@
  org-default-notes-file (concat org-directory "notes/" "notes.org")
  org-agenda-files (list (concat org-directory "agendas")
                         (concat org-directory "inbox.org")
+                        (concat org-directory "notes/" "ideas.org")
                         (concat org-directory "notes")))
 
 (setq org-todo-keywords
@@ -746,6 +747,11 @@
 (run-at-time "24:01" nil 'bh/org-agenda-to-appt)
 (run-at-time "06:00" 86400 '(lambda () (setq org-habit-show-habits t)))
 (add-hook 'org-mode-hook (lambda () (abbrev-mode 1)))
+(add-hook 'org-mode-hook 'auto-fill-mode)
+(add-hook 'org-mode-hook (lambda ()
+                           (require 'langtool)
+                           (setq langtool-language-tool-jar
+                                 "~/Dropbox/LanguageTool-2.9/languagetool.jar")))
 (add-hook 'org-agenda-mode-hook
           '(lambda ()
              (org-defkey
@@ -774,8 +780,6 @@
 (add-hook 'org-agenda-mode-hook
           '(lambda () (org-defkey org-agenda-mode-map "\C-c\C-x<" 'bh/set-agenda-restriction-lock))
           'append)
-
-
 (add-hook 'org-after-todo-state-change-hook 'bh/mark-next-parent-tasks-todo 'append)
 (add-hook 'org-clock-in-hook 'bh/mark-next-parent-tasks-todo 'append)
 
@@ -783,7 +787,6 @@
 (add-hook 'message-mode-hook 'turn-on-auto-fill 'append)
 (add-hook 'message-mode-hook 'bbdb-define-all-aliases 'append)
 (add-hook 'message-mode-hook 'orgtbl-mode 'append)
-(add-hook 'message-mode-hook 'turn-on-flyspell 'append)
 (add-hook 'message-mode-hook
           '(lambda () (setq fill-column 72))
           'append)

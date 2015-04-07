@@ -41,7 +41,8 @@
 (fringe-mode 4)
 
 (if (or (eq system-type 'windows-nt)
-	(eq system-type 'darwin))
+        (eq system-type 'darwin))
+
     (set-face-attribute 'default nil
 			:family "Droid Sans Mono for Powerline"
 			:height (if (eq system-type 'windows-nt) 90 110)
@@ -67,4 +68,11 @@
 ;; (set-face-background 'fringe "gray15")
 (smartparens-global-mode)
 
+(setq powerline-default-separator-dir '(right . left))
+;; These two lines you really need.
+(setq sml/theme 'powerline)
+(sml/setup)
+
+;; (rich-minority-mode 'toggle)
+(setq rm-blacklist '("Auto-Complete" "helm" "Git-Gutter" "Projectile" "Smartparens"))
 (provide 'init-visual)
