@@ -10,7 +10,7 @@
 
 
 ;; My Custom Keymaps
-(global-set-key (kbd "C-D") 'kill-whole-line)
+(global-set-key (kbd "C-S-d") 'kill-whole-line)
 (global-set-key (kbd "M-a") 'align)
 
 (global-set-key (kbd "C-c d m g") 'split-window-multiple-ways)

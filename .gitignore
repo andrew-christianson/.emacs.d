@@ -13,3 +13,6 @@ projectile.cache
 recentf
 async-bytecomp.log
 abbrev_defs
+org-clock-save.el
+.org-id-*
+tramp
