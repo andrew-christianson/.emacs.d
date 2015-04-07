@@ -130,6 +130,7 @@
 (depends-on "slime")
 (depends-on "slime-theme")
 (depends-on "smart-mode-line")
+(depends-on "smart-mode-line-powerline-theme")
 (depends-on "smartparens")
 (depends-on "smooth-scrolling")
 (depends-on "smyx-theme")

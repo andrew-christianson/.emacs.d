@@ -1,6 +1,5 @@
 (hlinum-activate)
 (global-hl-line-mode 1)
-
 ; don't blink the cursor
 (blink-cursor-mode nil)
 
@@ -63,14 +62,22 @@
 (setq calendar-latitude 34.04)
 (setq calendar-longitude -118.25)
 ;; (change-theme 'my-spolsky 'my-spolsky)
-(if window-system (load-theme 'material))
+(if window-system (load-theme 'my-material))
 ;; (set-face-background hl-line-face "darkslategrey")
 ;; (set-face-background 'fringe "gray15")
 (smartparens-global-mode)
 
 (setq powerline-default-separator-dir '(right . left))
 ;; These two lines you really need.
-(setq sml/theme 'powerline)
+(setq sml/theme 'powerline
+      sml/name-width 50
+      sml/mode-width 'full
+      sml/shorten-directory t
+      sml/shorten-modes t
+      sml/vc-mode-show-backend t
+      )
+(setq rm-exclude-modes '("AC" "Helm" "GitGutter" "Projectile" "Smartparens"))
+(setq mode-line-in-non-selected-windows nil)
 (sml/setup)
 
 ;; (rich-minority-mode 'toggle)
