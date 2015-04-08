@@ -3,7 +3,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-)
+ '(custom-safe-themes
+   (quote
+    ("f0b0710b7e1260ead8f7808b3ee13c3bb38d45564e369cbe15fc6d312f0cd7a0" "82bd95b23e7983161a77cc1e9fd66c2e5998f197ead810aac9ef76d13f3e26cb" default))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

@@ -46,15 +46,15 @@
 
 
 ;; These NEED to be redefined for me.
-(define-key paredit-mode-map (kdb "C-<right>") nil)
-(define-key paredit-mode-map (kdb "C-<left>") nil)
-(define-key paredit-mode-map (kdb "C-M-<right>") nil)
-(define-key paredit-mode-map (kdb "C-M-<left>") nil)
+(define-key paredit-mode-map (kbd "C-<right>") nil)
+(define-key paredit-mode-map (kbd "C-<left>") nil)
+(define-key paredit-mode-map (kbd "C-M-<right>") nil)
+(define-key paredit-mode-map (kbd "C-M-<left>") nil)
 
-(define-key paredit-mode-map (kdb "C-<right>") paredit-forward-slurp-sexp)
-(define-key paredit-mode-map (kdb "C-<left>") paredit-backward-slurp-sexp)
-(define-key paredit-mode-map (kdb "C-M-<right>") paredit-forward-barf-sexp)
-(define-key paredit-mode-map (kdb "C-M-<left>") paredit-backward-barf-sexp)
+(define-key paredit-mode-map (kbd "C-<right>") 'paredit-forward-slurp-sexp)
+(define-key paredit-mode-map (kbd "C-<left>") 'paredit-backward-slurp-sexp)
+(define-key paredit-mode-map (kbd "C-M-<right>") 'paredit-forward-barf-sexp)
+(define-key paredit-mode-map (kbd "C-M-<left>") 'paredit-backward-barf-sexp)
 
 (defun dont-kill-my-keys ()
   (define-key paredit-mode-map (kbd "M-;") nil)
@@ -62,4 +62,4 @@
 
 (add-hook 'paredit-mode-hook 'dont-kill-my-keys)
 
- (provide 'init-paredit)
+(provide 'init-paredit)
