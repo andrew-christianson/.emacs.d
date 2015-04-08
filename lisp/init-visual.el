@@ -67,12 +67,12 @@
 ;; (set-face-background 'fringe "gray15")
 (smartparens-global-mode)
 
-(setq powerline-default-separator-dir '(right . left))
+;; (setq powerline-default-separator-dir '(right . left))
 ;; These two lines you really need.
 (setq sml/theme 'powerline
-      sml/name-width 50
-      sml/mode-width 'full
-      sml/shorten-directory t
+      sml/name-width 40
+      sml/mode-width 40
+      sml/shorten-directory nil
       sml/shorten-modes t
       sml/vc-mode-show-backend t
       )

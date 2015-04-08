@@ -11,7 +11,9 @@
 
 ;; My Custom Keymaps
 (global-set-key (kbd "C-S-d") 'kill-whole-line)
-(global-set-key (kbd "M-a") 'align)
+(global-set-key (kbd "M-a") nil)
+(global-set-key (kbd "M-a a") 'align)
+(global-set-key (kbd "M-a s") 'align-regexp)
 
 (global-set-key (kbd "C-c d m g") 'split-window-multiple-ways)
 (global-set-key (kbd "C-c d m t g") 'show-buffers-with-major-mode)
