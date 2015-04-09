@@ -16,6 +16,8 @@
 (depends-on "ac-math")
 (depends-on "ac-octave")
 (depends-on "ac-slime")
+(depends-on "ace-jump-buffer")
+(depends-on "ace-jump-mode")
 (depends-on "ag")
 (depends-on "anaconda-mode")
 (depends-on "auctex")

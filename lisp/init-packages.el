@@ -5,7 +5,7 @@
 			 ("org" . "http://orgmode.org/elpa/"))
       )
 (require 'cask "~/.cask/cask.el")
-(cask-initialize)			
+(cask-initialize)
 (require 'pallet)
 (pallet-mode t)
 (package-initialize)

@@ -1,13 +1,4 @@
-
-;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
-;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
-;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
-
-(add-hook 'eshell-mode-hook
-          #'(lambda ()
-              (define-key eshell-mode-map (kbd "C-c C-l")  'helm-eshell-history)))
-(when (executable-find "curl")
-  (setq helm-google-suggest-use-curl-p t))
+(add-to-list 'helm-sources-using-default-as-input 'helm-source-man-pages)
 
 (when (executable-find "ack-grep")
   (setq helm-grep-default-command "ack-grep -Hn --no-group --no-color %e %p %f"
@@ -57,5 +48,6 @@
       projectile-enable-caching t
       projectile-completion-system 'helm)
 (helm-projectile-on)
+
 
 (provide 'init-helm)

@@ -50,6 +50,7 @@
 (define-key paredit-mode-map (kbd "C-<left>") nil)
 (define-key paredit-mode-map (kbd "C-M-<right>") nil)
 (define-key paredit-mode-map (kbd "C-M-<left>") nil)
+
 (define-key paredit-mode-map (kbd "C-<right>") 'paredit-forward-slurp-sexp)
 (define-key paredit-mode-map (kbd "C-<left>") 'paredit-forward-barf-sexp)
 (define-key paredit-mode-map (kbd "C-M-<right>") 'paredit-backward-slurp-sexp)
