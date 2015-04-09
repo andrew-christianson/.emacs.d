@@ -67,7 +67,10 @@
   "Blah"
   (flycheck-mode 1)
   (flycheck-select-checker 'python-pylint)
+  (setq flycheck-check-syntax-automatically '(idle-change)
+        flycheck-idle-change-delay 2)
   )
+
 
 (defun smart-beginning-of-line (arg)
   "Move point to first non-whitespace character or beginning-of-line.

@@ -12,6 +12,7 @@
   )
 (add-hook 'R-mode-hook 'rdash)
 (add-hook 'ess-R-post-run-hook 'smartparens-mode)
+(add-hook 'R-mode-hook 'flycheck-mode)
 (setq ess-R-font-lock-keywords (quote
                                 ((ess-R-fl-keyword:modifiers . t)
                                  (ess-R-fl-keyword:fun-defs . t)
