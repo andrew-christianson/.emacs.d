@@ -45,15 +45,14 @@
   'paredit-wrap-round-from-behind)
 
 
-;; These NEED to be redefined for me.
+ ;; This keeps the standard mapping, but serves as a reference for me.
 (define-key paredit-mode-map (kbd "C-<right>") nil)
 (define-key paredit-mode-map (kbd "C-<left>") nil)
 (define-key paredit-mode-map (kbd "C-M-<right>") nil)
 (define-key paredit-mode-map (kbd "C-M-<left>") nil)
-
 (define-key paredit-mode-map (kbd "C-<right>") 'paredit-forward-slurp-sexp)
-(define-key paredit-mode-map (kbd "C-<left>") 'paredit-backward-slurp-sexp)
-(define-key paredit-mode-map (kbd "C-M-<right>") 'paredit-forward-barf-sexp)
+(define-key paredit-mode-map (kbd "C-<left>") 'paredit-forward-barf-sexp)
+(define-key paredit-mode-map (kbd "C-M-<right>") 'paredit-backward-slurp-sexp)
 (define-key paredit-mode-map (kbd "C-M-<left>") 'paredit-backward-barf-sexp)
 
 (defun dont-kill-my-keys ()
