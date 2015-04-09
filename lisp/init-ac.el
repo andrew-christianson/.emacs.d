@@ -21,7 +21,7 @@
       ac-show-menu-immediately-on-auto-complete t
       ac-candidate-limit nil
       ac-menu-height 10
-      ac-max-width 0.8
+      ac-max-width 0.3
       )
 ;; (setq-default ac-sources (append ac-sources '(ac-source-filename ac-source-yasnippet)))
 ;; don't wamt this.
@@ -34,7 +34,7 @@
 
 ;; (define-key ac-completing-map (kbd "TAB") 'ac-complete)
 (define-key ac-completing-map (kbd "C-h") 'ac-quick-help)
-(define-key ac-completing-map (kbd "C-S-c h") 'ac-complete-with-helm)
+(define-key ac-completing-map (kbd "C-c h") 'ac-complete-with-helm)
 (define-key ac-mode-map (kbd "C-S-c c") 'auto-complete)
 
 (global-auto-complete-mode)

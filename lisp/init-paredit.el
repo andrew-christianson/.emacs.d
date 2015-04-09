@@ -1,10 +1,5 @@
 ;; making paredit work with delete-selection-mode
-(put 'paredit-forward-delete 'delete-selection 'supersede)
-(put 'paredit-backward-delete 'delete-selection 'supersede)
-;; (put 'paredit-open-round 'delete-selection t)
-;; (put 'paredit-open-square 'delete-selection t)
-;; (put 'paredit-doublequote 'delete-selection t)
-(put 'paredit-newline 'delete-selection t)
+
 
 
 
@@ -43,9 +38,35 @@
 
 (define-key paredit-mode-map (kbd "M-)")
   'paredit-wrap-round-from-behind)
+
+
+ ;; This keeps the standard mapping, but serves as a reference for me.
+(define-key paredit-mode-map (kbd "C-<right>") nil)
+(define-key paredit-mode-map (kbd "C-<left>") nil)
+(define-key paredit-mode-map (kbd "C-M-<right>") nil)
+(define-key paredit-mode-map (kbd "C-M-<left>") nil)
+
+(define-key paredit-mode-map (kbd "C-<right>") 'paredit-forward-slurp-sexp)
+(define-key paredit-mode-map (kbd "C-<left>") 'paredit-forward-barf-sexp)
+(define-key paredit-mode-map (kbd "C-M-<right>") 'paredit-backward-slurp-sexp)
+(define-key paredit-mode-map (kbd "C-M-<left>") 'paredit-backward-barf-sexp)
+
+(define-key paredit-mode-map (kbd "M-C-<backspace>") 'backward-kill-sexp)
+
 (defun dont-kill-my-keys ()
   (define-key paredit-mode-map (kbd "M-;") nil)
   (define-key paredit-mode-map (kbd "C-S-d") nil))
-(add-hook 'paredit-mode-hook 'dont-kill-my-keys)
 
- (provide 'init-paredit)
+
+(add-hook 'paredit-mode-hook 'dont-kill-my-keys)
+(add-hook 'paredit-mode-hook '(lambda ()
+                                (put 'paredit-forward-delete 'delete-selection t)
+                                (put 'paredit-backward-delete 'delete-selection t)
+                                ;; (put 'paredit-open-round 'delete-selection t)
+                                ;; (put 'paredit-open-square 'delete-selection t)
+                                ;; (put 'paredit-doublequote 'delete-selection t)
+                                (put 'paredit-newline 'delete-selection t)
+                                (delete-selection-mode))
+          )
+
+(provide 'init-paredit)

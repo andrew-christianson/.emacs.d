@@ -10,9 +10,9 @@
       jedi:complete-on-dot t
       jedi:setup-keys t
       jedi:tooltip-method '(popup)
-      jedi:get-in-function-call-delay 250
+      jedi:get-in-function-call-delay 125
       jedi:get-in-function-call-timeout 10000
-      flycheck-checker-error-threshold 2000
+      flycheck-checker-error-threshold 10000
       pymacs-load-path '("~/.emacs.d/rope"
                          "~/.emacs.d/ropemacs"
                          "~/.emacs.d/ropemode")
@@ -24,7 +24,10 @@
   (require 'pymacs)
   (pymacs-load "ropemacs" "rope-")
   ;; Automatically save project python buffers before refactorings
-  (setq ropemacs-confirm-saving 'nil)
+  (setq ropemacs-confirm-saving nil
+        ropemacs-enable-autoimport t
+        ropemacs-guess-project t
+        )
   (ropemacs-mode)
   )
 

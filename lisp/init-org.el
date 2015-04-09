@@ -3,6 +3,7 @@
 (setq
  org-directory "~/Dropbox/org/"
  org-mobile-directory "~/Dropbox/org/mobile/")
+(setq ispell-dictionary  "english")
 (setq
  org-mobile-inbox-for-pull (concat org-directory "inbox.org")
  org-default-notes-file (concat org-directory "notes/" "notes.org")
