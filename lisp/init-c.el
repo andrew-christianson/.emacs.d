@@ -36,6 +36,9 @@
 ;; set appearance of a tab that is represented by 4 spaces
 (setq-default tab-width 4)
 
+(add-hook 'c-mode-hook 'flycheck-mode)
+(add-hook 'c++-mode-hook 'flycheck-mode)
+
 ;; Compilation
 (global-set-key (kbd "<f5>") (lambda ()
                                (interactive)

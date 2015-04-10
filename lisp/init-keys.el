@@ -11,7 +11,9 @@
 
 ;; My Custom Keymaps
 (global-set-key (kbd "C-S-d") 'kill-whole-line)
-(global-set-key (kbd "M-a") 'align)
+(global-set-key (kbd "M-a") nil)
+(global-set-key (kbd "M-a a") 'align)
+(global-set-key (kbd "M-a s") 'align-regexp)
 
 (global-set-key (kbd "C-c d m g") 'split-window-multiple-ways)
 (global-set-key (kbd "C-c d m t g") 'show-buffers-with-major-mode)
@@ -58,7 +60,7 @@
 
 (global-set-key (kbd "C-c e") 'eval-and-replace)
 
-(global-set-key (kbd "s-x") 'launch)
+(global-set-key (kbd "C-x x") 'launch)
 
 ;; Dictionary lookup
 
@@ -108,18 +110,37 @@
     (global-set-key (kbd "C-x b") 'helm-mini)
     (global-set-key (kbd "C-x C-f") 'helm-find-files)
     (global-set-key (kbd "M-y") 'helm-show-kill-ring)
+    (global-set-key (kbd "C-c h i") 'helm-semantic-or-imenu)
+    (global-set-key (kbd "C-c h /") 'helm-find)
+    (global-set-key (kbd "C-c h l") 'helm-locate)
+    (global-set-key (kbd "C-c h m") 'helm-man-woman)
+    (global-set-key (kbd "C-c h a") 'helm-apropos)
+    (global-set-key (kbd "C-c h b") 'helm-resume)
     (global-set-key (kbd "M-x") 'helm-M-x)
     (global-set-key (kbd "C-x C-m") 'helm-M-x)
     (global-set-key (kbd "C-c h o") 'helm-occur)
-    (global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
+    (global-set-key (kbd "C-c h SPC") 'helm-all-mark-rings)
     (global-set-key (kbd "C-c h g") 'helm-google-suggest)
     (global-set-key (kbd "C-c h P") 'helm-projectile)
+    (global-set-key (kbd "C-c h r") 'helm-regexp)
+    (global-set-key (kbd "C-c h x") 'helm-register)
+    (global-set-key (kbd "C-c h t") 'helm-top)
 
+    (global-set-key (kbd "C-c h M-:") 'helm-eval-expression-with-eldoc)
+    (global-set-key (kbd "C-h b") 'helm-descbinds)
+    (global-set-key (kbd "C-c h d") 'helm-dash)
+    (global-set-key (kbd "C-c h s") 'helm-surfraw)
+    (global-set-key (kbd "C-c h c") 'helm-color)
+    (global-set-key (kbd "C-c h C") 'helm-calcul-expression)
+
+    ;; helm for history EVERYWHERE
+    (add-hook 'eshell-mode-hook
+          #'(lambda ()
+              (define-key eshell-mode-map (kbd "C-c C-l")  'helm-eshell-history)))
     (define-key shell-mode-map (kbd "C-c C-l") 'helm-comint-input-ring)
     (define-key minibuffer-local-map (kbd "C-c C-l") 'helm-minibuffer-history)
-
-    (global-set-key (kbd "C-h b") 'helm-descbinds)
-    (global-set-key (kbd "C-c h d") 'helm-dash)))
+    )
+  )
 
 (eval-after-load 'helm-gtags
   (lambda ()
@@ -174,4 +195,33 @@
 ;;        #'(lambda nil (interactive) (org-todo "STARTED")))
 ;;      (define-key org-todo-state-map "w"
 ;;        #'(lambda nil (interactive) (org-todo "WAITING")))
+
+;; ace-jump
+
+;;
+;; ace jump mode major function
+;;
+(autoload
+  'ace-jump-mode
+  "ace-jump-mode"
+  "Emacs quick move minor mode"
+  t)
+;; you can select the key you prefer to
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+
+
+
+;;
+;; enable a more powerful jump back function from ace jump mode
+;;
+(autoload
+  'ace-jump-mode-pop-mark
+  "ace-jump-mode"
+  "Ace jump back:-)"
+  t)
+(eval-after-load "ace-jump-mode"
+  '(ace-jump-mode-enable-mark-sync))
+(define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
+(global-set-key (kbd "C-x C-g") 'magit-status)
+
 (provide 'init-keys)

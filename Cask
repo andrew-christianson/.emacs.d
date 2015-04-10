@@ -5,6 +5,7 @@
 
 (depends-on "ac-c-headers")
 (depends-on "ac-cider")
+(depends-on "langtool")
 (depends-on "ac-clang")
 (depends-on "ac-haskell-process")
 (depends-on "ac-helm")
@@ -15,6 +16,8 @@
 (depends-on "ac-math")
 (depends-on "ac-octave")
 (depends-on "ac-slime")
+(depends-on "ace-jump-buffer")
+(depends-on "ace-jump-mode")
 (depends-on "ag")
 (depends-on "anaconda-mode")
 (depends-on "auctex")
