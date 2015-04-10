@@ -113,6 +113,7 @@
 (depends-on "package-build")
 (depends-on "pallet")
 (depends-on "paredit")
+(depends-on "polymode")
 (depends-on "popup")
 (depends-on "pos-tip")
 (depends-on "powerline")
