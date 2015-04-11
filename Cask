@@ -111,6 +111,7 @@
 (depends-on "merlin")
 (depends-on "multiple-cursors")
 (depends-on "neotree")
+(depends-on "olivetti")
 (depends-on "org-jira")
 (depends-on "org-plus-contrib")
 (depends-on "package-build")
