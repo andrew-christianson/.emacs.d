@@ -38,9 +38,6 @@
 (require 'ox-latex)
 (require 'ox-ascii)
 
-
-
-
 (require 'paredit)
 (require 'wgrep)
 (require 'wdired)
@@ -51,4 +48,8 @@
 (require 'pp)
 (require 'package-helper)
 (require 'cal-dst)
+
+(require 'poly-markdown)
+(require 'poly-R)
+
 (provide 'init-packages)

@@ -12,6 +12,17 @@
   )
 (add-hook 'R-mode-hook 'rdash)
 (add-hook 'ess-R-post-run-hook 'smartparens-mode)
+
+
+;;; MARKDOWN
+(add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode))
+
+;;; R modes
+(add-to-list 'auto-mode-alist '("\\.Snw" . poly-noweb+r-mode))
+(add-to-list 'auto-mode-alist '("\\.Rnw" . poly-noweb+r-mode))
+(add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
+
+
 (add-hook 'R-mode-hook 'flycheck-mode)
 (setq ess-R-font-lock-keywords (quote
                                 ((ess-R-fl-keyword:modifiers . t)
@@ -26,4 +37,5 @@
                                  (ess-fl-keyword:= . t)
                                  (ess-R-fl-keyword:F&T . t)
                                  (ess-R-fl-keyword:%op% . t))))
+
 (provide 'init-R)
