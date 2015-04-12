@@ -15,8 +15,8 @@
 (global-set-key (kbd "M-a a") 'align)
 (global-set-key (kbd "M-a s") 'align-regexp)
 
-(global-set-key (kbd "C-c d m g") 'split-window-multiple-ways)
-(global-set-key (kbd "C-c d m t g") 'show-buffers-with-major-mode)
+(global-set-key (kbd "C-x 7 1") 'split-window-multiple-ways)
+(global-set-key (kbd "C-x 7 b") 'show-buffers-with-major-mode)
 (global-set-key [end] 'move-end-of-line)
 (global-set-key [home] 'smart-beginning-of-line)
 (global-set-key "\C-a" 'smart-beginning-of-line)
@@ -84,17 +84,16 @@
 
 (define-key process-menu-mode-map "k" 'process-menu-kill)
 
-;; pp
-
 ;; Help mode assistance
 
 (eval-after-load 'flycheck
-  '(define-key flycheck-mode-map (kbd "C-c h F") 'helm-flycheck))
+  '(define-key 'flycheck-mode-map (kbd "C-c h F") 'helm-flycheck))
 
 (eval-after-load 'zygospore
-  (global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows))
+  '(global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows))
 
-(global-set-key (kbd "s-f") 'er/expand-region)
+(eval-after-load 'expand-region
+  '(global-set-key (kbd "s-f") 'er/expand-region))
 
 (eval-after-load 'helm
   (lambda ()
@@ -135,8 +134,8 @@
 
     ;; helm for history EVERYWHERE
     (add-hook 'eshell-mode-hook
-          #'(lambda ()
-              (define-key eshell-mode-map (kbd "C-c C-l")  'helm-eshell-history)))
+              #'(lambda ()
+                  (define-key eshell-mode-map (kbd "C-c C-l")  'helm-eshell-history)))
     (define-key shell-mode-map (kbd "C-c C-l") 'helm-comint-input-ring)
     (define-key minibuffer-local-map (kbd "C-c C-l") 'helm-minibuffer-history)
     )
@@ -158,7 +157,7 @@
     (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
     (global-set-key (kbd "C->") 'mc/mark-next-like-this)
     (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-    (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)))
+    (global-set-key (kbd "C-c C->") 'mc/mark-all-like-this)))
 
 (eval-after-load 'haskell-mode '(progn
   (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
@@ -221,7 +220,10 @@
   t)
 (eval-after-load "ace-jump-mode"
   '(ace-jump-mode-enable-mark-sync))
+
 (define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
-(global-set-key (kbd "C-x C-g") 'magit-status)
+
+(eval-after-load 'magit
+  '(global-set-key (kbd "C-x C-g") 'magit-status))
 
 (provide 'init-keys)

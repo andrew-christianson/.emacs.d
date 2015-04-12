@@ -6,7 +6,7 @@
  '(create-lockfiles nil)
  '(custom-safe-themes
    (quote
-    ("aa2672c9bff3c5d16290e0e4df8237f53f008ee8d7b1950fc2fa99656898ea26" "f0b0710b7e1260ead8f7808b3ee13c3bb38d45564e369cbe15fc6d312f0cd7a0" "82bd95b23e7983161a77cc1e9fd66c2e5998f197ead810aac9ef76d13f3e26cb" default))))
+    ("e56f1b1c1daec5dbddc50abd00fcd00f6ce4079f4a7f66052cf16d96412a09a9" "aa2672c9bff3c5d16290e0e4df8237f53f008ee8d7b1950fc2fa99656898ea26" "f0b0710b7e1260ead8f7808b3ee13c3bb38d45564e369cbe15fc6d312f0cd7a0" "82bd95b23e7983161a77cc1e9fd66c2e5998f197ead810aac9ef76d13f3e26cb" default))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
