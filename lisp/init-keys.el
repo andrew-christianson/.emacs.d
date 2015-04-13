@@ -87,7 +87,7 @@
 ;; Help mode assistance
 
 (eval-after-load 'flycheck
-  '(define-key 'flycheck-mode-map (kbd "C-c h F") 'helm-flycheck))
+  '(define-key flycheck-mode-map (kbd "C-c h F") 'helm-flycheck))
 
 (eval-after-load 'zygospore
   '(global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows))

@@ -16,6 +16,7 @@
 (require 'ess-site)
 (require 'ess-smart-underscore)
 (require 'flycheck)
+(require 'pos-tip)
 
 ;; Smooth scrolling
 ;; due to http://stackoverflow.com/a/4160949/881025

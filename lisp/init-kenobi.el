@@ -24,13 +24,14 @@
 
 (defun detect_buffer_venv (buffer-name)
 
-  (let ((buffer-dir (file-name-directory buffer-name)))
+  (let ((buffer-dir (file-name-directory buffer-name))
+        (venv-exec-dir (if (eq system-type 'windows-nt) "Scripts" "bin")))
     ;; Also detect any virtualenvs in .venv* directories
     (while (and (or
                  (not
-                  (or (file-exists-p (concat buffer-dir "bin/activate"))
-                      (file-expand-wildcards (concat buffer-dir ".venv*")))))
-                buffer-dir)
+                  (or (file-exists-p (concat buffer-dir venv-exec-dir "/" "activate"))
+                      (file-expand-wildcards (concat buffer-dir ".venv*"))))
+                 buffer-dir))
       (setq buffer-dir
             (if (equal buffer-dir "/")
                 nil

@@ -76,6 +76,7 @@
       sml/shorten-modes t
       sml/vc-mode-show-backend t
       )
+
 (setq rm-exclude-modes '("AC" "Helm" "GitGutter" "Projectile" "Smartparens"))
 (setq mode-line-in-non-selected-windows nil)
 (sml/setup)

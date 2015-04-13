@@ -9,7 +9,7 @@
 
       jedi:complete-on-dot t
       jedi:setup-keys t
-      jedi:tooltip-method '(popup)
+      jedi:tooltip-method '(pos-tip)
       jedi:get-in-function-call-delay 125
       jedi:get-in-function-call-timeout 10000
       flycheck-checker-error-threshold 10000
@@ -40,9 +40,10 @@
 (add-hook 'python-mode-hook 'my-flycheck-settings)
 ;; (add-hook 'python-mode-hook 'indent-guide-mode)
 (add-hook 'python-mode-hook 'load-ropemacs)
-;; (add-hook 'python-mode-local-vars-hook 'setup-jedi-extra-args)
+
+(add-hook 'python-mode-local-vars-hook 'setup-jedi-extra-args)
 (add-hook 'python-mode-local-vars-hook 'my-jedi-setup)
-;; (add-hook 'python-mode-local-vars-hook 'setup-flycheck-venv)
-;; (add-hook 'python-mode-local-vars-hook 'setup-virtualenv-path)
+(add-hook 'python-mode-local-vars-hook 'setup-flycheck-venv)
+(add-hook 'python-mode-local-vars-hook 'setup-virtualenv-path)
 
 (provide 'init-python)

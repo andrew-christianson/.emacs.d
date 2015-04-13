@@ -11,6 +11,7 @@
                ac-source-words-in-buffer
                ac-source-words-in-same-mode-buffers
                ac-source-words-in-all-buffer))
+
 (setq ac-delay 0.1
       ac-use-comphist t
       ac-comphist-file "~/.emacs.d/ac-comphist.dat"
@@ -21,7 +22,8 @@
       ac-show-menu-immediately-on-auto-complete t
       ac-candidate-limit nil
       ac-menu-height 10
-      ac-max-width 0.3
+      ac-max-width 0.25
+      ac-quick-help-prefer-pos-tip t
       )
 ;; (setq-default ac-sources (append ac-sources '(ac-source-filename ac-source-yasnippet)))
 ;; don't wamt this.

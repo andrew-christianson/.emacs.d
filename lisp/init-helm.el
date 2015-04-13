@@ -49,5 +49,9 @@
       projectile-completion-system 'helm)
 (helm-projectile-on)
 
+;; helm-dash mode
+(require 'helm-dash)
+(setq helm-dash-docsets-path "~/Dropbox/docsets")
 
 (provide 'init-helm)
+;;; init-helm.el ends here
