@@ -45,5 +45,8 @@
 (add-hook 'python-mode-local-vars-hook 'my-jedi-setup)
 (add-hook 'python-mode-local-vars-hook 'setup-flycheck-venv)
 (add-hook 'python-mode-local-vars-hook 'setup-virtualenv-path)
-
+(add-hook 'python-mode-hook (lambda ()
+                              (require 'sphinx-doc)
+                              (sphinx-doc-mode t)))
 (provide 'init-python)
+;;; init-python.el ends here
