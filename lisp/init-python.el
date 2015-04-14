@@ -40,13 +40,14 @@
 (add-hook 'python-mode-hook 'my-flycheck-settings)
 ;; (add-hook 'python-mode-hook 'indent-guide-mode)
 (add-hook 'python-mode-hook 'load-ropemacs)
-
-(add-hook 'python-mode-local-vars-hook 'setup-jedi-extra-args)
-(add-hook 'python-mode-local-vars-hook 'my-jedi-setup)
-(add-hook 'python-mode-local-vars-hook 'setup-flycheck-venv)
-(add-hook 'python-mode-local-vars-hook 'setup-virtualenv-path)
 (add-hook 'python-mode-hook (lambda ()
                               (require 'sphinx-doc)
                               (sphinx-doc-mode t)))
+
+(add-hook 'python-mode-local-vars-hook (lambda ()
+                                         (setup-jedi-extra-args)
+                                         (my-jedi-setup)))
+(add-hook 'python-mode-local-vars-hook 'setup-flycheck-venv)
+(add-hook 'python-mode-local-vars-hook 'setup-virtualenv-path)
 (provide 'init-python)
 ;;; init-python.el ends here
