@@ -45,7 +45,9 @@
 (require 'init-c)
 (require 'init-org)
 (require 'init-clojure)
-
+(require 'init-js)
+(require 'init-html)
+(require 'init-css)
 (require 'init-keys)
 
 (appt-activate t)

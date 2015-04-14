@@ -144,6 +144,7 @@
 (depends-on "soothe-theme")
 (depends-on "spacegray-theme")
 (depends-on "speed-type")
+(depends-on "sphinx-doc")
 (depends-on "stekene-theme")
 (depends-on "sublime-themes")
 (depends-on "theme-changer")
