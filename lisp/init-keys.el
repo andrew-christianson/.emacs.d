@@ -138,6 +138,8 @@
                   (define-key eshell-mode-map (kbd "C-c C-l")  'helm-eshell-history)))
     (define-key shell-mode-map (kbd "C-c C-l") 'helm-comint-input-ring)
     (define-key minibuffer-local-map (kbd "C-c C-l") 'helm-minibuffer-history)
+    (define-key inferior-ess-mode-map (kbd "C-c C-l") 'helm-comint-input-ring)
+    (define-key inferior-python-mode-map (kbd "C-c C-l") 'helm-comint-input-ring)
     )
   )
 
