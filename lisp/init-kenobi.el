@@ -22,29 +22,57 @@
 ;;     )
 ;;   )
 
-(defun detect_buffer_venv (buffer-name)
+;; (defun detect_buffer_venv (buffer-name)
 
+;;   (let ((buffer-dir (file-name-directory buffer-name))
+;;         (venv-exec-dir (if (eq system-type 'windows-nt) "Scripts" "bin")))
+;;     ;; Also detect any virtualenvs in .venv* directories
+;;     (while (or
+;;             buffer-dir
+;;             (not
+;;              (or (equal buffer-dir nil)
+;;                  (file-exists-p (concat buffer-dir venv-exec-dir "/" "activate"))
+;;                  (file-expand-wildcards (concat buffer-dir ".venv*")))))
+;;       (setq buffer-dir
+;;             (if (equal buffer-dir "/")
+;;                 nil
+;;               (file-name-directory (directory-file-name buffer-dir))))
+;;       )
+;;     ;; return the buffer-dir (or nil)
+;;     (if (file-exists-p (concat buffer-dir venv-exec-dir "/" "activate"))
+;;         buffer-dir
+;;       (if (file-exists-p (car (file-expand-wildcards (concat buffer-dir ".venv*"))))
+;;           (car (file-expand-wildcards (concat buffer-dir ".venv*")))
+;;         buffer-dir
+;;         ))
+;;     )
+;;   )
+
+(defun detect_buffer_venv (buffer-name)
   (let ((buffer-dir (file-name-directory buffer-name))
-        (venv-exec-dir (if (eq system-type 'windows-nt) "Scripts" "bin")))
-    ;; Also detect any virtualenvs in .venv* directories
-    (while (and (or
-                 (not
-                  (or (file-exists-p (concat buffer-dir venv-exec-dir "/" "activate"))
-                      (file-expand-wildcards (concat buffer-dir ".venv*"))))
-                 buffer-dir))
-      (setq buffer-dir
-            (if (equal buffer-dir "/")
-                nil
-              (file-name-directory (directory-file-name buffer-dir))
-              ))
-      )
-    ;; return the buffer-dir (or nil)
-    (if (file-exists-p (concat buffer-dir "bin/activate"))
+        (venv-exec-dir (if (eq system-type 'windows-nt) "Scripts" "bin"))
+        (not-found t))
+
+    (while not-found
+      (if (or (file-exists-p (concat buffer-dir venv-exec-dir "/activate"))
+              (file-expand-wildcards (concat buffer-dir ".venv*")))
+          (setq not-found nil)
+        (if (not
+             (equal (file-name-directory (directory-file-name buffer-dir)) buffer-dir)) ;hit the top
+            (setq buffer-dir (file-name-directory (directory-file-name buffer-dir)))
+          (setq not-found nil
+                buffer-dir nil)
+          )))
+    (if (equal buffer-dir nil)
         buffer-dir
-      (car (file-expand-wildcards (concat buffer-dir ".venv*")))
-      )
+        (if (file-exists-p (concat buffer-dir venv-exec-dir "/" "activate"))
+            buffer-dir
+          (if (file-exists-p (car (file-expand-wildcards (concat buffer-dir ".venv*"))))
+              (car (file-expand-wildcards (concat buffer-dir ".venv*")))
+            buffer-dir)))
     )
   )
+
 
 (defun detect_buffer_eggs_dirs (buffer-name)
 
@@ -65,8 +93,7 @@
       )
     (if buffer-dir
         (directory-files (concat buffer-dir "eggs") t ".\.egg")
-      nil
-      )
+      nil)
     )
   )
 

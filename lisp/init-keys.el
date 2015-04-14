@@ -223,7 +223,6 @@
 
 (define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
 
-(eval-after-load 'magit
-  '(global-set-key (kbd "C-x C-g") 'magit-status))
+(global-set-key (kbd "C-x C-g") 'magit-status)
 
 (provide 'init-keys)
