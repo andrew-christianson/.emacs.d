@@ -48,10 +48,16 @@
 ;;     )
 ;;   )
 
+(defun norm-path (path)
+  (if (eq system-type 'windows-nt)
+      (subst-char-in-string ?/ ?\\ path)
+    path))
+
 (defun detect_buffer_venv (buffer-name)
   (let ((buffer-dir (file-name-directory buffer-name))
         (venv-exec-dir (if (eq system-type 'windows-nt) "Scripts" "bin"))
-        (not-found t))
+        (not-found t)
+        )
 
     (while not-found
       (if (or (file-exists-p (concat buffer-dir venv-exec-dir "/activate"))
@@ -66,36 +72,59 @@
     (if (equal buffer-dir nil)
         buffer-dir
         (if (file-exists-p (concat buffer-dir venv-exec-dir "/" "activate"))
-            buffer-dir
+            (norm-path buffer-dir)
           (if (file-exists-p (car (file-expand-wildcards (concat buffer-dir ".venv*"))))
-              (car (file-expand-wildcards (concat buffer-dir ".venv*")))
-            buffer-dir)))
+              (norm-path (car (file-expand-wildcards (concat buffer-dir ".venv*"))))
+            (norm-path buffer-dir))))
     )
   )
 
+
+;; (norm-path "a/b/c")
+;; (detect_buffer_venv "c:/Users/andrew.christianson/git/abm-project-temp/deps/msft_pyabm/scripts/baseline_check.py")
 
 (defun detect_buffer_eggs_dirs (buffer-name)
+  (let ((buffer-dir (file-name-directory buffer-name))
+        (venv-exec-dir (if (eq system-type 'windows-nt) "Scripts" "bin"))
+        (not-found t))
 
-  (let (
-        (buffer-dir (file-name-directory buffer-name))
-        )
+    (while not-found
+      (if  (file-exists-p (concat buffer-dir "eggs"))
+          (setq not-found nil)
+        (if (not
+             (equal (file-name-directory (directory-file-name buffer-dir)) buffer-dir)) ;hit the top
+            (setq buffer-dir (file-name-directory (directory-file-name buffer-dir)))
+          (setq not-found nil
+                buffer-dir nil))))
 
-    (while (and (not (file-exists-p
-                      (concat buffer-dir "eggs")))
-                buffer-dir
-                )
-      (setq buffer-dir
-            (if (equal buffer-dir "/")
-                nil
-              (file-name-directory (directory-file-name buffer-dir))
-              )
-            )
-      )
-    (if buffer-dir
-        (directory-files (concat buffer-dir "eggs") t ".\.egg")
-      nil)
+    (if (equal buffer-dir nil)
+        buffer-dir
+      (directory-files (concat buffer-dir "eggs") t ".\.egg"))
     )
   )
+;; (defun detect_buffer_eggs_dirs (buffer-name)
+
+;;   (let (
+;;         (buffer-dir (file-name-directory buffer-name))
+;;         )
+
+;;     (while (and (not (file-exists-p
+;;                       (concat buffer-dir "eggs")))
+;;                 buffer-dir
+;;                 )
+;;       (setq buffer-dir
+;;             (if (equal buffer-dir "/")
+;;                 nil
+;;               (file-name-directory (directory-file-name buffer-dir))
+;;               )
+;;             )
+;;       )
+;;     (if buffer-dir
+;;         (directory-files (concat buffer-dir "eggs") t ".\.egg")
+;;       nil)
+;;     )
+;;   )
+
 
 (setq additional_paths nil)
 
