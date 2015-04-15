@@ -68,6 +68,7 @@
 (depends-on "flycheck-haskell")
 (depends-on "flycheck-ledger")
 (depends-on "flycheck-ocaml")
+(depends-on "flycheck-pos-tip")
 (depends-on "flycheck-pyflakes")
 (depends-on "flycheck-rust")
 (depends-on "flycheck-tip")

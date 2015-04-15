@@ -84,5 +84,9 @@
 ;; (rich-minority-mode 'toggle)
 (setq rm-blacklist '("Auto-Complete" "helm" "Git-Gutter" "Projectile" "Smartparens"))
 
+;; (flycheck-tip-use-timer 'verbose)
+(eval-after-load 'flycheck
+  '(custom-set-variables
+   '(flycheck-display-errors-function #'flycheck-pos-tip-error-messages)))
 ;; (pos-tip-w32-max-width-height)
 (provide 'init-visual)
