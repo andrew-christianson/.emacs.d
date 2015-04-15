@@ -83,4 +83,6 @@
 
 ;; (rich-minority-mode 'toggle)
 (setq rm-blacklist '("Auto-Complete" "helm" "Git-Gutter" "Projectile" "Smartparens"))
+
+;; (pos-tip-w32-max-width-height)
 (provide 'init-visual)
