@@ -51,7 +51,7 @@
 
 ;; helm-dash mode
 (require 'helm-dash)
-(setq helm-dash-docsets-path "~/Dropbox/docsets")
+(setq helm-dash-docsets-path "~/.docsets")
 
 (provide 'init-helm)
 ;;; init-helm.el ends here

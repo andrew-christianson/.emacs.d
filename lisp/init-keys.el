@@ -138,8 +138,10 @@
                   (define-key eshell-mode-map (kbd "C-c C-l")  'helm-eshell-history)))
     (define-key shell-mode-map (kbd "C-c C-l") 'helm-comint-input-ring)
     (define-key minibuffer-local-map (kbd "C-c C-l") 'helm-minibuffer-history)
+    (define-key inferior-ess-mode-map (kbd "C-c C-l") 'helm-comint-input-ring)
     )
   )
+
 
 (eval-after-load 'helm-gtags
   (lambda ()
@@ -223,7 +225,6 @@
 
 (define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
 
-(eval-after-load 'magit
-  '(global-set-key (kbd "C-x C-g") 'magit-status))
+(global-set-key (kbd "C-x C-g") 'magit-status)
 
 (provide 'init-keys)
