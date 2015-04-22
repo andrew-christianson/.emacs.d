@@ -6,17 +6,14 @@
 (setq-default ac-dwim nil) ; To get pop-ups with docs even if a word is uniquely completed
 
 (set-default 'ac-sources
-             '(ac-source-imenu
-               ac-source-dictionary
-               ac-source-words-in-buffer
-               ac-source-words-in-same-mode-buffers
-               ac-source-words-in-all-buffer))
+             (append ac-sources
+                     '(ac-source-filename ac-source-files-in-current-dir)))
 
-(setq ac-delay 0.1
+(setq ac-delay 0.25
       ac-use-comphist t
       ac-comphist-file "~/.emacs.d/ac-comphist.dat"
       ac-fuzzy-cursor-color 'green
-      ac-quick-help-delay 0.125
+      ac-quick-help-delay 1
       ac-auto-show-menu t
       ac-use-fuzzy t
       ac-show-menu-immediately-on-auto-complete t
@@ -37,6 +34,8 @@
 ;; (define-key ac-completing-map (kbd "TAB") 'ac-complete)
 (define-key ac-completing-map (kbd "C-h") 'ac-quick-help)
 (define-key ac-completing-map (kbd "C-c h") 'ac-complete-with-helm)
+(define-key ac-completing-map (kbd "C-n") 'ac-next)
+(define-key ac-completing-map (kbd "C-p") 'ac-previous)
 (define-key ac-mode-map (kbd "C-S-c c") 'auto-complete)
 
 (global-auto-complete-mode)

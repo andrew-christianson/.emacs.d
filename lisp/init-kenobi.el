@@ -81,7 +81,6 @@
 
 
 ;; (norm-path "a/b/c")
-;; (detect_buffer_venv "c:/Users/andrew.christianson/git/abm-project-temp/deps/msft_pyabm/scripts/baseline_check.py")
 
 (defun detect_buffer_eggs_dirs (buffer-name)
   (let ((buffer-dir (file-name-directory buffer-name))
@@ -102,29 +101,6 @@
       (directory-files (concat buffer-dir "eggs") t ".\.egg"))
     )
   )
-;; (defun detect_buffer_eggs_dirs (buffer-name)
-
-;;   (let (
-;;         (buffer-dir (file-name-directory buffer-name))
-;;         )
-
-;;     (while (and (not (file-exists-p
-;;                       (concat buffer-dir "eggs")))
-;;                 buffer-dir
-;;                 )
-;;       (setq buffer-dir
-;;             (if (equal buffer-dir "/")
-;;                 nil
-;;               (file-name-directory (directory-file-name buffer-dir))
-;;               )
-;;             )
-;;       )
-;;     (if buffer-dir
-;;         (directory-files (concat buffer-dir "eggs") t ".\.egg")
-;;       nil)
-;;     )
-;;   )
-
 
 (setq additional_paths nil)
 
@@ -158,8 +134,9 @@
         (venv (detect_buffer_venv buffer-file-name))
         )
     (if venv
-        (let (
-              (exec-path (cons (concat venv "/bin") exec-path))
+        (let* (
+              (venv-exec-dir (if (eq system-type 'windows-nt) "Scripts" "bin"))
+              (exec-path (cons (concat venv venv-exec-dir) exec-path))
               )
           (setup-flycheck-execs)
           )

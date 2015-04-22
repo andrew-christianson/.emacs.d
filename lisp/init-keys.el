@@ -1,3 +1,4 @@
+
 (global-unset-key (kbd "C-z"))
 
 ;; Sublime Like Commenting
@@ -180,6 +181,12 @@
   (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)
   (define-key haskell-cabal-mode-map (kbd "C-c C-o") 'haskell-compile)
   ))
+
+(eval-after-load 'jedi
+  '(progn
+     (define-key jedi-mode-map (kbd "C-TAB") nil)
+     (define-key jedi-mode-map (kbd "C-<tab>") nil)
+     (define-key jedi-mode-map (kbd "C-S-c c") 'jedi:complete)))
 ;; (define-prefix-command 'org-todo-state-map)
 
 ;;      (define-key org-mode-map "\C-cx" 'org-todo-state-map)
