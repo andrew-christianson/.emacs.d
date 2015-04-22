@@ -147,6 +147,7 @@
 (depends-on "sphinx-doc")
 (depends-on "stekene-theme")
 (depends-on "sublime-themes")
+(depends-on "sx")
 (depends-on "theme-changer")
 (depends-on "tracking")
 (depends-on "tron-theme")
