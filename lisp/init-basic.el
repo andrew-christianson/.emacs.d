@@ -14,7 +14,7 @@
 (setq scroll-step 0)
 (setq scroll-conservatively 10000)
 (setq scroll-preserve-screen-position 1)
-
+(setq w32-get-true-file-attributes nil)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
