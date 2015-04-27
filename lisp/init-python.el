@@ -10,9 +10,9 @@
       jedi:complete-on-dot t
       jedi:setup-keys t
       jedi:tooltip-method '(pos-tip)
-      jedi:get-in-function-call-delay 125
-      jedi:get-in-function-call-timeout 10000
-      flycheck-checker-error-threshold 10000
+      jedi:get-in-function-call-delay 500
+      jedi:get-in-function-call-timeout 1500
+      flycheck-checker-error-threshold 1000
       pymacs-load-path '("~/.emacs.d/rope"
                          "~/.emacs.d/ropemacs"
                          "~/.emacs.d/ropemode")
@@ -42,11 +42,13 @@
           ;; '(define-key inferior-python-mode-map (kbd "C-c C-l") 'helm-comint-input-ring))
 ;; (add-hook 'python-mode-hook 'indent-guide-mode)
 ;; (add-hook 'python-mode-hook 'load-ropemacs)
-
-(add-hook 'python-mode-local-vars-hook 'setup-virtualenv-path)
+(add-hook 'python-mode-hook (lambda ()
+                              (require 'sphinx-doc)
+                              (sphinx-doc-mode t)))
 (add-hook 'python-mode-local-vars-hook 'setup-jedi-extra-args)
-(add-hook 'python-mode-local-vars-hook 'my-jedi-setup)
+(add-hook 'python-mode-local-vars-hook 'jedi:setup)
 (add-hook 'python-mode-local-vars-hook 'setup-flycheck-venv)
-
+(add-hook 'python-mode-local-vars-hook 'setup-virtualenv-path)
 
 (provide 'init-python)
+;;; init-python.el ends here

@@ -25,6 +25,7 @@
 ;;     ;; nrepl isn't based on comint
 ;;     (add-hook 'cider-repl-mode-hook
 ;;               (lambda () (setq show-trailing-whitespace nil)))))
+
 (require 'flycheck-clojure)
 (eval-after-load 'flycheck
             (flycheck-clojure-setup))

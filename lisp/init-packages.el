@@ -21,6 +21,8 @@
     (require 'pos-tip))
 
 (require 'flycheck-pos-tip)
+(require 'vlf-setup)
+
 
 ;; Smooth scrolling
 ;; due to http://stackoverflow.com/a/4160949/881025
