@@ -16,7 +16,10 @@
 (require 'ess-site)
 (require 'ess-smart-underscore)
 (require 'flycheck)
-(require 'pos-tip)
+
+(if (not (eq system-type 'windows-nt))
+    (require 'pos-tip))
+
 (require 'flycheck-pos-tip)
 
 ;; Smooth scrolling

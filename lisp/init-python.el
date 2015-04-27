@@ -38,8 +38,8 @@
   )
 (add-hook 'python-mode-hook 'pydash)
 (add-hook 'python-mode-hook 'my-flycheck-settings)
-(add-hook 'inferior-python-mode-hook
-          '(define-key inferior-python-mode-map (kbd "C-c C-l") 'helm-comint-input-ring))
+;; (add-hook 'inferior-python-mode-hook
+          ;; '(define-key inferior-python-mode-map (kbd "C-c C-l") 'helm-comint-input-ring))
 ;; (add-hook 'python-mode-hook 'indent-guide-mode)
 ;; (add-hook 'python-mode-hook 'load-ropemacs)
 
