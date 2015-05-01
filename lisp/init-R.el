@@ -37,5 +37,21 @@
                                  (ess-fl-keyword:= . t)
                                  (ess-R-fl-keyword:F&T . t)
                                  (ess-R-fl-keyword:%op% . t))))
+(add-to-list 'ess-style-alist
+             '(my-style
+               (ess-indent-level . 4)
+               (ess-first-continued-statement-offset . 2)
+               (ess-continued-statement-offset . 0)
+               (ess-brace-offset . -4)
+               (ess-expression-offset . 4)
+               (ess-else-offset . 0)
+               (ess-close-brace-offset . 0)
+               (ess-brace-imaginary-offset . 0)
+               (ess-continued-brace-offset . 0)
+               (ess-arg-function-offset . 4)
+           (ess-arg-function-offset-new-line . '(4))
+               ))
+
+(setq ess-default-style 'my-style)
 
 (provide 'init-R)
