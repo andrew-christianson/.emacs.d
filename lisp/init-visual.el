@@ -33,6 +33,7 @@
 (set-face-foreground 'which-func "#A6E22E")
 
 (global-git-gutter-mode 1)
+(golden-ratio-mode 1)
 (setq-default indicate-buffer-boundaries 'left)
 (setq-default indicate-empty-lines 1)
 (setq require-final-newline t)
@@ -62,7 +63,7 @@
 (setq calendar-latitude 34.04)
 (setq calendar-longitude -118.25)
 ;; (change-theme 'my-spolsky 'my-spolsky)
-(if window-system (load-theme 'my-material))
+(if window-system (load-theme 'my-spolsky))
 ;; (set-face-background hl-line-face "darkslategrey")
 ;; (set-face-background 'fringe "gray15")
 (smartparens-global-mode)

@@ -16,6 +16,11 @@
 (setq scroll-preserve-screen-position 1)
 (setq w32-get-true-file-attributes nil)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+(with-eval-after-load "persp-mode-autoloads"
+  (setq wg-morph-on nil)
+  ;; switch off the animation of restoring window configuration
+  (global-set-key (kbd "M-p p") 'persp-keymap-prefix)
+  (add-hook 'after-init-hook #'(lambda () (persp-mode 1))))
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 

@@ -11,8 +11,10 @@
  org-agenda-files (list (concat org-directory "agendas")
                         (concat org-directory "inbox.org")
                         (concat org-directory "journal.org")
+                        (concat org-directory "shopping.org")
                         (concat org-directory "notes/" "ideas.org")
-                        (concat org-directory "notes")))
+                        (concat org-directory "notes")
+                        (concat org-directory "notes" "/" "books")))
 
 (setq org-todo-keywords
       (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
@@ -51,6 +53,8 @@
                "* %? :NOTE:\n%U" :clock-in t :clock-resume t)
               ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org")
                "* %?\n%U\n" :clock-in t :clock-resume t)
+              ("g" "Groccery" entry (file+datetree "~/Dropbox/org/shopping.org")
+               "* TODO %?\n%U\n" :clock-in t :clock-resume t)
               ("w" "org-protocol" entry (file "~/Dropbox/org/inbox.org")
                "* TODO Review %c\n%U\n" :immediate-finish t)
               ("m" "Meeting" entry (file "~/Dropbox/org/inbox.org")

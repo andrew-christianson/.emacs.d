@@ -45,6 +45,7 @@
 (require 'ox-latex)
 (require 'ox-ascii)
 
+(require 'golden-ratio)
 (require 'paredit)
 (require 'wgrep)
 (require 'wdired)
