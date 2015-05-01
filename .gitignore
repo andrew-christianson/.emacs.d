@@ -1,4 +1,6 @@
 url/
+.sx/
+persp-confs/
 server/
 eshell/
 elpa/
