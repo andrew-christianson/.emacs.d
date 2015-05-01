@@ -15,7 +15,7 @@
 
 
 ;;; MARKDOWN
-;; (add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode))
 
 ;;; R modes
 (add-to-list 'auto-mode-alist '("\\.Snw" . poly-noweb+r-mode))
