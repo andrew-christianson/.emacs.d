@@ -34,6 +34,9 @@
 
 (global-git-gutter-mode 1)
 (golden-ratio-mode 1)
+(setq golden-ratio-auto-scale t
+      golden-ratio-recenter t
+      golden-ratio-exclude-modes (list "poly-markdown-mode" "poly-noweb+r-mode" "poly-markdown+r-mode"))
 (setq-default indicate-buffer-boundaries 'left)
 (setq-default indicate-empty-lines 1)
 (setq require-final-newline t)
