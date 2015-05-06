@@ -54,6 +54,7 @@
 (depends-on "ess")
 (depends-on "ess-R-data-view")
 (depends-on "ess-R-object-popup")
+(depends-on "ess-smart-equals")
 (depends-on "ess-smart-underscore")
 (depends-on "eww-lnum")
 (depends-on "exec-path-from-shell")

@@ -7,7 +7,10 @@
 (global-set-key (kbd "C-M-;") 'recomment-region-or-line)
 
 (global-set-key (kbd "M-SPC") 'set-mark-command)
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+
+(global-set-key (kbd "C-x C-b") #'(lambda (arg)
+                                    (interactive "P")
+                                    (with-persp-buffer-list () (ibuffer arg))))
 
 
 ;; My Custom Keymaps
