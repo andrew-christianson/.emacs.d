@@ -22,7 +22,7 @@
 
 (require 'flycheck-pos-tip)
 (require 'vlf-setup)
-
+(require 'guide-key)
 
 ;; Smooth scrolling
 ;; due to http://stackoverflow.com/a/4160949/881025

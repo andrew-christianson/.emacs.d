@@ -82,6 +82,7 @@
 (depends-on "git-rebase-mode")
 (depends-on "golden-ratio")
 (depends-on "gotham-theme")
+(depends-on "guide-key")
 (depends-on "haskell-mode")
 (depends-on "helm")
 (depends-on "helm-ag")

@@ -237,4 +237,10 @@
 
 (global-set-key (kbd "C-x C-g") 'magit-status)
 
+(setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "M-p p" "C-c h" "C-c p" "C-x 5")
+      guide-key/popup-window-position 'bottom
+      guide-key/recursive-key-sequence-flag t
+      guide-key/guide-buffer-name "guide-keys")
+(guide-key-mode 1)
+
 (provide 'init-keys)
