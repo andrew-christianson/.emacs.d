@@ -47,6 +47,7 @@
 (depends-on "dired-details")
 (depends-on "dired-sort")
 (depends-on "direx")
+(depends-on "dockerfile-mode")
 (depends-on "el-get")
 (depends-on "elisp-slime-nav")
 (depends-on "emacs-eclim")
