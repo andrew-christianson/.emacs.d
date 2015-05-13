@@ -162,6 +162,8 @@
 (depends-on "stekene-theme")
 (depends-on "sublime-themes")
 (depends-on "sx")
+(depends-on "tern")
+(depends-on "tern-auto-complete")
 (depends-on "theme-changer")
 (depends-on "tracking")
 (depends-on "tron-theme")
