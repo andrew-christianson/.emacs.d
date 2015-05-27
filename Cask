@@ -177,6 +177,7 @@
 (depends-on "wakatime-mode")
 (depends-on "wgrep")
 (depends-on "writeroom-mode")
+(depends-on "yaml-mode")
 (depends-on "yasnippet")
 (depends-on "zenburn-theme")
 (depends-on "zygospore")
