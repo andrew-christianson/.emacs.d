@@ -33,6 +33,7 @@
 (depends-on "cider")
 (depends-on "cider-profile")
 (depends-on "circe")
+(depends-on "clang-format")
 (depends-on "clj-refactor")
 (depends-on "clojure-mode")
 (depends-on "company")

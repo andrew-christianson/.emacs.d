@@ -1,8 +1,5 @@
 ;; making paredit work with delete-selection-mode
 
-
-
-
 (defun paredit--is-at-start-of-sexp ()
   (and (looking-at "(\\|\\[")
        (not (nth 3 (syntax-ppss))) ;; inside string
@@ -66,7 +63,6 @@
                                 ;; (put 'paredit-open-square 'delete-selection t)
                                 ;; (put 'paredit-doublequote 'delete-selection t)
                                 (put 'paredit-newline 'delete-selection t)
-                                (delete-selection-mode))
-          )
+                                (delete-selection-mode)))
 
 (provide 'init-paredit)

@@ -27,3 +27,5 @@ emacs-icons-project/
 legacy/
 persp-confs/
 speed-type/
+*#*
+.*history

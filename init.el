@@ -6,8 +6,7 @@
  '(create-lockfiles nil)
  '(custom-safe-themes
    (quote
-    ("6dcfb00a5fb759f216db8a382917d32453712a4ba52035cd800640d32a46cfab" "ffa2802f1dc63125ac385a4327c039186367180b112b0cc86e0ef99859c41066" "2d7e4feac4eeef3f0610bf6b155f613f372b056a2caae30a361947eab5074716" "e56f1b1c1daec5dbddc50abd00fcd00f6ce4079f4a7f66052cf16d96412a09a9" "aa2672c9bff3c5d16290e0e4df8237f53f008ee8d7b1950fc2fa99656898ea26" "f0b0710b7e1260ead8f7808b3ee13c3bb38d45564e369cbe15fc6d312f0cd7a0" "82bd95b23e7983161a77cc1e9fd66c2e5998f197ead810aac9ef76d13f3e26cb" default)))
- '(flycheck-display-errors-function (function flycheck-pos-tip-error-messages))
+    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "26614652a4b3515b4bbbb9828d71e206cc249b67c9142c06239ed3418eff95e2" "6dcfb00a5fb759f216db8a382917d32453712a4ba52035cd800640d32a46cfab" "ffa2802f1dc63125ac385a4327c039186367180b112b0cc86e0ef99859c41066" "2d7e4feac4eeef3f0610bf6b155f613f372b056a2caae30a361947eab5074716" "e56f1b1c1daec5dbddc50abd00fcd00f6ce4079f4a7f66052cf16d96412a09a9" "aa2672c9bff3c5d16290e0e4df8237f53f008ee8d7b1950fc2fa99656898ea26" "f0b0710b7e1260ead8f7808b3ee13c3bb38d45564e369cbe15fc6d312f0cd7a0" "82bd95b23e7983161a77cc1e9fd66c2e5998f197ead810aac9ef76d13f3e26cb" default)))
  '(persp-keymap-prefix [134217840 112]))
 
 (custom-set-faces
@@ -15,10 +14,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(default ((t (:background nil))))
  '(company-tooltip ((t (:background "dark slate gray" :foreground "gainsboro"))))
  '(company-tooltip-annotation ((t (:inherit company-tooltip :foreground "medium sea green"))))
- '(company-tooltip-selection ((t (:inherit company-tooltip :background "steel blue"))))
- '(popup-tip-face ((t (:background "dim gray" :foreground "white smoke")))))
+ '(company-tooltip-selection ((t (:inherit company-tooltip :background "steel blue")))))
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
@@ -47,7 +46,6 @@
 (require 'init-c)
 (require 'init-org)
 (require 'init-clojure)
-(require 'init-js)
 (require 'init-html)
 (require 'init-css)
 (require 'init-keys)
