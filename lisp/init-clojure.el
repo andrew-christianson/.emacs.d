@@ -4,7 +4,7 @@
   )
 
 (require 'cider)
-(require 'ac-cider)
+;; (require 'ac-cider)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; nrepl with Clojure
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -33,5 +33,12 @@
 (add-hook 'clojure-mode-hook 'cldash)
 (add-hook 'clojure-mode-hook 'paredit-mode)
 (add-hook 'clojure-mode-hook (lambda () (interactive) (smartparens-mode 0)))
+(add-hook 'cider-repl-mode-hook #'paredit-mode)
+
+(add-hook 'cider-repl-mode-hook #'company-mode)
+(add-hook 'cider-mode-hook #'company-mode)
+
+(add-hook 'cider-repl-mode-hook (lambda () (interactive) (auto-complete-mode 0)))
+(add-hook 'cider-mode-hook (lambda () (interactive) (auto-complete-mode 0)))
 
 (provide 'init-clojure)

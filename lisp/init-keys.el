@@ -19,7 +19,7 @@
 (global-set-key (kbd "C-x 7 b") 'show-buffers-with-major-mode)
 (global-set-key [end] 'move-end-of-line)
 (global-set-key [home] 'smart-beginning-of-line)
-(global-set-key "\C-a" 'smart-beginning-of-line)
+(global-set-key (kbd "C-a") 'smart-beginning-of-line)
 
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c c") 'org-capture)
@@ -52,7 +52,7 @@
 (global-set-key (kbd "M-<up>") 'move-line-up)
 (global-set-key (kbd "M-<down>") 'move-line-down)
 
-(global-set-key "\C-x~" 'set-80-columns)
+(global-set-key "\C-x ~" 'set-80-columns)
 
 ;; ID: 6a3f3d99-f0da-329a-c01c-bb6b868f3239
 
@@ -93,7 +93,7 @@
   '(global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows))
 
 (eval-after-load 'expand-region
-  '(global-set-key (kbd "s-f") 'er/expand-region))
+  '(global-set-key (kbd "C-c SPC") 'er/expand-region))
 
 (eval-after-load 'helm
   (lambda ()
@@ -218,11 +218,11 @@
 (eval-after-load "ace-jump-mode"
   '(ace-jump-mode-enable-mark-sync))
 
-(define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
+(define-key global-map (kbd "C-x C-SPC") 'ace-jump-mode-pop-mark)
 
 (global-set-key (kbd "C-x C-g") 'magit-status)
 
-(setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "M-p p" "C-c h" "C-c p" "C-x 5")
+(setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "M-p p" "C-c h" "C-c p" "C-x 5" "C-c g")
       guide-key/popup-window-position 'bottom
       guide-key/recursive-key-sequence-flag t
       guide-key/guide-buffer-name "guide-keys")

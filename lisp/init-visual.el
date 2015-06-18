@@ -19,20 +19,22 @@
 
 (show-paren-mode 1)
 
-(which-func-mode)
+(which-function-mode)
 
 (setq mode-line-format
       (delete (assoc 'which-func-mode mode-line-format) mode-line-format)
-      which-func-header-line-format '(which-func-mode ("" which-func-format))
-      )
+      which-func-header-line-format '(which-func-mode ("" which-func-format)))
+
 (defadvice which-func-ff-hook (after header-line activate)
   (when which-func-mode
     (setq mode-line-format (delete (assoc 'which-func-mode
                                           mode-line-format) mode-line-format)
           header-line-format which-func-header-line-format)))
+
 (set-face-foreground 'which-func "#A6E22E")
 
 (global-git-gutter-mode 1)
+
 ;; (golden-ratio-mode 1)
 (setq golden-ratio-exclude-modes (list "poly-markdown-mode" "poly-noweb+r-mode" "poly-markdown+r-mode" "Guide")
       golden-ratio-adjust-factor .8
@@ -75,24 +77,26 @@
 
 ;; (setq powerline-default-separator-dir '(right . left))
 ;; These two lines you really need.
-(setq sml/theme 'powerline
-      sml/name-width 40
-      sml/mode-width 40
-      sml/shorten-directory nil
-      sml/shorten-modes t
-      sml/vc-mode-show-backend t
-      )
+;; (setq sml/theme 'powerline
+;;       sml/name-width 40
+;;       sml/mode-width 40
+;;       sml/shorten-directory nil
+;;       sml/shorten-modes t
+;;       sml/vc-mode-show-backend t
 
+;;       )
+(sml/setup)
 (setq rm-exclude-modes '("AC" "Helm" "GitGutter" "Projectile" "Smartparens"))
 (setq mode-line-in-non-selected-windows nil)
-(sml/setup)
+
 
 ;; (rich-minority-mode 'toggle)
 (setq rm-blacklist '("Auto-Complete" "helm" "Git-Gutter" "Projectile" "Smartparens"))
 
 ;; (flycheck-tip-use-timer 'verbose)
-(eval-after-load 'flycheck
-  '(custom-set-variables
-   '(flycheck-display-errors-function #'flycheck-pos-tip-error-messages)))
+;; (eval-after-load 'flycheck
+;;   '(custom-set-variables
+;;    '(flycheck-display-errors-function #'flycheck-pos-tip-error-messages)))
+
 ;; (pos-tip-w32-max-width-height)
 (provide 'init-visual)
