@@ -56,7 +56,7 @@
 (global-set-key (kbd "M-<up>") 'move-line-up)
 (global-set-key (kbd "M-<down>") 'move-line-down)
 
-(global-set-key "\C-x ~" 'set-80-columns)
+;; (global-set-key (kbd "C-x ~") 'set-80-columns)
 
 ;; ID: 6a3f3d99-f0da-329a-c01c-bb6b868f3239
 
@@ -170,11 +170,11 @@
   (define-key haskell-mode-map (kbd "C-c C-z") 'haskell-interactive-switch)
   (define-key haskell-mode-map (kbd "C-c I ") 'haskell-navigate-imports)
   (define-key haskell-mode-map (kbd "C-c C-o") 'haskell-compile)
-  ;; (define-key haskell-mode-map (kbd "C-c C-n C-t") 'haskell-process-do-type)
-  ;; (define-key haskell-mode-map (kbd "C-c C-n C-i") 'haskell-process-do-info)
-  ;; (define-key haskell-mode-map (kbd "C-c C-n C-c") 'haskell-process-cabal-build)
-  ;; (define-key haskell-mode-map (kbd "C-c C-n c") 'haskell-process-cabal)
-  ;; (define-key haskell-mode-map (kbd "SPC") 'haskell-mode-contextual-space)
+  (define-key haskell-mode-map (kbd "C-c C-n C-t") 'haskell-process-do-type)
+  (define-key haskell-mode-map (kbd "C-c C-n C-i") 'haskell-process-do-info)
+  (define-key haskell-mode-map (kbd "C-c C-n C-c") 'haskell-process-cabal-build)
+  (define-key haskell-mode-map (kbd "C-c C-n c") 'haskell-process-cabal)
+  (define-key haskell-mode-map (kbd "SPC") 'haskell-mode-contextual-space)
   ))
 
 (eval-after-load 'haskell-cabal '(progn

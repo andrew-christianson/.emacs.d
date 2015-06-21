@@ -10,7 +10,7 @@
 (setq kept-old-versions 2)
 (setq version-control t)
 (setq redisplay-dont-pause t)
-(setq scroll-margin 10)
+(setq scroll-margin 2)
 (setq scroll-step 0)
 (setq scroll-conservatively 10000)
 (setq scroll-preserve-screen-position 1)
