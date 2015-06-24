@@ -62,5 +62,5 @@
 
 (require 'poly-markdown)
 (require 'poly-R)
-
+(require 'hyde)
 (provide 'init-packages)
