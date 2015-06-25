@@ -17,7 +17,7 @@
 (setq w32-get-true-file-attributes nil)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-(if (not (eq system-type "windows-nt"))
+(if (not (eq system-type 'windows-nt) )
     (with-eval-after-load "persp-mode-autoloads"
       (setq wg-morph-on nil)
       ;; switch off the animation of restoring window configuration
