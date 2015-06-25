@@ -47,12 +47,19 @@
 (setq ring-bell-function 'ignore)
 (fringe-mode 4)
 
-(if (or (eq system-type 'windows-nt)
-        (eq system-type 'darwin))
-
+(if (eq system-type 'darwin)
     (set-face-attribute 'default nil
 			:family "Droid Sans Mono for Powerline"
-			:height (if (eq system-type 'windows-nt) 90 110)
+			:height 90
+			:weight 'light
+			:width 'normal
+			:foundry 'outline
+			:slant 'normal))
+
+(if  (eq system-type 'windows-nt)
+    (set-face-attribute 'default nil
+			:family "Droid Sans Mono"
+			:height 90
 			:weight 'light
 			:width 'normal
 			:foundry 'outline
@@ -66,6 +73,7 @@
 			:height 90
 			:width 'normal
 			))
+
 (setq calendar-location-name "Los Angeles, CA")
 (setq calendar-latitude 34.04)
 (setq calendar-longitude -118.25)

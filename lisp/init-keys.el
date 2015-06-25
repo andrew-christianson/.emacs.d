@@ -52,7 +52,7 @@
 (global-set-key (kbd "M-<up>") 'move-line-up)
 (global-set-key (kbd "M-<down>") 'move-line-down)
 
-(global-set-key "\C-x ~" 'set-80-columns)
+;; (global-set-key "\C-x ~" 'set-80-columns)
 
 ;; ID: 6a3f3d99-f0da-329a-c01c-bb6b868f3239
 
