@@ -24,6 +24,7 @@
       (global-set-key (kbd "M-p p") 'persp-keymap-prefix)
       (add-hook 'after-init-hook #'(lambda () (persp-mode 1)))))
 
+
 (defalias 'yes-or-no-p 'y-or-n-p)
 
  ;; Auto refresh buffers
