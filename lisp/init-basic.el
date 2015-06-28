@@ -1,9 +1,9 @@
 (setq backup-directory-alist `(("." . "~/.saves"))
       ;; Autosave to home dir
       auto-save-file-name-transforms `(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'" "/tmp/\\2" t))
-)
-
-(setq create-lockfiles nil)
+      create-lockfiles nil
+      make-backup-file nil
+      )
 (setq backup-by-copying t)
 (setq delete-old-versions t)
 (setq kept-new-versions 6)
