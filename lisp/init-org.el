@@ -3,6 +3,8 @@
 (setq
  org-directory "~/Dropbox/org/"
  org-mobile-directory "~/Dropbox/org/mobile/")
+
+
 (setq ispell-dictionary  "english")
 
 (setq
@@ -29,7 +31,11 @@
 ;;               ("CANCELLED" :foreground "forest green" :weight bold)
 ;;               ("MEETING" :foreground "forest green" :weight bold)
 ;;               ("PHONE" :foreground "forest green" :weight bold))))
-
+(defun guide-key/my-hook-function-for-org-mode ()
+  (guide-key/add-local-guide-key-sequence "C-c")
+  (guide-key/add-local-guide-key-sequence "C-c C-x")
+  (guide-key/add-local-highlight-command-regexp "org-"))
+(add-hook 'org-mode-hook 'guide-key/my-hook-function-for-org-mode)
 (setq org-use-fast-todo-selection t)
 
 (setq org-treat-S-cursor-todo-selection-as-state-change nil)

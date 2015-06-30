@@ -1106,4 +1106,9 @@ Late deadlines first, then scheduled, then non-late deadlines"
   (org-mark-subtree)
   (org-mime-subtree))
 
+(defun guide-key/my-hook-function-for-org-mode ()
+  (guide-key/add-local-guide-key-sequence "C-c")
+  (guide-key/add-local-guide-key-sequence "C-c C-x")
+  (guide-key/add-local-highlight-command-regexp "org-"))
+
 (provide 'init-functions)
