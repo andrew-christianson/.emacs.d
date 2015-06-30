@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 (defconst emacs-tmp-dir (format "%s%s%s/" temporary-file-directory "emacs" (user-uid)))
 (setq backup-directory-alist `((".*" . ,emacs-tmp-dir))
       auto-save-file-name-transforms `((".*" ,emacs-tmp-dir t))
