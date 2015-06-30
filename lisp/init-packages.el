@@ -13,7 +13,6 @@
 (pallet-mode t)
 (package-initialize)
 
-(require 'smartparens-config)
 (require 'rainbow-delimiters)
 (require 'multiple-cursors)
 (require 'ess-site)
@@ -63,4 +62,6 @@
 (require 'poly-markdown)
 (require 'poly-R)
 (require 'hyde)
+(require 'hydra)
+(require 'bind-key)
 (provide 'init-packages)

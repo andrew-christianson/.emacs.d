@@ -10,7 +10,8 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;; My Custom Keymaps
-(global-set-key (kbd "C-S-d") 'kill-whole-line)
+
+(global-set-key (kbd "C-c d") 'function-foo)
 (global-set-key (kbd "M-a") nil)
 (global-set-key (kbd "M-a a") 'align)
 (global-set-key (kbd "M-a s") 'align-regexp)

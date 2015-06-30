@@ -1,3 +1,12 @@
+
+(defun kill-whole-line-repeatable ()
+  (interactive)
+  (kill-whole-line)
+  (set-temporary-overlay-map
+    (let ((map (make-sparse-keymap)))
+      (define-key map (kbd "d") 'kill-whole-line-repeatable)
+      map)))
+
 (defun comment-or-uncomment-region-or-line ()
     "Comments or uncomments the region or the current line if there's no active region."
     (interactive)

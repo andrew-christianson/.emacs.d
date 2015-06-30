@@ -25,6 +25,7 @@
 (require 'init-functions)
 
 (require 'init-basic)
+(require 'init-smart-parens)
 (require 'init-paths)
 (require 'init-visual)
 

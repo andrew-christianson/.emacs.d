@@ -17,7 +17,7 @@
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 
-(show-paren-mode 1)
+;; (show-paren-mode 1)
 
 (which-function-mode)
 
@@ -47,32 +47,15 @@
 (setq ring-bell-function 'ignore)
 (fringe-mode 4)
 
-(if (eq system-type 'darwin)
-    (set-face-attribute 'default nil
-			:family "Droid Sans Mono for Powerline"
-			:height 90
-			:weight 'light
-			:width 'normal
-			:foundry 'outline
-			:slant 'normal))
-
-(if  (eq system-type 'windows-nt)
-    (set-face-attribute 'default nil
-			:family "Droid Sans Mono"
-			:height 90
-			:weight 'light
-			:width 'normal
-			:foundry 'outline
-			:slant 'normal))
-
-(if (eq system-type 'gnu/linux)
-    (set-face-attribute 'default nil
-			:family "Droid Sans Mono for Powerline"
-			:slant 'normal
-			:weight 'medium
-			:height 90
-			:width 'normal
-			))
+(set-face-attribute 'default nil
+                    :family (if (eq system-type 'windows-nt)
+                                "Droid Sans Mono"
+                              "Droid Sans Mono for Powerline")
+                    :height 90
+                    :weight 'light
+                    :width 'normal
+                    :foundry 'outline
+                    :slant 'normal)
 
 (setq calendar-location-name "Los Angeles, CA")
 (setq calendar-latitude 34.04)
@@ -81,8 +64,9 @@
 (if window-system (load-theme 'my-spolsky))
 ;; (set-face-background hl-line-face "darkslategrey")
 ;; (set-face-background 'fringe "gray15")
-(smartparens-global-mode)
 
+
+;; (add-hook 'prog-mode-hook 'paredit-everywhere-mode)
 ;; (setq powerline-default-separator-dir '(right . left))
 ;; These two lines you really need.
 ;; (setq sml/theme 'powerline
