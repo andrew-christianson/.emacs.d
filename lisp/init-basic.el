@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 (defconst emacs-tmp-dir (format "%s%s%s/" temporary-file-directory "emacs" (user-uid)))
 (setq backup-directory-alist `((".*" . ,emacs-tmp-dir))
       auto-save-file-name-transforms `((".*" ,emacs-tmp-dir t))
@@ -23,6 +24,7 @@
       ;; switch off the animation of restoring window configuration
       (global-set-key (kbd "M-p p") 'persp-keymap-prefix)
       (add-hook 'after-init-hook #'(lambda () (persp-mode 1)))))
+
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
