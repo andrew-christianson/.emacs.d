@@ -1,7 +1,7 @@
-(setq backup-directory-alist `(("." . "~/.saves"))
-      ;; Autosave to home dir
-      auto-save-file-name-transforms `(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'" "/tmp/\\2" t))
-)
+(defconst emacs-tmp-dir (format "%s%s%s/" temporary-file-directory "emacs" (user-uid)))
+(setq backup-directory-alist `((".*" . ,emacs-tmp-dir))
+      auto-save-file-name-transforms `((".*" ,emacs-tmp-dir t))
+      auto-save-list-file-prefix emacs-tmp-dir)
 
 (setq create-lockfiles nil)
 (setq backup-by-copying t)
