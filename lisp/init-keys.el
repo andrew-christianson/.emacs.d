@@ -130,6 +130,7 @@
     (global-set-key (kbd "C-c h s") 'helm-surfraw)
     (global-set-key (kbd "C-c h c") 'helm-color)
     (global-set-key (kbd "C-c h C") 'helm-calcul-expression)
+    (global-set-key (kbd "C-c h E") 'project-explorer-helm)
 
     ;; helm for history EVERYWHERE
     (add-hook 'eshell-mode-hook
@@ -185,6 +186,10 @@
      (define-key jedi-mode-map (kbd "C-TAB") nil)
      (define-key jedi-mode-map (kbd "C-<tab>") nil)
      (define-key jedi-mode-map (kbd "C-S-c c") 'jedi:complete)))
+
+(eval-after-load 'project-explorer
+  '(progn
+     (global-set-key (kbd "C-c E") 'project-explorer-open)))
 ;; (define-prefix-command 'org-todo-state-map)
 
 ;;      (define-key org-mode-map "\C-cx" 'org-todo-state-map)
@@ -226,5 +231,8 @@
       guide-key/recursive-key-sequence-flag t
       guide-key/guide-buffer-name "guide-keys")
 (guide-key-mode 1)
+
+(setq w32-pass-apps-to-system nil)
+(setq w32-apps-modifier 'hyper) ; Menu/App key
 
 (provide 'init-keys)

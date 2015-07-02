@@ -41,6 +41,11 @@
           (lambda ()
             (setq ess-first-continued-statement-offset 2)
             (setq ess-continued-statement-offset 0)))
+(defun guide-key/ess-guide-keys ()
+  (guide-key/add-local-guide-key-sequence "C-c")
+  )
+
+(add-hook 'ess-mode-hook 'guide-key/ess-guide-keys)
 ;; (add-to-list 'ess-style-alist
 ;;              '(my-style (ess-indent-level . 4)
 ;;                         (ess-first-continued-statement-offset . 4)
