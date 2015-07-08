@@ -21,7 +21,13 @@
       ac-menu-height 10
       ac-max-width 0.25
       ac-quick-help-prefer-pos-tip t
+      ac-ignore-case 'smart
       )
+(set-face-background 'ac-selection-face "DarkSlateGray")
+(set-face-background 'ac-candidate-face "Darkslategray4")
+
+
+
 ;; (setq-default ac-sources (append ac-sources '(ac-source-filename ac-source-yasnippet)))
 ;; don't wamt this.
 ;; Default is:
@@ -36,7 +42,9 @@
 (define-key ac-completing-map (kbd "C-c h") 'ac-complete-with-helm)
 (define-key ac-completing-map (kbd "C-n") 'ac-next)
 (define-key ac-completing-map (kbd "C-p") 'ac-previous)
-(define-key ac-mode-map (kbd "C-S-c c") 'auto-complete)
+(define-key ac-completing-map (kbd "<backtab>") 'ac-previous)
+(define-key ac-completing-map (kbd "C-M-/") 'auto-complete)
+
 
 (global-auto-complete-mode)
 (ac-linum-workaround)
