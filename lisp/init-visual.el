@@ -36,10 +36,10 @@
 (global-git-gutter-mode 1)
 
 ;; (golden-ratio-mode 1)
-(setq golden-ratio-exclude-modes (list "poly-markdown-mode" "poly-noweb+r-mode" "poly-markdown+r-mode" "Guide")
-      golden-ratio-adjust-factor .8
-      golden-ratio-wide-adjust-factor .8
-      golden-ratio-exclude-buffer-names (list "guide-keys"))
+;; (setq golden-ratio-exclude-modes (list "poly-markdown-mode" "poly-noweb+r-mode" "poly-markdown+r-mode" "Guide")
+;;       golden-ratio-adjust-factor .8
+;;       golden-ratio-wide-adjust-factor .8
+;;       golden-ratio-exclude-buffer-names (list "guide-keys"))
 
 (setq-default indicate-buffer-boundaries 'left)
 (setq-default indicate-empty-lines 1)
@@ -84,7 +84,7 @@
 
 ;; (rich-minority-mode 'toggle)
 (setq rm-blacklist '("Auto-Complete" "helm" "Git-Gutter" "Projectile" "Smartparens"))
-
+;; (symon-mode nil)
 ;; (flycheck-tip-use-timer 'verbose)
 ;; (eval-after-load 'flycheck
 ;;   '(custom-set-variables

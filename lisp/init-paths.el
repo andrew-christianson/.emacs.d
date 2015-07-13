@@ -9,9 +9,6 @@
   (setenv "PATH" (concat my-cabal-path (if (eq system-type "windows-nt") ";" ":") (getenv "PATH")))
   (add-to-list 'exec-path my-cabal-path))
 
-(if (eq system-type 'windows-nt)
-    (setq inferior-julia-program-name "~/../julia/Julia-0.3.2/bin/julia"))
-
 
 (if (eq system-type 'windows-nt)
     (setq find-program "\\mingw\\msys\\1.0\\bin\\find.exe"))

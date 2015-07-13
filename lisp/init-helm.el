@@ -52,6 +52,9 @@
 (setq projectile-indexing-method 'native
       projectile-enable-caching t
       projectile-completion-system 'helm)
+(setq pe/omit-regex "^#\\|~$\\|^node_modules$\\|^.git$"
+      pe/omit-gitignore t
+      pe/width)
 (helm-projectile-on)
 
 ;; helm-dash mode

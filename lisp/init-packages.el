@@ -34,6 +34,7 @@
 (require 'helm-config)
 (require 'helm-eshell)
 (require 'helm-projectile)
+(require 'project-explorer)
 (require 'git-gutter-fringe)
 
 ;; org/organize your life in plain text requires
@@ -64,4 +65,5 @@
 (require 'hyde)
 (require 'hydra)
 (require 'bind-key)
+(require 'symon)
 (provide 'init-packages)
