@@ -15,9 +15,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:background nil))))
- '(company-tooltip ((t (:background "dark slate gray" :foreground "gainsboro"))))
- '(company-tooltip-annotation ((t (:inherit company-tooltip :foreground "medium sea green"))))
- '(company-tooltip-selection ((t (:inherit company-tooltip :background "steel blue")))))
+ )
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
@@ -33,6 +31,7 @@
 (require 'init-kenobi)
 (require 'init-helm)
 (require 'init-ac)
+(require 'init-company)
 (require 'init-paredit)
 (require 'init-dired)
 
