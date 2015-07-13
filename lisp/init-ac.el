@@ -23,8 +23,10 @@
       ac-quick-help-prefer-pos-tip t
       ac-ignore-case 'smart
       )
-(set-face-background 'ac-selection-face "DarkSlateGray")
-(set-face-background 'ac-candidate-face "Darkslategray4")
+(set-face-background 'ac-selection-face "DarkSlateGray4")
+(set-face-background 'ac-candidate-face "DarkSlateGray")
+(set-face-foreground 'ac-candidate-face "DarkTurquoise")
+
 
 
 
@@ -43,7 +45,7 @@
 (define-key ac-completing-map (kbd "C-n") 'ac-next)
 (define-key ac-completing-map (kbd "C-p") 'ac-previous)
 (define-key ac-completing-map (kbd "<backtab>") 'ac-previous)
-(define-key ac-completing-map (kbd "C-M-/") 'auto-complete)
+
 
 
 (global-auto-complete-mode)

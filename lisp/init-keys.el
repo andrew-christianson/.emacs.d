@@ -11,7 +11,7 @@
 
 ;; My Custom Keymaps
 
-(global-set-key (kbd "C-c d") 'kill-whole-line-repeatable)
+(global-set-key (kbd "C-c k") 'kill-whole-line-repeatable)
 (global-set-key (kbd "M-a") nil)
 (global-set-key (kbd "M-a a") 'align)
 (global-set-key (kbd "M-a s") 'align-regexp)
@@ -190,6 +190,9 @@
 (eval-after-load 'project-explorer
   '(progn
      (global-set-key (kbd "C-c E") 'project-explorer-open)))
+(eval-after-load 'auto-complete
+  '(progn
+     (define-key ac-mode-map (kbd "C-M-/") 'auto-complete)))
 ;; (define-prefix-command 'org-todo-state-map)
 
 ;;      (define-key org-mode-map "\C-cx" 'org-todo-state-map)

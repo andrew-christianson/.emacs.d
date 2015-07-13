@@ -49,6 +49,7 @@
 (require 'init-web)
 (require 'init-keys)
 (require 'init-visual)
+(require 'windcycle)
 
 (appt-activate t)
 (bh/org-agenda-to-appt)
