@@ -17,6 +17,12 @@
 (setq w32-get-true-file-attributes nil)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+;; use space to indent by default
+(setq-default indent-tabs-mode nil)
+
+;; set appearance of a tab that is represented by 4 spaces
+(setq-default tab-width 4)
+
 ;; (if (not (eq system-type 'windows-nt) )
 ;;     (with-eval-after-load "persp-mode-autoloads"
 ;;       (setq wg-morph-on nil)

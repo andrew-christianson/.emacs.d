@@ -12,7 +12,12 @@
   )
 (add-hook 'R-mode-hook 'rdash)
 (add-hook 'ess-R-post-run-hook 'smartparens-mode)
-
+(add-hook 'R-mode-hook 'flycheck-mode)
+(add-hook 'ess-mode-hook '(lambda () (guide-key/add-local-guide-key-sequence "C-c")))
+;; (add-hook 'ess-mode-hook
+;;           (lambda ()
+;;             (setq ess-first-continued-statement-offset 2)
+;;             (setq ess-continued-statement-offset 0)))
 
 ;;; MARKDOWN
 (add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode))
@@ -21,9 +26,26 @@
 (add-to-list 'auto-mode-alist '("\\.Snw" . poly-noweb+r-mode))
 (add-to-list 'auto-mode-alist '("\\.Rnw" . poly-noweb+r-mode))
 (add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
+(add-to-list 'ess-style-alist
+             '(my-RStudio
+               (ess-indent-offset . 4)
+               (ess-offset-arguments . open-delim)
+               (ess-offset-arguments-newline . prev-line)
+               (ess-offset-block . prev-line)
+               (ess-offset-continued . straight)
+               (ess-align-declaration-args . t)
+               (ess-align-nested-calls . nil)
+               (ess-align-continuations-in-calls . nil)
+               (ess-align-blocks . nil)
+               (ess-indent-prev-call-lhs . t)
+               (ess-indent-prev-call-chains . t)
+               (ess-indent-with-fancy-comments . nil)))
 
 
-(add-hook 'R-mode-hook 'flycheck-mode)
+
+
+
+
 (setq ess-R-font-lock-keywords (quote
                                 ((ess-R-fl-keyword:modifiers . t)
                                  (ess-R-fl-keyword:fun-defs . t)
@@ -37,16 +59,10 @@
                                  (ess-fl-keyword:= . t)
                                  (ess-R-fl-keyword:F&T . t)
                                  (ess-R-fl-keyword:%op% . t)))
-      ess-default-style 'RStudio)
-(add-hook 'ess-mode-hook
-          (lambda ()
-            (setq ess-first-continued-statement-offset 2)
-            (setq ess-continued-statement-offset 0)))
-(defun guide-key/ess-guide-keys ()
-  (guide-key/add-local-guide-key-sequence "C-c")
-  )
+      ess-default-style 'my-RStudio
+      )
 
-(add-hook 'ess-mode-hook 'guide-key/ess-guide-keys)
+
 ;; (add-to-list 'ess-style-alist
 ;;              '(my-style (ess-indent-level . 4)
 ;;                         (ess-first-continued-statement-offset . 4)
