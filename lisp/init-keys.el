@@ -1,6 +1,18 @@
 
 (global-unset-key (kbd "C-z"))
 
+;; Make Super/Hyper:
+;; make PC keyboard's Win key or other to type Super or Hyper, for emacs running on Windows.
+(setq w32-pass-lwindow-to-system nil)
+(setq w32-lwindow-modifier 'super) ; Left Windows key
+
+(setq w32-pass-rwindow-to-system nil)
+(setq w32-rwindow-modifier 'super) ; Right Windows key
+
+(setq w32-pass-apps-to-system nil)
+(setq w32-apps-modifier 'hyper) ; Menu/App key
+
+
 ;; Sublime Like Commenting
 
 (global-set-key (kbd "M-;") 'comment-or-uncomment-region-or-line)
@@ -193,6 +205,44 @@
 (eval-after-load 'auto-complete
   '(progn
      (define-key ac-mode-map (kbd "C-M-/") 'auto-complete)))
+
+(eval-after-load 'windcycle
+  '(progn
+     ;; Switch window keybindings
+     ;; (global-set-key (kbd "C-x <up>") 'windmove-up-cycle)
+     ;; (global-set-key (kbd "C-x <down>") 'windmove-down-cycle)
+     ;; (global-set-key (kbd "C-x <right>") 'windmove-right-cycle)
+     ;; (global-set-key (kbd "C-x <left>") 'windmove-left-cycle)
+     (global-set-key (kbd "M-<up>") 'windmove-up-cycle)
+     (global-set-key (kbd "M-<down>") 'windmove-down-cycle)
+     (global-set-key (kbd "M-<right>") 'windmove-right-cycle)
+     (global-set-key (kbd "M-<left>") 'windmove-left-cycle)
+
+     ;; Swap window keybindings
+     (global-set-key (kbd "S-M-<up>") 'buffer-up-swap)
+     (global-set-key (kbd "S-M-<down>") 'buffer-down-swap)
+     (global-set-key (kbd "S-M-<right>") 'buffer-right-swap)
+     (global-set-key (kbd "S-M-<left>") 'buffer-left-swap)
+
+     ;; Window Resizing keybindings
+     (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
+     (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
+     (global-set-key (kbd "S-C-<down>") 'shrink-window)
+     (global-set-key (kbd "S-C-<up>") 'enlarge-window)
+
+     ;; Window Split keybindings
+     (global-set-key (kbd "C-x -") 'split-window-vertically)
+     (global-set-key (kbd "C-x |") 'split-window-horizontally)
+
+     ;; Window Close keybindings
+     (global-set-key (kbd "C-x x") 'delete-window)
+
+     ;; iTerm meta-shift-<arrows> fix
+     (define-key input-decode-map "\e[1;10A" [M-S-up])
+     (define-key input-decode-map "\e[1;10B" [M-S-down])
+     (define-key input-decode-map "\e[1;10C" [M-S-right])
+     (define-key input-decode-map "\e[1;10D" [M-S-left])))
+
 ;; (define-prefix-command 'org-todo-state-map)
 
 ;;      (define-key org-mode-map "\C-cx" 'org-todo-state-map)
