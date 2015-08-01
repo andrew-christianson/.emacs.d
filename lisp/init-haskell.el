@@ -1,7 +1,7 @@
-(require 'shm)
+;; (require 'shm)
 (require 'hindent)
-(require 'shm-case-split)
-(require 'shm-reformat)
+;; (require 'shm-case-split)
+;; (require 'shm-reformat)
 (require 'haskell-mode)
 (require 'company)
 (require 'haskell)
@@ -27,13 +27,13 @@
   (interactive)
   (setq-local helm-dash-docsets '("Haskell")))
 
-;; (setq company-ghc-show-info 'oneline
-;;       company-ghc-show-module t)
+(setq company-ghc-show-info t
+      company-ghc-show-module t)
 
-;; (setq ghc-debug t)
-;; (autoload 'ghc-init "ghc" nil t)
-;; (autoload 'ghc-debug "ghc" nil t)
-;; (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
+(setq ghc-debug t)
+(autoload 'ghc-init "ghc" nil t)
+(autoload 'ghc-debug "ghc" nil t)
+(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
 
 (add-hook 'haskell-mode-hook 'haskdash)
 (add-hook 'haskell-mode-hook 'company-mode)
@@ -42,8 +42,8 @@
 (add-hook 'haskell-mode-hook (lambda () (guide-key/add-local-guide-key-sequence "C-c")))
 (add-hook 'haskell-mode-hook (lambda () (setq-local company-idle-delay nil)))
 
-;; (add-to-list 'company-backends 'company-ghc)
-(add-to-list 'company-backends 'company-capf)
+(add-to-list 'company-backends 'company-ghc)
+;; (add-to-list 'company-backends 'company-capf)
 
 
 ;; Requirements
@@ -160,6 +160,7 @@ the cursor position happened."
       haskell-indent-spaces 2
       hindent-style "chris-done"
       haskell-process-type 'cabal-repl
+      haskell-interactive-prompt "λ  "
       shm-lambda-indent-style 'leftmost-parent
       haskell-process-type 'cabal-repl
       haskell-process-args-cabal-repl '("--ghc-option=-ferror-spans" "--with-ghc=ghci-ng")
@@ -176,7 +177,7 @@ the cursor position happened."
       shm-use-presentation-mode t
       shm-auto-insert-skeletons t
       shm-auto-insert-bangs t
-      haskell-process-suggest-haskell-docs-imports t
+      ;; haskell-process-suggest-haskell-docs-imports t
       hindent-style "chris-done"
       haskell-interactive-mode-eval-mode 'haskell-mode
       haskell-process-path-ghci "ghci-ng"
@@ -196,9 +197,9 @@ the cursor position happened."
 
 ;; Add hook
 
-(add-hook 'haskell-mode-hook 'structured-haskell-mode)
+;; (add-hook 'haskell-mode-hook 'structured-haskell-mode)
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
-(add-hook 'haskell-interactive-mode-hook 'structured-haskell-repl-mode)
+;; (add-hook 'haskell-interactive-mode-hook 'structured-haskell-repl-mode)
 (add-hook 'haskell-mode-hook 'haskell-auto-insert-module-template)
 ;; (add-hook 'haskell-mode-hook 'ac-haskell-process-setup)
 ;; (add-hook 'haskell-interactive-mode-hook 'ac-haskell-process-setup)
@@ -209,13 +210,19 @@ the cursor position happened."
 (define-key interactive-haskell-mode-map [f5] 'haskell-process-load-or-reload)
 (define-key interactive-haskell-mode-map [f12] 'haskell-process-reload-devel-main)
 (define-key interactive-haskell-mode-map (kbd "M-,") 'haskell-who-calls)
-(define-key interactive-haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
+(define-key interactive-haskell-mode-map (kbd "C-c C-p") 'haskell-interactive-bring)
 (define-key interactive-haskell-mode-map (kbd "C-c C-k") 'haskell-interactive-mode-clear)
 (define-key interactive-haskell-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
 (define-key interactive-haskell-mode-map (kbd "C-c c") 'haskell-process-cabal)
 (define-key interactive-haskell-mode-map (kbd "M-.") 'haskell-mode-goto-loc)
 (define-key interactive-haskell-mode-map (kbd "C-?") 'haskell-mode-find-uses)
 (define-key interactive-haskell-mode-map (kbd "C-c C-t") 'haskell-mode-show-type-at)
+
+(define-key haskell-mode-map (kbd "C-M-? h") 'company-ghc-complete-by-hoogle)
+(define-key interactive-haskell-mode-map (kbd "C-M-? h") 'company-ghc-complete-by-hoogle)
+
+(define-key haskell-mode-map (kbd "C-M-? m") 'company-ghc-complete-by-module)
+(define-key interactive-haskell-mode-map (kbd "C-M-? m") 'company-ghc-complete-by-module)
 
 (define-key haskell-mode-map (kbd "C-c i") 'hindent/reformat-decl)
 (define-key haskell-mode-map [f8] 'haskell-navigate-imports)
@@ -241,12 +248,12 @@ the cursor position happened."
 (define-key haskell-interactive-mode-map (kbd "C-<right>") 'haskell-interactive-mode-error-forward)
 (define-key haskell-interactive-mode-map (kbd "C-c c") 'haskell-process-cabal)
 
-(define-key shm-map (kbd "C-c C-p") 'shm/expand-pattern)
-(define-key shm-map (kbd "C-c C-s") 'shm/case-split)
-(define-key shm-map (kbd "SPC") 'shm-contextual-space)
-(define-key shm-map (kbd "C-\\") 'shm/goto-last-point)
-(define-key shm-map (kbd "C-c C-f") 'shm-fold-toggle-decl)
-(define-key shm-map (kbd "C-c i") 'shm-reformat-decl)
+;; (define-key shm-map (kbd "C-c C-p") 'shm/expand-pattern)
+;; (define-key shm-map (kbd "C-c C-s") 'shm/case-split)
+;; (define-key shm-map (kbd "SPC") 'shm-contextual-space)
+;; (define-key shm-map (kbd "C-\\") 'shm/goto-last-point)
+;; (define-key shm-map (kbd "C-c C-f") 'shm-fold-toggle-decl)
+;; (define-key shm-map (kbd "C-c i") 'shm-reformat-decl)
 
 ;; (custom-set-faces
 ;;  '(shm-quarantine-face ((t (:inherit font-lock-error))))
