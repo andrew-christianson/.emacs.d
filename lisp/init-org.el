@@ -499,7 +499,6 @@
 (add-to-list 'org-latex-packages-alist '("" "listings"))
 (add-to-list 'org-latex-packages-alist '("" "color"))
 
-
 (setq org-html-xml-declaration
       (quote (("html" . "")
               ("was-html" . "<?xml version=\"1.0\" encoding=\"%s\"?>")
