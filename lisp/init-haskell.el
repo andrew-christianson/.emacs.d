@@ -27,13 +27,13 @@
   (interactive)
   (setq-local helm-dash-docsets '("Haskell")))
 
-;; (setq company-ghc-show-info 'oneline
-;;       company-ghc-show-module t)
+(setq company-ghc-show-info 'oneline
+      company-ghc-show-module t)
 
-;; (setq ghc-debug t)
-;; (autoload 'ghc-init "ghc" nil t)
-;; (autoload 'ghc-debug "ghc" nil t)
-;; (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
+(setq ghc-debug t)
+(autoload 'ghc-init "ghc" nil t)
+(autoload 'ghc-debug "ghc" nil t)
+(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
 
 (add-hook 'haskell-mode-hook 'haskdash)
 (add-hook 'haskell-mode-hook 'company-mode)
@@ -42,8 +42,8 @@
 (add-hook 'haskell-mode-hook (lambda () (guide-key/add-local-guide-key-sequence "C-c")))
 (add-hook 'haskell-mode-hook (lambda () (setq-local company-idle-delay nil)))
 
-;; (add-to-list 'company-backends 'company-ghc)
-(add-to-list 'company-backends 'company-capf)
+(add-to-list 'company-backends 'company-ghc)
+;; (add-to-list 'company-backends 'company-capf)
 
 
 ;; Requirements
