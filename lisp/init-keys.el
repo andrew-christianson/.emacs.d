@@ -280,7 +280,8 @@
 
 (define-key global-map (kbd "M-g ,") 'ace-jump-mode-pop-mark)
 
-(global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "C-x g g") 'magit-status)
+(global-set-key (kbd "C-x g f") 'magit-find-file)
 
 (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "M-p p" "C-c h" "C-c p" "C-x 5" "C-c g")
       guide-key/popup-window-position 'bottom
