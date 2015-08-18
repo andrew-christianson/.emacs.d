@@ -24,7 +24,8 @@
             (setq beg (region-beginning) end (region-end))
             (setq beg (line-beginning-position) end (line-end-position)))
         (comment-or-uncomment-region beg end)
-        (comment-or-uncomment-region beg end)))
+        (comment-or-uncomment-region beg end)
+        (next-line)))
 
 (defun split-window-multiple-ways (x y)
   "Split the current frame into a grid of X columns and Y rows."
