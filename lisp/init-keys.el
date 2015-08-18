@@ -273,13 +273,15 @@
   "Emacs quick move minor mode"
   t)
 ;; you can select the key you prefer to
-(define-key global-map (kbd "C-S-s") 'ace-jump-mode)
+(define-key global-map (kbd "M-g a") 'ace-jump-mode)
+
 (eval-after-load "ace-jump-mode"
   '(ace-jump-mode-enable-mark-sync))
 
-(define-key global-map (kbd "C-x C-SPC") 'ace-jump-mode-pop-mark)
+(define-key global-map (kbd "M-g ,") 'ace-jump-mode-pop-mark)
 
-(global-set-key (kbd "C-x C-g") 'magit-status)
+(global-set-key (kbd "C-x g g") 'magit-status)
+(global-set-key (kbd "C-x g f") 'magit-find-file)
 
 (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "M-p p" "C-c h" "C-c p" "C-x 5" "C-c g")
       guide-key/popup-window-position 'bottom

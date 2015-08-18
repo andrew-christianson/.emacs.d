@@ -496,6 +496,8 @@
 ;;                :components ("tmp-org" "tmp-extra")))))
 
 (setq org-latex-listings t)
+(add-to-list 'org-latex-packages-alist '("" "listings"))
+(add-to-list 'org-latex-packages-alist '("" "color"))
 
 (setq org-html-xml-declaration
       (quote (("html" . "")

@@ -3,6 +3,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(LaTeX-verbatim-environments (quote ("verbatim" "verbatim*" "lstlisting")))
  '(create-lockfiles nil)
  '(custom-safe-themes
    (quote
@@ -14,8 +15,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:background nil))))
- )
+ '(default ((t (:background nil)))))
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
@@ -46,6 +46,7 @@
 (require 'init-clojure)
 (require 'init-scala)
 (require 'init-web)
+(require 'init-latex)
 (require 'init-keys)
 (require 'init-visual)
 (require 'windcycle)
