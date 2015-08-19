@@ -143,6 +143,7 @@
 (depends-on "neotree")
 (depends-on "nose")
 (depends-on "olivetti")
+(depends-on "org")
 (depends-on "org-jira")
 (depends-on "org-plus-contrib")
 (depends-on "org-sync")
