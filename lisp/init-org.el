@@ -286,21 +286,21 @@
 (setq org-plantuml-jar-path "~/Dropbox/org/plantuml.jar")
 (setq org-babel-results-keyword "results")
 
-(org-babel-do-load-languages
- (quote org-babel-load-languages)
- (quote ((emacs-lisp . t)
-         (dot . t)
-         (ditaa . t)
-         (R . t)
-         (python . t)
-         (ruby . t)
-         (gnuplot . t)
-         (clojure . t)
-         (sh . t)
-         (ledger . t)
-         (org . t)
-         (plantuml . t)
-         (latex . t))))
+;; (org-babel-do-load-languages
+;;  (quote org-babel-load-languages)
+;;  (quote ((emacs-lisp . t)
+;;          (dot . t)
+;;          (ditaa . t)
+;;          (R . t)
+;;          (python . t)
+;;          (ruby . t)
+;;          (gnuplot . t)
+;;          (clojure . t)
+;;          (sh . t)
+;;          (ledger . t)
+;;          (org . t)
+;;          (plantuml . t)
+;;          (latex . t))))
 
 ; Do not prompt to confirm evaluation
 ; This may be dangerous - make sure you understand the consequences
