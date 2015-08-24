@@ -5,7 +5,6 @@
 
 (depends-on "ac-c-headers")
 (depends-on "ac-cider")
-(depends-on "ac-cider-compliment")
 (depends-on "ac-clang")
 (depends-on "ac-haskell-process")
 (depends-on "ac-helm")
