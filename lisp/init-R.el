@@ -11,6 +11,7 @@
   (setq-local helm-dash-docsets '("R"))
   )
 (add-hook 'R-mode-hook 'rdash)
+(add-hook 'ess-mode-hook 'auto-complete-mode)
 (add-hook 'ess-R-post-run-hook 'smartparens-mode)
 (add-hook 'R-mode-hook 'flycheck-mode)
 (add-hook 'ess-mode-hook '(lambda () (guide-key/add-local-guide-key-sequence "C-c")))

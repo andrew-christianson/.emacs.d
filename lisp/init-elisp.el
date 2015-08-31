@@ -6,6 +6,8 @@
   (interactive)
   (setq-local helm-dash-docsets '("Emacs Lisp"))
   )
+
+(add-hook 'emacs-lisp-mode-hook 'auto-complete-mode)
 (add-hook 'emacs-lisp-mode-hook (lambda () (elisp-slime-nav-mode t)))
 (add-hook 'emacs-lisp-mode-hook 'eldash)
 (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)

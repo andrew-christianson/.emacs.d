@@ -5,9 +5,11 @@
 (ac-config-default)
 (setq-default ac-dwim nil) ; To get pop-ups with docs even if a word is uniquely completed
 
-;; (set-default 'ac-sources
-;;              (append ac-sources
-;;                      '(ac-source-filename ac-source-files-in-current-dir)))
+(set-default 'ac-sources
+             (append ac-sources
+                     '(ac-source-filename
+                       ac-source-files-in-current-dir
+                       ac-source-dabbrev)))
 
 (setq ac-delay 0.25
       ac-use-comphist t
@@ -48,7 +50,7 @@
 
 
 
-(global-auto-complete-mode)
+;; (global-auto-complete-mode)
 (ac-linum-workaround)
 
 (provide 'init-ac)
