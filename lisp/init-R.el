@@ -41,10 +41,13 @@
                (ess-indent-prev-call-chains . t)
                (ess-indent-with-fancy-comments . nil)))
 
-
-
-
-
+(setq ess-roxy-template-alist '(("description" . " headline ")
+                               ("details" . " details ")
+                               ;; ("title" . "")
+                               ("param" . "")
+                               ;; ("return" . "")
+                               ;; ("author" . "Andrew Christianson")
+                               ))
 
 (setq ess-R-font-lock-keywords (quote
                                 ((ess-R-fl-keyword:modifiers . t)
@@ -61,21 +64,5 @@
                                  (ess-R-fl-keyword:%op% . t)))
       ess-default-style 'my-RStudio
       )
-
-
-;; (add-to-list 'ess-style-alist
-;;              '(my-style (ess-indent-level . 4)
-;;                         (ess-first-continued-statement-offset . 4)
-;;                         ;; (ess-first-continued-statement-offset . 0)
-;;                         (ess-continued-statement-offset . 0)
-;;                         ;; (ess-continued-statement-offset . 4)
-;;                         (ess-brace-offset . 0)
-;;                         (ess-close-brace-offset . 0)
-;;                         (ess-arg-function-offset . 4)
-;;                         (ess-arg-function-offset-new-line . '(4))
-;;                         (ess-expression-offset . 4)
-;;                         (ess-else-offset . 0)))
-
-;; (setq ess-default-style 'my-style)
 
 (provide 'init-R)

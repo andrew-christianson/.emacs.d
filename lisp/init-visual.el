@@ -1,3 +1,4 @@
+
 (hlinum-activate)
 (global-hl-line-mode 1)
 ; don't blink the cursor
@@ -50,18 +51,19 @@
 (set-face-attribute 'default nil
                     :family (if (eq system-type 'windows-nt)
                                 "Droid Sans Mono"
-                              "Droid Sans Mono for Powerline")
+                             "Liberation Mono")
                     :height 90
-                    :weight 'light
+                    :weight 'regular
                     :width 'normal
                     :foundry 'outline
-                    :slant 'normal)
+                    :slant 'normal
+                    )
 
 (setq calendar-location-name "Los Angeles, CA")
 (setq calendar-latitude 34.04)
 (setq calendar-longitude -118.25)
 ;; (change-theme 'my-spolsky 'my-spolsky)
-(if window-system (load-theme 'my-spolsky))
+(if window-system (load-theme 'solarized-light))
 ;; (set-face-background hl-line-face "darkslategrey")
 ;; (set-face-background 'fringe "gray15")
 
@@ -77,7 +79,7 @@
 ;;       sml/vc-mode-show-backend t
 
 ;;       )
-(sml/setup)
+;; (sml/setup)
 (setq rm-exclude-modes '("AC" "Helm" "GitGutter" "Projectile" "Smartparens"))
 (setq mode-line-in-non-selected-windows nil)
 
