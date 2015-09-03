@@ -3,7 +3,7 @@
 (require 'merlin)
 
 (add-hook 'tuareg-mode-hook 'merlin-mode)
-(add-hook 'tuareg-mode-hook 'auto-complete-mode)
+
 (setq merlin-use-auto-complete-mode 'easy)
 
 (provide 'init-ocaml)

@@ -1,4 +1,3 @@
-(add-hook 'python-mode-hook 'auto-complete-mode)
 (setq python-shell-interpreter "ipython"
       python-shell-interpreter-args ""
       python-shell-prompt-regexp "In \[[0-9]+\]\: "

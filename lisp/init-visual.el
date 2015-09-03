@@ -49,9 +49,9 @@
 
 (set-face-attribute 'default nil
                     :family (if (eq system-type 'windows-nt)
-                                "PragmataPro"
+                                "Droid Sans Mono"
                               "Droid Sans Mono for Powerline")
-                    :height (if (eq system-type 'windows-nt) 100 90)
+                    :height 90
                     :weight 'light
                     :width 'normal
                     :foundry 'outline
