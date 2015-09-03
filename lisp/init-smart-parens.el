@@ -4,6 +4,19 @@
 
 (smartparens-global-mode)
 (show-smartparens-global-mode)
+(setq sp-wrap-entire-symbol '("Enable Globally"))
+
+;; (sp-pair "\\\\("  "\\\\)"  :wrap "C-")
+;; (sp-pair "\\{"    "\\}"    :wrap "C-{")
+;; (sp-pair "\\("    "\\)"    :wrap "C-(")
+;; (sp-pair "\\\""   "\\\""   :wrap "C-")
+(sp-pair "\""     "\""     :wrap "C-M-\"")
+(sp-pair "'"      "'"      :wrap "C-'")
+(sp-pair "("      ")"      :wrap "C-(")
+;; (sp-pair "["      "]"      :wrap "C-")
+(sp-pair "{"      "}"      :wrap "C-{")
+;; (sp-pair "`"      "`"      :wrap "C-")
+
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; keybinding management
 (define-key smartparens-mode-map (kbd "C-M-f") 'sp-forward-sexp)
